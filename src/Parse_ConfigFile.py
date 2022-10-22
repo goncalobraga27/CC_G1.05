@@ -9,11 +9,12 @@ def main ():
 
     for line in lines:
         lista_Parametros=line.split(' ')         # Separação da linha em parâmetros (O caracter ' ' é o delimitador)
-        dict_configFile[nLines]=lista_Parametros # Adicionar o par (key,value) ao dicionário
+        if (lista_Parametros[0]!='#' and lista_Parametros[0]!='\n'): # condição necessária para que linhas em branco ou comentários sejam ignorados 
+            dict_configFile[nLines]=lista_Parametros # Adicionar o par (key,value) ao dicionário
         nLines=nLines+1                          # Aumento do contador do número de linhas tratadas
     #Usado unicamente no debug do dicionário
-    #for key in dict_configFile:
-        #print(key)
-        #print(dict_configFile[key])
+    for key in dict_configFile:
+        print(key)
+        print(dict_configFile[key])
 
 main()
