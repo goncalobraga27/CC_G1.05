@@ -2,10 +2,6 @@ import socket
 from sys import argv
 
 def main():
-    import socket
-from sys import argv
-
-def main():
     nameConfig_File=argv[1]
     #file= open (nameConfig_File, "r")         # Abertura do ConfigFile
     #lines =file.readlines()              
@@ -26,23 +22,7 @@ def main():
 
     sck.close()
 
-if __name__ == "__main__":
-    main()  
-    
-    sck = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 
-    endereco = "192.168.56.101"
-    porta = 3334
-    sck.bind((endereco, porta))
-
-    print(f"Estou à escuta no {endereco}:{porta}")
-
-    while True:
-        msg,add = sck.recvfrom(1024)
-        print(msg.decode('utf-8'))
-        print(f"Recebi uma mensagem do cliente {add}")
-
-    sck.close()
 
 if __name__ == "__main__":
     main()
