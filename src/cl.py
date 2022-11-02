@@ -34,8 +34,12 @@ def main():
     # Fim do acrescento 
     datagramaUDPDesincriptada=header+data #Criação da mensagem(header+data)
     strDatagram = ' '.join(datagramaUDPDesincriptada)
-    print("Estou a enviar esta mensagem",strDatagram)
-    sck.sendto(strDatagram.encode('UTF-8'),(ip, 3333))
+
+    if len(strDatagram) <= 1000: #Ver se o tamanho da mensagem é menor ou igual a 1000 bytes
+        print("Estou a enviar esta mensagem",strDatagram)
+        b = strDatagram.encode('UTF-8')
+        sck.sendto(b, (ip, 3333))
+
     sck.close()
 
 if __name__ == "__main__":
