@@ -40,6 +40,8 @@ def main():
         b = strDatagram.encode('UTF-8')
         sck.sendto(b, (ip, 3333))
 
+    print(type(ip))
+
     sck.close()
 
 if __name__ == "__main__":
