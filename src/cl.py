@@ -1,7 +1,6 @@
 from random import randint
 import socket
-from sys import argv
-
+from sys import argv    
 
 def main():
     # Abertura do socket de comunicação do cliente com os servidores
@@ -40,7 +39,13 @@ def main():
         b = strDatagram.encode('UTF-8')
         sck.sendto(b, (ip, 3333))
 
-    print(type(ip))
+    msg=""
+
+    while msg=="":
+        msg,add=sck.recvfrom(1024)
+        print(f"Recebi uma mensagem do servidor{add}")
+        print("CONTEÚDO DA MENSAGEM:\n")
+        print(msg.decode('utf-8'))
 
     sck.close()
 

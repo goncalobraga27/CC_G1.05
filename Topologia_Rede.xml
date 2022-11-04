@@ -1,6 +1,10 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<scenario name="/home/core/Desktop/TP2/Topologia_Rede.xml">
-  <networks/>
+<scenario name="/home/core/Documents/CC/CC_G1.05/Topologia_Rede.xml">
+  <networks>
+    <network id="4" name="n4" type="SWITCH">
+      <position x="460" y="279" lat="47.57663062355079" lon="-122.12612362453957" alt="2.0"/>
+    </network>
+  </networks>
   <devices>
     <device id="1" name="CL" type="PC" class="" image="">
       <position x="80" y="278" lat="47.57663971364989" lon="-122.13124402165906" alt="2.0"/>
@@ -22,30 +26,18 @@
         <service name="SSH"/>
       </services>
     </device>
-    <device id="4" name="Router" type="router" class="" image="">
-      <position x="346" y="302" lat="47.57642155083598" lon="-122.12765974367542" alt="2.0"/>
-      <services>
-        <service name="zebra"/>
-        <service name="OSPFv2"/>
-        <service name="OSPFv3"/>
-        <service name="IPForward"/>
-      </services>
-    </device>
   </devices>
   <links>
-    <link node1="1" node2="4">
-      <iface1 id="0" name="eth0" mac="00:00:00:aa:00:00" ip4="10.0.0.20" ip4_mask="24" ip6="2001::20" ip6_mask="64"/>
-      <iface2 id="0" name="eth0" mac="00:00:00:aa:00:01" ip4="10.0.0.1" ip4_mask="24" ip6="2001::1" ip6_mask="64"/>
+    <link node1="4" node2="1">
+      <iface2 id="0" name="eth0" mac="00:00:00:aa:00:00" ip4="10.0.0.20" ip4_mask="24" ip6="2001::20" ip6_mask="64"/>
       <options delay="0" bandwidth="0" loss="0.0" dup="0" jitter="0" unidirectional="0"/>
     </link>
     <link node1="4" node2="2">
-      <iface1 id="1" name="eth1" mac="00:00:00:aa:00:02" ip4="10.0.1.1" ip4_mask="24" ip6="2001:1::1" ip6_mask="64"/>
-      <iface2 id="0" name="eth0" mac="00:00:00:aa:00:03" ip4="10.0.1.10" ip4_mask="24" ip6="2001:1::10" ip6_mask="64"/>
+      <iface2 id="0" name="eth0" mac="00:00:00:aa:00:01" ip4="10.0.0.10" ip4_mask="24" ip6="2001::10" ip6_mask="64"/>
       <options delay="0" bandwidth="0" loss="0.0" dup="0" jitter="0" unidirectional="0"/>
     </link>
     <link node1="4" node2="3">
-      <iface1 id="2" name="eth2" mac="00:00:00:aa:00:04" ip4="10.0.2.1" ip4_mask="24" ip6="2001:2::1" ip6_mask="64"/>
-      <iface2 id="0" name="eth0" mac="00:00:00:aa:00:05" ip4="10.0.2.10" ip4_mask="24" ip6="2001:2::10" ip6_mask="64"/>
+      <iface2 id="0" name="eth0" mac="00:00:00:aa:00:02" ip4="10.0.0.11" ip4_mask="24" ip6="2001::11" ip6_mask="64"/>
       <options delay="0" bandwidth="0" loss="0.0" dup="0" jitter="0" unidirectional="0"/>
     </link>
   </links>

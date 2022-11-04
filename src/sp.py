@@ -1,28 +1,12 @@
 from re import T
 import socket
 from sys import argv
-from datetime import datetime
+from datetime import datetime  
+from parserConfFile import parseConfigFile
+from parserDataFile import parseDataFile
+from answerQuery import aQuery
+from processQuery import pQuery
 
-def parsingConfigFile(nameConfig_File):
-    file= open (nameConfig_File, "r")        
-    lines =file.readlines()              
-    file.close()    
-    listaIP_SS=[]
-    listaPorta_SS=[]
-    listaLogFile=[]   
-    path_FileDataBase=""
-    for line in lines:
-        lista_Parametros=line.split(' ')
-        if (lista_Parametros[0]!='#' and lista_Parametros[0]!='\n'):
-            if(lista_Parametros[1]=='DB'):
-                path_FileDataBase=lista_Parametros[2]
-            if(lista_Parametros[1]=='SS'):
-                lista_IP_Porta=lista_Parametros[2].split(':')
-                listaIP_SS.append(lista_IP_Porta[0])
-                listaPorta_SS.append(int(lista_IP_Porta[1]))
-            if(lista_Parametros[1]=='LG'):
-                listaLogFile.append(lista_Parametros[2][:-1])
-    return (listaIP_SS,listaPorta_SS,listaLogFile,path_FileDataBase)
 # Exemplo de uma querie recebida : message_id flags 0 0 0 0 domain type
 def processQuery(msg,domain_server):
     query=str(msg)
@@ -55,66 +39,6 @@ def processQuery(msg,domain_server):
             return False
     
     return(queryCheck,lista_ParametrosQuery[7])
-
-def parsingDataFile(dict_Data_Base,path_FileDataBase):
-    file=open(path_FileDataBase,"r")
-    lines=file.readlines()
-    file.close()
-
-    for line in lines:
-        linhaParametros=line.split(' ')
-        if (linhaParametros[0]!='#' and linhaParametros[0]!='\n'):
-            if (linhaParametros[1]=="DEFAULT"):
-                    dict_Data_Base[linhaParametros[1]]=[]
-            if (linhaParametros[1]=="SOASP"):
-                    dict_Data_Base[linhaParametros[1]]=[]
-            if (linhaParametros[1]=="SOAADMIN"):
-                    dict_Data_Base[linhaParametros[1]]=[]
-            if (linhaParametros[1]=="SOASERIAL"):
-                    dict_Data_Base[linhaParametros[1]]=[]
-            if (linhaParametros[1]=="SOAREFRESH"):
-                    dict_Data_Base[linhaParametros[1]]=[]
-            if (linhaParametros[1]=="SOARETRY"):
-                    dict_Data_Base[linhaParametros[1]]=[]
-            if (linhaParametros[1]=="SOAEXPIRE"):
-                    dict_Data_Base[linhaParametros[1]]=[]
-            if (linhaParametros[1]=="NS"):
-                    dict_Data_Base[linhaParametros[1]]=[]
-            if (linhaParametros[1]=="A"):
-                    dict_Data_Base[linhaParametros[1]]=[]
-            if (linhaParametros[1]=="CNAME"):
-                    dict_Data_Base[linhaParametros[1]]=[]
-            if (linhaParametros[1]=="MX"):
-                    dict_Data_Base[linhaParametros[1]]=[]
-            if (linhaParametros[1]=="PTR"):
-                    dict_Data_Base[linhaParametros[1]]=[]
-    for line in lines:
-        linhaParametros=line.split(' ')
-        if (linhaParametros[0]!='#' and linhaParametros[0]!='\n'):
-            if (linhaParametros[1]=="DEFAULT"):
-                    dict_Data_Base[linhaParametros[1]].append(line[:-1])
-            if (linhaParametros[1]=="SOASP"):
-                    dict_Data_Base[linhaParametros[1]].append(line[:-1])
-            if (linhaParametros[1]=="SOAADMIN"):
-                    dict_Data_Base[linhaParametros[1]].append(line[:-1])
-            if (linhaParametros[1]=="SOASERIAL"):
-                    dict_Data_Base[linhaParametros[1]].append(line[:-1])
-            if (linhaParametros[1]=="SOAREFRESH"):
-                    dict_Data_Base[linhaParametros[1]].append(line[:-1])
-            if (linhaParametros[1]=="SOARETRY"):
-                    dict_Data_Base[linhaParametros[1]].append(line[:-1])
-            if (linhaParametros[1]=="SOAEXPIRE"):
-                    dict_Data_Base[linhaParametros[1]].append(line[:-1])
-            if (linhaParametros[1]=="NS"):
-                    dict_Data_Base[linhaParametros[1]].append(line[:-1])
-            if (linhaParametros[1]=="A"):
-                    dict_Data_Base[linhaParametros[1]].append(line[:-1])
-            if (linhaParametros[1]=="CNAME"):
-                    dict_Data_Base[linhaParametros[1]].append(line[:-1])
-            if (linhaParametros[1]=="MX"):
-                    dict_Data_Base[linhaParametros[1]].append(line[:-1])
-            if (linhaParametros[1]=="PTR"):
-                    dict_Data_Base[linhaParametros[1]].append(line[:-1])
 
 def answerQuery(dict_Data_Base,typeValue):
     # Precimos dos campos response-values(Por exemplo:MX), authorities-values(NS) e extra-values (A para ns e mx)
@@ -251,14 +175,17 @@ def main():
 
     nameConfig_File=argv[1]          # ../Files/ConfigFileSP.txt 
     domain_server=argv[2]
-    listaIP_SS,listaPorta_SS,listaLogFile,path_FileDataBase=parsingConfigFile(nameConfig_File)  
-    dict_Data_Base={}
-    parsingDataFile(dict_Data_Base,path_FileDataBase[:-1])
+    parseConfFile = parseConfigFile(nameConfig_File)
+    listaIP_SS,listaPorta_SS,listaLogFile,pathFileDataBase = parseConfFile.parsingConfigFile()  
+    dictDataBase={}
+
+    parseDFile = parseDataFile(dictDataBase, pathFileDataBase[:-1])
+    parseDFile.parsingDataFile()
     
 
     sck = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 
-    enderecoSP = "10.0.1.10"
+    enderecoSP = "10.0.0.10"
     portaSP = 3333
     
     sck.bind((enderecoSP, portaSP))
@@ -268,7 +195,8 @@ def main():
     while True:
         msg,add = sck.recvfrom(1024)
         print(msg.decode('utf-8'))
-        queryCheck,typeValue=processQuery(msg.decode('utf-8'),domain_server)
+        proQuery = pQuery(msg.decode('utf-8'),domain_server)
+        queryCheck,typeValue= proQuery.processQuery()
         if (queryCheck==False):
             print("A query pedida não é válida")
         else:
@@ -278,11 +206,11 @@ def main():
             lineLogFile="{"+str(now)+"} "+"{QR/QE}"+" {"+enderecoSP+":"+str(portaSP)+"} "+ "{"+msg.decode('utf-8')+"}\n"
             f.write(lineLogFile)
             f.close()
-            print(typeValue)
-            resposta=answerQuery(dict_Data_Base,typeValue)
-            #respostaDatagram = '\n'.join(resposta)
-            #b =respostaDatagram.encode('UTF-8')
-            #sck.sendto(b, (int(add[0]), 3333))
+            ansQuery = aQuery(dictDataBase,typeValue)
+            resposta = ansQuery.answerQuery()
+            respostaDatagram = '\n'.join(resposta)
+            b =respostaDatagram.encode('UTF-8')
+            sck.sendto(b, (add[0], 3333))
 
     sck.close()
 
