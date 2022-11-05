@@ -5,6 +5,7 @@ from processQuery import pQuery
 from parserConfFile import parseConfigFile
 from answerQuery import aQuery
 from parserDataFile import parseDataFile
+
 def main():
     nameConfig_File=argv[1]       #  ../Files/ConfigFileSS.txt 
     domain=argv[2]
