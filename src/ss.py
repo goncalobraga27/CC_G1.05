@@ -3,7 +3,8 @@ import socket
 from sys import argv
 from processQuery import pQuery
 from parserConfFile import parseConfigFile
-
+from answerQuery import aQuery
+from parserDataFile import parseDataFile
 def main():
     nameConfig_File=argv[1]       #  ../Files/ConfigFileSS.txt 
     domain=argv[2]
@@ -18,8 +19,12 @@ def main():
     #          Log file do dominio do SS, Log file do all
     
     sck = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+    dictDataBase={}
 
-    endereco = "10.0.0.11"
+    #parseDFile = parseDataFile(dictDataBase, path_FileDataBase[:-1])
+    #parseDFile.parsingDataFile()
+
+    endereco = "10.0.2.10"
     porta = 3333
     sck.bind((endereco, porta))
 
@@ -29,7 +34,8 @@ def main():
         msg,add = sck.recvfrom(1024)
         print(msg.decode('utf-8'))
         proQuery = pQuery(msg.decode('utf-8'),domain)
-        if(proQuery.processQuery()==False):
+        queryCheck,typeValue= proQuery.processQuery()
+        if(queryCheck==False):
             print("A query pedida não é válida")
         else:
             print(f"Recebi uma mensagem do cliente {add}")
@@ -39,6 +45,11 @@ def main():
             print(lineLogFile)
             f.write(lineLogFile)
             f.close()
+            ansQuery = aQuery(dictDataBase,typeValue)
+            resposta = ansQuery.answerQuery()
+            respostaDatagram = '\n'.join(resposta)
+            b =respostaDatagram.encode('UTF-8')
+            sck.sendto(b,add)
 
     sck.close()
 
