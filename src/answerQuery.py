@@ -22,6 +22,4 @@ class aQuery:
             if(self.typeValue.lower() in listaP[0] or "ns" in listaP[0]):
                     listaRes.append(it3)
 
-        
-
         return listaRes
