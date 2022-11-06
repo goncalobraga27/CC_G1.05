@@ -31,6 +31,7 @@ class aQuery:
         for it3 in listaExtraValues:
             listaP=it3.split(' ')
             if(self.typeValue.lower() in listaP[0] or "ns" in listaP[0]):
+
                     listaRes.append("EXTRA-VALUES = " +it3)
                     nExtraValues+=1
         listaCabecalho.append("N-VALUES = "+str(nValues)+" , "+"N-AUTHORITIES ="+str(nAuth)+" , "+"N-EXTRA-VALUES ="+str(nExtraValues)+" ;")
