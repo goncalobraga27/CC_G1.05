@@ -34,4 +34,4 @@ class pQuery:
         else:
                 return False
         
-        return(queryCheck,lista_ParametrosQuery[7])
+        return(lista_ParametrosQuery[0],queryCheck,lista_ParametrosQuery[7])

@@ -6,29 +6,6 @@ from parserConfFile import parseConfigFile
 from parserDataFile import parseDataFile
 from answerQuery import aQuery
 from processQuery import pQuery
-
-def answerQuery(dict_Data_Base,typeValue):
-    # Precimos dos campos response-values(Por exemplo:MX), authorities-values(NS) e extra-values (A para ns e mx)
-    listaRes=[]
-    listaRespValues=dict_Data_Base[typeValue]
-    listaAuthValues=dict_Data_Base["NS"]
-    listaExtraValues=dict_Data_Base["A"]
-    for it1 in listaRespValues:
-        listaP=it1.split(' ')
-        if(listaP[0]=='@'):
-                listaRes.append(it1)
-    for it2 in listaAuthValues:
-        listaP=it2.split(' ')
-        if(listaP[0]=='@'):
-                listaRes.append(it2)
-    for it3 in listaExtraValues:
-        listaP=it3.split(' ')
-        if(typeValue.lower() in listaP[0] or "ns" in listaP[0]):
-                listaRes.append(it3)
-
-    
-
-    return listaRes
 """
 import socket
 
@@ -163,7 +140,7 @@ def main():
         msg,add = sck.recvfrom(1024)
         print(msg.decode('utf-8'))
         proQuery = pQuery(msg.decode('utf-8'),domain_server)
-        queryCheck,typeValue= proQuery.processQuery()
+        message_id,queryCheck,typeValue= proQuery.processQuery()
         if (queryCheck==False):
             print("A query pedida não é válida")
         else:
@@ -173,7 +150,7 @@ def main():
             lineLogFile="{"+str(now)+"} "+"{QR/QE}"+" {"+enderecoSP+":"+str(portaSP)+"} "+ "{"+msg.decode('utf-8')+"}\n"
             f.write(lineLogFile)
             f.close()
-            ansQuery = aQuery(dictDataBase,typeValue)
+            ansQuery = aQuery(message_id,"R+A",str(0),dictDataBase,typeValue)
             resposta = ansQuery.answerQuery()
             respostaDatagram = '\n'.join(resposta)
             b =respostaDatagram.encode('UTF-8')
