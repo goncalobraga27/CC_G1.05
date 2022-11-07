@@ -18,7 +18,7 @@ class sp:
         self.portaUDP = portaUDP
         self.portaTCP = portaTCP
 
-    """ def processamento (connection, address, domain_server):
+    def processamento (connection, address, domain_server):
         while True:
             msg = connection.recv(1024)
 
@@ -53,14 +53,12 @@ class sp:
 
             msg = msg.decode('utf-8')
 
-            #interpretar query
-
-            proQuery = pQuery(msg.decode('utf-8'),self.domain_server)
+            proQuery = pQuery(msg,self.domain_server)
             message_id,queryCheck,typeValue= proQuery.processQuery()
 
             #mandar resposta com BD se tiver permissão
             
-        s.close()"""
+        s.close()
 
     def runSP(self):
         # O path do ficheiro de dados do SP está armazenado na variável path_FileDataBase
@@ -92,22 +90,7 @@ class sp:
 
             proQuery_UDP = pQuery(msg_UDP.decode('utf-8'), self.domainServer)
 
-            queryCheck_UDP=proQuery_UDP.processQuery()
-
-
-            """if typeValue_TCP == 'SOAREFRESH' or typeValue_TCP == 'SOASERIAL' or typeValue_TCP == 'SOARETRY' or typeValue_TCP == 'SOAEXPIRE':
-                if (queryCheck_TCP==False):
-                    print("A query pedida não é válida")
-
-                else:
-                    print(f"Recebi uma mensagem do Servidor Secundário {add_TCP}")
-                    #Ver logfiles
-                    #ansQuery = aQuery(message_id_TCP,"R+A",str(0),dictDataBase,typeValue_TCP)
-                    #resposta = ansQuery.answerQuery()
-                    #respostaDatagram = '\n'.join(resposta)
-                    #b = respostaDatagram.encode('UTF-8')
-                    #sck_TCP.sendto(b,add_TCP)
-            """
+            queryCheck_UDP=proQuery_UDP.processQuery(0)
 
             if (queryCheck_UDP==False):
                 print("A query pedida não é válida")
@@ -120,8 +103,6 @@ class sp:
                 f.write(lineLogFile)
                 f.close()
                 ansQuery = aQuery(proQuery_UDP.message_id,"R+A",str(0),dictDataBase,proQuery_UDP.typeValue)
-                print(proQuery_UDP.message_id)
-                print(proQuery_UDP.typeValue)
                 resposta = ansQuery.answerQuery()
                 respostaDatagram = '\n'.join(resposta)
                 b =respostaDatagram.encode('UTF-8')

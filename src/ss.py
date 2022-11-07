@@ -10,13 +10,13 @@ class ss:
 
     def __init__(self, ipSS, domain, nameConfig_File, portaUDP, portaTCP):
         self.nameConfig_File = nameConfig_File
-        self.domain = domain
+        self.domainServer = domain
         self.ipSS = ipSS
         self.portaUDP = portaUDP
         self.portaTCP = portaTCP
 
     """
-    def zoneTransferSS:
+    def zoneTransferSS (self):
         abrir socket
         meter socket à escuta
         construir query para trasferencia de zona
@@ -48,21 +48,24 @@ class ss:
         print(f"Estou à escuta no {self.ipSS}:{self.portaUDP}")
 
         while True:
-            msg,add = sck.recvfrom(1024)
-            print(msg.decode('utf-8'))
-            proQuery = pQuery(msg.decode('utf-8'),self.domain)
-            queryCheck,typeValue= proQuery.processQuery()
-            if(queryCheck==False):
+            msg_UDP,add = sck.recvfrom(1024)
+
+            print(msg_UDP.decode('utf-8'))
+
+            proQuery_UDP = pQuery(msg_UDP.decode('utf-8'), self.domainServer)
+
+            queryCheck_UDP= proQuery_UDP.processQuery(0)
+
+            if(queryCheck_UDP==False):
                 print("A query pedida não é válida")
             else:
                 print(f"Recebi uma mensagem do cliente {add}")
                 f=open(listaLogFile[0],"a")  
                 now = datetime.today().isoformat()
-                lineLogFile="{"+str(now)+"} "+"{QR/QE}"+" {"+self.ipSS+":"+str(self.portaUDP)+"} "+ "{"+msg.decode('utf-8')+"}\n"
-                print(lineLogFile)
+                lineLogFile="{"+str(now)+"} "+"{QR/QE}"+" {"+self.ipSS+":"+str(self.portaUDP)+"} "+ "{"+msg_UDP.decode('utf-8')+"}\n"
                 f.write(lineLogFile)
                 f.close()
-                ansQuery = aQuery(dictDataBase,typeValue)
+                ansQuery = aQuery(proQuery_UDP.message_id,"R",str(0),dictDataBase,proQuery_UDP.typeValue)
                 resposta = ansQuery.answerQuery()
                 respostaDatagram = '\n'.join(resposta)
                 b =respostaDatagram.encode('UTF-8')
