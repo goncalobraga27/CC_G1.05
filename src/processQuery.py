@@ -2,6 +2,8 @@ class pQuery:
     def __init__(self, msg, domain_server):
         self.msg = msg
         self.domain_server = domain_server
+        self.message_id=""
+        self.typeValue=""
 
     # Exemplo de uma querie recebida : message_id flags 0 0 0 0 domain type
     def processQuery(self):
@@ -33,5 +35,6 @@ class pQuery:
                         queryCheck=True
         else:
                 return False
-        
-        return(lista_ParametrosQuery[0],queryCheck,lista_ParametrosQuery[7])
+        self.message_id=lista_ParametrosQuery[0]
+        self.typeValue=lista_ParametrosQuery[7]        
+        return queryCheck

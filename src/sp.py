@@ -6,157 +6,137 @@ from parserConfFile import parseConfigFile
 from parserDataFile import parseDataFile
 from answerQuery import aQuery
 from processQuery import pQuery
-"""
-import socket
+import threading
+import time
 
-def resposta(message):
-    header=[]
-    data=[]
-    lines=message.split(' ')
-    message_id=lines[0]
-    flags="R+A"
-    m="% s" % message_id
-    zero="% s" % 0
-    header.append(m)
-    header.append(flags)
-    header.append("% s" % 0)
-    header.append("% s" % 0)
-    header.append("% s" % 0)
-    header.append("% s" % 0)
-    data.append(lines[6])
-    data.append(lines[7])
-    reply=header+data
-    ##procurar na base de dados
-    strDatagram = ' '.join(reply)
-    return strDatagram
+class sp:
+
+    def __init__(self, ipSP, domainServer, nameConfig_File, portaUDP, portaTCP):
+        self.ipSP = ipSP
+        self.domainServer = domainServer
+        self.nameConfig_File = nameConfig_File
+        self.portaUDP = portaUDP
+        self.portaTCP = portaTCP
+
+    """ def processamento (connection, address, domain_server):
+        while True:
+            msg = connection.recv(1024)
+
+            if not msg:
+                print("A mensagem está vazia")
+                break
+            
+            print(msg.decode('utf-8'))
+            proQuery = pQuery(msg.decode('utf-8'),domain_server)
+            message_id,queryCheck,typeValue= proQuery.processQuery()
+            print(f"Recebi uma ligação do cliente {address}")
 
 
+        connection.close()
+
+    def zoneTransferSP(self): #incompleto...
+        s = socket.socket(socket.AF_INET, socket.SOCK_STREAM) #TCP
+        self.portaTCP = 6300
+
+        s.bind((self.ipSP,self.portaTCP))
+        s.listen()
+
+        print(f"Estou à escuta no {self.ipSP}:{self.portaTCP}")
+
+        while True:
+            conn, address = s.accept()
+
+            msg = conn.recv(1024)
+
+            if not msg:
+                break
+
+            msg = msg.decode('utf-8')
+
+            #interpretar query
+
+            proQuery = pQuery(msg.decode('utf-8'),self.domain_server)
+            message_id,queryCheck,typeValue= proQuery.processQuery()
+
+            #mandar resposta com BD se tiver permissão
+            
+        s.close()"""
+
+    def runSP(self):
+        # O path do ficheiro de dados do SP está armazenado na variável path_FileDataBase
+        # A lista com nome listaIP_SS tem armazenado os ips do SS para este SP          Exemplo:  IP-[10.0.1.10,10.0.2.10]
+        #                                                                                              |             |
+        # A lista com nome listaPorta_SS tem armazenado as portas do SS para este SP           Porta-[3333     ,   3333]
+        # A lista com nome listaLogFile tem os paths dos logs files do domain e de todos os dominios (all), basicamente é uma lista com prioridades
+        # Exemplo : [Files/logfileSP.txt,Files/logfiles.txt]
+        #          Log file do dominio do SP, Log file do all
+
+        parseConfFile = parseConfigFile(self.nameConfig_File)
+        listaIP_SS,listaPorta_SS,listaLogFile,pathFileDataBase = parseConfFile.parsingConfigFile()  
+        dictDataBase={}
+
+        parseDFile = parseDataFile(dictDataBase, pathFileDataBase[:-1])
+        parseDFile.parsingDataFile()
+        
+
+        sck_UDP = socket.socket(socket.AF_INET, socket.SOCK_DGRAM) #UDP
+        
+        sck_UDP.bind((self.ipSP, self.portaUDP))
+
+        print(f"Estou à escuta no {self.ipSP}:{self.portaUDP}\n")
+
+        while True:
+            msg_UDP,add_UDP = sck_UDP.recvfrom(1024)
+
+            print(msg_UDP.decode('utf-8'))
+
+            proQuery_UDP = pQuery(msg_UDP.decode('utf-8'), self.domainServer)
+
+            queryCheck_UDP=proQuery_UDP.processQuery()
+
+
+            """if typeValue_TCP == 'SOAREFRESH' or typeValue_TCP == 'SOASERIAL' or typeValue_TCP == 'SOARETRY' or typeValue_TCP == 'SOAEXPIRE':
+                if (queryCheck_TCP==False):
+                    print("A query pedida não é válida")
+
+                else:
+                    print(f"Recebi uma mensagem do Servidor Secundário {add_TCP}")
+                    #Ver logfiles
+                    #ansQuery = aQuery(message_id_TCP,"R+A",str(0),dictDataBase,typeValue_TCP)
+                    #resposta = ansQuery.answerQuery()
+                    #respostaDatagram = '\n'.join(resposta)
+                    #b = respostaDatagram.encode('UTF-8')
+                    #sck_TCP.sendto(b,add_TCP)
+            """
+
+            if (queryCheck_UDP==False):
+                print("A query pedida não é válida")
+
+            else:
+                print(f"Recebi uma mensagem do cliente {add_UDP}")
+                f=open(listaLogFile[0],"a")  
+                now = datetime.today().isoformat()
+                lineLogFile="{"+str(now)+"} "+"{QR/QE}"+" {"+self.ipSP+":"+str(self.portaUDP)+"} "+ "{"+msg_UDP.decode('utf-8')+"}\n"
+                f.write(lineLogFile)
+                f.close()
+                ansQuery = aQuery(proQuery_UDP.message_id,"R+A",str(0),dictDataBase,proQuery_UDP.typeValue)
+                print(proQuery_UDP.message_id)
+                print(proQuery_UDP.typeValue)
+                resposta = ansQuery.answerQuery()
+                respostaDatagram = '\n'.join(resposta)
+                b =respostaDatagram.encode('UTF-8')
+                sck_UDP.sendto(b,add_UDP)
+
+        sck_UDP.close()
 
 def main():
-    sck = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-
-    endereco = "10.0.1.10"
-    porta = 3333
-    sck.bind((endereco, porta))
-
-    print(f"Estou à escuta no {endereco}:{porta}")
-
-    while True:
-        msg,add = sck.recvfrom(1024)
-        print(f"Recebi uma mensagem do cliente {add}")
-        msg=msg.decode('UTF-8')
-        print(msg)
-        #Processa a mensagem e procura na BD
-        reply=resposta(msg)
-        sck.sendto(reply.encode('UTF-8'),add)
-
-    sck.close()
-
-if __name__ == "__main__":
-    main()
-from random import randint
-import socket
-from sys import argv
-
-
-def main():
-    # Abertura do socket de comunicação do cliente com os servidores
-    sck = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-    # Recolha dos parâmetros que o cliente precisa para enviar a query DNS
-    
-    endereco = "10.0.0.20"
-    porta = 3333
-    
-    ip=argv[1]
-    domain=argv[2]
-    type=argv[3]
-    recc=argv[4]
-    # Fim da recolha
-    # Criação do datagrama UDP para posterior envio 
-    # Acrescentar parâmetros do cabeçalho e do data
-    header=[]
-    data=[]
-    message_id=randint(1,65535)
-    flags="Q+"+recc
-    m="% s" % message_id
-    zero="% s" % 0
-    header.append(m)
-    header.append(flags)
-    header.append(zero)
-    header.append(zero)
-    header.append(zero)
-    header.append(zero)
-    data.append(domain)
-    data.append(type)
-    #data.append(NULL)
-    #data.append(NULL)
-    #data.append(NULL)
-    # Fim do acrescento 
-    datagramaUDPDesincriptada=header+data #Criação da mensagem(header+data)
-    strDatagram = ' '.join(datagramaUDPDesincriptada)
-    print("Estou a enviar esta mensagem",strDatagram)
-    sck.sendto(strDatagram.encode('UTF-8'),(ip, 3333))
-    
-    while True:
-        msg,add = sck.recvfrom(1024)
-        print(f"Recebi uma mensagem do cliente {add}")
-        print(msg.decode('UTF-8'))
-    sck.close()
-
-if __name__ == "__main__":
-    main()
-"""
-
-     
-def main():
-    # O path do ficheiro de dados do SP está armazenado na variável path_FileDataBase
-    # A lista com nome listaIP_SS tem armazenado os ips do SS para este SP          Exemplo:  IP-[10.0.1.10,10.0.2.10]
-    #                                                                                              |             |
-    # A lista com nome listaPorta_SS tem armazenado as portas do SS para este SP           Porta-[3333     ,   3333]
-    # A lista com nome listaLogFile tem os paths dos logs files do domain e de todos os dominios (all), basicamente é uma lista com prioridades
-    # Exemplo : [Files/logfileSP.txt,Files/logfiles.txt]
-    #          Log file do dominio do SP, Log file do all
-
-    nameConfig_File=argv[1]          # ../Files/ConfigFileSP.txt 
-    domain_server=argv[2]
-    parseConfFile = parseConfigFile(nameConfig_File)
-    listaIP_SS,listaPorta_SS,listaLogFile,pathFileDataBase = parseConfFile.parsingConfigFile()  
-    dictDataBase={}
-
-    parseDFile = parseDataFile(dictDataBase, pathFileDataBase[:-1])
-    parseDFile.parsingDataFile()
-    
-
-    sck = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-
-    enderecoSP = '10.0.1.10'
-    portaSP = 3333
-    
-    sck.bind((enderecoSP, portaSP))
-
-    print(f"Estou à escuta no {enderecoSP}:{portaSP}")
-
-    while True:
-        msg,add = sck.recvfrom(1024)
-        print(msg.decode('utf-8'))
-        proQuery = pQuery(msg.decode('utf-8'),domain_server)
-        message_id,queryCheck,typeValue= proQuery.processQuery()
-        if (queryCheck==False):
-            print("A query pedida não é válida")
-        else:
-            print(f"Recebi uma mensagem do cliente {add}")
-            f=open(listaLogFile[0],"a")  
-            now = datetime.today().isoformat()
-            lineLogFile="{"+str(now)+"} "+"{QR/QE}"+" {"+enderecoSP+":"+str(portaSP)+"} "+ "{"+msg.decode('utf-8')+"}\n"
-            f.write(lineLogFile)
-            f.close()
-            ansQuery = aQuery(message_id,"R+A",str(0),dictDataBase,typeValue)
-            resposta = ansQuery.answerQuery()
-            respostaDatagram = '\n'.join(resposta)
-            b =respostaDatagram.encode('UTF-8')
-            sck.sendto(b,add)
-
-    sck.close()
+    ipSP = '10.0.0.10'
+    nameConfig_File = argv[1]  # ../Files/ConfigFileSP.txt 
+    domainServer = argv[2]
+    portaUDP = 3333
+    portaTCP = 6300
+    spObj = sp(ipSP,domainServer,nameConfig_File,portaUDP,portaTCP)
+    spObj.runSP()    
 
 if __name__ == "__main__":
     main()
