@@ -11,14 +11,16 @@ import time
 
 class sp:
 
-    def __init__(self, ipSP, domainServer, nameConfig_File, portaUDP, portaTCP):
+    def __init__(self, ipSP, domainServer, nameConfig_File, portaUDP, portaTCP, dictDataBase):
         self.ipSP = ipSP
         self.domainServer = domainServer
         self.nameConfig_File = nameConfig_File
         self.portaUDP = portaUDP
         self.portaTCP = portaTCP
+        self.dictDataBase = dictDataBase
 
-    def processamento (connection, address, domain_server):
+
+    """ def processamento (connection, address, domain_server):
         while True:
             msg = connection.recv(1024)
 
@@ -32,11 +34,10 @@ class sp:
             print(f"Recebi uma ligação do cliente {address}")
 
 
-        connection.close()
+        connection.close()"""
 
     def zoneTransferSP(self): #incompleto...
         s = socket.socket(socket.AF_INET, socket.SOCK_STREAM) #TCP
-        self.portaTCP = 6300
 
         s.bind((self.ipSP,self.portaTCP))
         s.listen()
@@ -53,8 +54,18 @@ class sp:
 
             msg = msg.decode('utf-8')
 
-            proQuery = pQuery(msg,self.domain_server)
-            message_id,queryCheck,typeValue= proQuery.processQuery()
+            proQuery = pQuery(msg,self.domainServer)
+            queryCheck= proQuery.processQuery()
+
+            if proQuery.typeValue == 'SOASERIAL':
+                s.connect((address,self.portaTCP))
+                #fazer serialização do dicionário linha a linha
+                i = 0
+                while self.dictDataBase[i]:
+                    #serializar linha
+                    s.sendall(str(self.dictDataBase[i]))
+                    i = i+1
+                
 
             #mandar resposta com BD se tiver permissão
             
@@ -71,9 +82,8 @@ class sp:
 
         parseConfFile = parseConfigFile(self.nameConfig_File)
         listaIP_SS,listaPorta_SS,listaLogFile,pathFileDataBase = parseConfFile.parsingConfigFile()  
-        dictDataBase={}
 
-        parseDFile = parseDataFile(dictDataBase, pathFileDataBase[:-1])
+        parseDFile = parseDataFile(self.dictDataBase, pathFileDataBase[:-1])
         parseDFile.parsingDataFile()
         
 
@@ -102,7 +112,7 @@ class sp:
                 lineLogFile="{"+str(now)+"} "+"{QR/QE}"+" {"+self.ipSP+":"+str(self.portaUDP)+"} "+ "{"+msg_UDP.decode('utf-8')+"}\n"
                 f.write(lineLogFile)
                 f.close()
-                ansQuery = aQuery(proQuery_UDP.message_id,"R+A",str(0),dictDataBase,proQuery_UDP.typeValue)
+                ansQuery = aQuery(proQuery_UDP.message_id,"R+A",str(0),self.dictDataBase,proQuery_UDP.typeValue)
                 resposta = ansQuery.answerQuery()
                 respostaDatagram = '\n'.join(resposta)
                 b =respostaDatagram.encode('UTF-8')
@@ -116,7 +126,8 @@ def main():
     domainServer = argv[2]
     portaUDP = 3333
     portaTCP = 6300
-    spObj = sp(ipSP,domainServer,nameConfig_File,portaUDP,portaTCP)
+    dictDataBase = dict()
+    spObj = sp(ipSP,domainServer,nameConfig_File,portaUDP,portaTCP,dictDataBase)
     spObj.runSP()    
 
 if __name__ == "__main__":
