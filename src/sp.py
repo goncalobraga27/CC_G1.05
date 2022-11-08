@@ -55,14 +55,14 @@ class sp:
             msg = msg.decode('utf-8')
 
             proQuery = pQuery(msg,self.domainServer)
-            queryCheck= proQuery.processQuery()
+            queryCheck = proQuery.processQuery()
 
-            if proQuery.typeValue == 'SOASERIAL':
+            if proQuery.typeValue == 'SOASERIAL' and queryCheck == True:
                 s.connect((address,self.portaTCP))
                 #fazer serialização do dicionário linha a linha
                 i = 0
                 while self.dictDataBase[i]:
-                    #serializar linha
+                    #ver versão da base de dados do SS e SP
                     s.sendall(str(self.dictDataBase[i]))
                     i = i+1
                 
