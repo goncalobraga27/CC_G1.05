@@ -17,8 +17,10 @@ class ss:
 
     """
     def zoneTransferSS (self):
-        abrir socket
-        meter socket à escuta
+        sck = socket.socket(socket.AF_INET, socket.SOCK_STREAM) #Abertura do socket TCP
+        s.bind((self.ipSS,self.portaTCP))
+        s.listen()                                   # Meter socket à escuta
+        print(f"Estou à escuta no {self.ipSS}:{self.portaTCP}")
         construir query para trasferencia de zona
         enviar query para pedir permissão
         recebe query com numero de linhas do ficheiro da BD
@@ -74,7 +76,7 @@ class ss:
         sck.close()
 
 def main():
-    ipSS = '10.0.0.11'
+    ipSS = '10.4.4.2'
     nameConfig_File = argv[1]  # ../Files/ConfigFileSS.txt 
     domainServer = argv[2]
     portaUDP = 3333
