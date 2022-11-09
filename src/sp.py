@@ -103,7 +103,7 @@ class sp:
         sck_UDP.close()
 
 def main():
-    ipSP = '10.0.0.10'
+    ipSP = '10.2.2.2'
     nameConfig_File = argv[1]  # ../Files/ConfigFileSP.txt 
     domainServer = argv[2]
     portaUDP = 3333
