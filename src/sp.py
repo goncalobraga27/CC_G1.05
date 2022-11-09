@@ -11,38 +11,25 @@ import time
 
 class sp:
 
-    def __init__(self, ipSP, domainServer, nameConfig_File, portaUDP, portaTCP, dictDataBase):
+    def __init__(self, ipSP, domainServer, nameConfig_File, portaUDP, portaTCP_SP, portaTCP_SS, dictDataBase):
         self.ipSP = ipSP
         self.domainServer = domainServer
         self.nameConfig_File = nameConfig_File
         self.portaUDP = portaUDP
-        self.portaTCP = portaTCP
+        self.portaTCP_SP = portaTCP_SP
+        self.portaTCP_SS = portaTCP_SS
         self.dictDataBase = dictDataBase
-
-
-    """ def processamento (connection, address, domain_server):
-        while True:
-            msg = connection.recv(1024)
-
-            if not msg:
-                print("A mensagem está vazia")
-                break
-            
-            print(msg.decode('utf-8'))
-            proQuery = pQuery(msg.decode('utf-8'),domain_server)
-            message_id,queryCheck,typeValue= proQuery.processQuery()
-            print(f"Recebi uma ligação do cliente {address}")
-
-
-        connection.close()"""
+        
 
     def zoneTransferSP(self): #incompleto...
         s = socket.socket(socket.AF_INET, socket.SOCK_STREAM) #TCP
 
-        s.bind((self.ipSP,self.portaTCP))
+        databaseSP = open("../Files/databaseSP.txt", "r")
+
+        s.bind((self.ipSP,self.portaTCP_SP))
         s.listen()
 
-        print(f"Estou à escuta no {self.ipSP}:{self.portaTCP}")
+        print(f"Estou à escuta no {self.ipSP}:{self.portaTCP_SP}")
 
         while True:
             conn, address = s.accept()
@@ -58,17 +45,12 @@ class sp:
             queryCheck = proQuery.processQuery()
 
             if proQuery.typeValue == 'SOASERIAL' and queryCheck == True:
-                s.connect((address,self.portaTCP))
-                #fazer serialização do dicionário linha a linha
-                i = 0
-                while self.dictDataBase[i]:
-                    #ver versão da base de dados do SS e SP
-                    s.sendall(str(self.dictDataBase[i]))
-                    i = i+1
-                
 
-            #mandar resposta com BD se tiver permissão
-            
+                linhas = databaseSP.readlines()
+
+                for linha in linhas:
+                    s.sendall(str(linha))
+
         s.close()
 
     def runSP(self):
@@ -125,9 +107,10 @@ def main():
     nameConfig_File = argv[1]  # ../Files/ConfigFileSP.txt 
     domainServer = argv[2]
     portaUDP = 3333
-    portaTCP = 6300
+    portaTCP_SP = 4444
+    portaTCP_SS = 6666
     dictDataBase = dict()
-    spObj = sp(ipSP,domainServer,nameConfig_File,portaUDP,portaTCP,dictDataBase)
+    spObj = sp(ipSP,domainServer,nameConfig_File,portaUDP,portaTCP_SP, portaTCP_SS, dictDataBase)
     spObj.runSP()    
 
 if __name__ == "__main__":

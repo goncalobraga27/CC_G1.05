@@ -5,26 +5,71 @@ from processQuery import pQuery
 from parserConfFile import parseConfigFile
 from answerQuery import aQuery
 from parserDataFile import parseDataFile
+from random import randint
+from parserDataFile import parseDataFile
 
 class ss:
 
-    def __init__(self, ipSS, domain, nameConfig_File, portaUDP, portaTCP):
+    def __init__(self, ipSS, ipSP, domain, nameConfig_File, portaUDP, portaTCP_SP, portaTCP_SS, dictDataBase):
         self.nameConfig_File = nameConfig_File
         self.domainServer = domain
         self.ipSS = ipSS
+        self.ipSP = ipSP
         self.portaUDP = portaUDP
-        self.portaTCP = portaTCP
+        self.portaTCP_SP = portaTCP_SP
+        self.portaTCP_SS = portaTCP_SS
+        self.dictDataBase = dictDataBase
 
-    """
     def zoneTransferSS (self):
-        abrir socket
-        meter socket à escuta
-        construir query para trasferencia de zona
-        enviar query para pedir permissão
-        recebe query com numero de linhas do ficheiro da BD
-        Ver se tem permissão para iniciar a transferencia de zona
-        SS teve autorização do SP para iniciar a transferência e vai iniciar transferencia de zona
-    """
+        #abrir socket
+        s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        s.bind(self.ipSS, self.portaTCP_SS)
+
+        s.connect((self.ipSP, self.portaTCP_SP)) #conexão TCP
+
+        file = open('../Files/databaseSS.txt', 'wr')
+
+        #construir query para trasferencia de zona
+        list = []
+        message_id=randint(1,65535)
+        flags="T"
+        m = "% s" % message_id
+        zero = "% s" % 0
+
+        list.append(m)
+        list.append(flags)
+        list.append(zero)
+        list.append(zero)
+        list.append(zero)
+        list.append(zero)
+        list.append(self.domainServer)
+        list.append("SOASERIAL")
+
+        #enviar query para pedir permissão
+        str = ' '.join(list)
+        if len(str) <= 1000: #Ver se o tamanho da mensagem é menor ou igual a 1000 bytes
+            print("Estou a enviar esta mensagem",str)
+            b = str.encode('UTF-8')
+            s.sendto(b, (self.ipSP, self.portaTCP_SP))
+
+
+        #recebe query com numero de linhas do ficheiro da BD 
+        i = 0
+        while True:
+
+            msg = s.recv(1024)
+
+            if not msg:
+                break
+
+            msg = msg.decode('utf-8')
+
+            self.dictDataBase = {}
+
+            self.dictDataBase[i] = msg
+
+            i = i+1
+
 
     def runSS(self):
         parseConfFile = parseConfigFile(self.nameConfig_File)
@@ -38,7 +83,6 @@ class ss:
         #          Log file do dominio do SS, Log file do all
         
         sck = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-        dictDataBase={}
 
         #parseDFile = parseDataFile(dictDataBase, path_FileDataBase[:-1])
         #parseDFile.parsingDataFile()
@@ -65,7 +109,7 @@ class ss:
                 lineLogFile="{"+str(now)+"} "+"{QR/QE}"+" {"+self.ipSS+":"+str(self.portaUDP)+"} "+ "{"+msg_UDP.decode('utf-8')+"}\n"
                 f.write(lineLogFile)
                 f.close()
-                ansQuery = aQuery(proQuery_UDP.message_id,"R",str(0),dictDataBase,proQuery_UDP.typeValue)
+                ansQuery = aQuery(proQuery_UDP.message_id,"R",str(0),self.dictDataBase,proQuery_UDP.typeValue)
                 resposta = ansQuery.answerQuery()
                 respostaDatagram = '\n'.join(resposta)
                 b =respostaDatagram.encode('UTF-8')
@@ -73,13 +117,17 @@ class ss:
 
         sck.close()
 
+
 def main():
     ipSS = '10.0.0.11'
+    ipSP = '10.0.0.10'
     nameConfig_File = argv[1]  # ../Files/ConfigFileSS.txt 
     domainServer = argv[2]
-    portaUDP = 3333
-    portaTCP = 6300
-    ssObj = ss(ipSS,domainServer,nameConfig_File,portaUDP,portaTCP)
+    portaUDP = 5555
+    portaTCP_SS = 6666
+    portaTCP_SP = 4444
+    dictDataBase = {}
+    ssObj = ss(ipSS, ipSP, domainServer,nameConfig_File,portaUDP,portaTCP_SP,portaTCP_SS, dictDataBase)
     ssObj.runSS()  
 
 if __name__ == '__main__':
