@@ -7,6 +7,7 @@ class parseDataFile:
     def parsingDataFile(self):
         file=open(self.pathDataBase,"r")
         lines=file.readlines()
+        tamanhofile=len(lines)
         file.close()
         versao_DataBase=-1
         VerifTime_DataBase=0
@@ -71,4 +72,4 @@ class parseDataFile:
         linhaD=linha.pop().split(' ')
         VerifTime_DataBase=int(linhaD[2])
 
-        return versao_DataBase,VerifTime_DataBase
+        return versao_DataBase,VerifTime_DataBase,tamanhofile

@@ -1,6 +1,8 @@
 from datetime import datetime
 import socket
 from sys import argv
+import threading
+import time
 from processQuery import pQuery
 from parserConfFile import parseConfigFile
 from answerQuery import aQuery
@@ -19,19 +21,53 @@ class ss:
         self.portaTCP_SP = portaTCP_SP
         self.portaTCP_SS = portaTCP_SS
         self.dictDataBase = dictDataBase
+        self.lista_logFile=[]
+        self.versao_DataBase=-1
+        self.verifTime_DataBase=0
+        self.passoZT=0
+        self.lockZT=threading.Lock()
 
-    def enviaQuery_zoneTransfer (self):
+    def zoneTransfer(self):
+        self.lockZT.acquire()
+
         s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        s.bind(self.ipSS, self.portaTCP_SS)
+        s.bind((self.ipSS, self.portaTCP_SS))
         s.connect((self.ipSP, self.portaTCP_SP)) #conexão TCP
-        b = " ".encode('UTF-8')
-        s.sendto(b, (self.ipSP, self.portaTCP_SP))
+        if self.passoZT==0:
+            b = " ".encode('utf-8')
+            s.sendto(b, (self.ipSP, self.portaTCP_SP))
+            self.passoZT+=1
+        s.listen()
+        connect,add_TCP = s.accept()
+        msg_TCP = connect.recv(1024)
+        mensagem=msg_TCP.decode('utf-8')
+        msg=mensagem.split(' ')
+        if int(msg[0])==self.versao_DataBase:
+            self.verifTime_DataBase=int(msg[2]) 
+        else:
+            self.verifTime_DataBase=int(msg[2]) 
+            self.passoZT+=1
+            s.sendto(self.domainServer,(self.ipSP, self.portaTCP_SP))
+            self.passoZT+=1
+            msg_TCP = connect.recv(1024)
+            s.sendto(msg_TCP,(self.ipSP, self.portaTCP_SP))
+            msg_TCP=connect.recv(1024)
+            self.dictDataBase=msg_TCP
+        self.lockZT.release()
+
+    def thread1(self):
+        while True:
+            th2=threading.Thread(target=self.zoneTransfer)  
+            time.sleep(self.verifTime_DataBase)
+            th2.start()
+            return
 
 
 
     def runSS(self):
         parseConfFile = parseConfigFile(self.nameConfig_File)
-        listaIP_SP,listaPorta_SP,listaLogFile,path_FileDataBase=parseConfFile.parsingConfigFile()   
+        listaIP_SP,listaPorta_SP,listaLogFile,path_FileDataBase=parseConfFile.parsingConfigFile()  
+        self.lista_logFile=listaLogFile 
         # O path do ficheiro de dados do SS está armazenado na variável path_FileDataBase
         # A lista com nome listaIP_SP tem armazenado o ips do SP para este SS         Exemplo:  IP-[10.0.1.10]
         #                                                                                              |   
@@ -50,6 +86,9 @@ class ss:
         print(f"Estou à escuta no {self.ipSS}:{self.portaUDP}")
 
         while True:
+            thZT=threading.Thread(target=self.thread1)              # Onde ocorre a zone transfer 
+            thZT.start()
+
             msg_UDP,add = sck.recvfrom(1024)
 
             print(msg_UDP.decode('utf-8'))
@@ -62,7 +101,7 @@ class ss:
                 print("A query pedida não é válida")
             else:
                 print(f"Recebi uma mensagem do cliente {add}")
-                f=open(listaLogFile[0],"a")  
+                f=open(self.lista_logFile[0],"a")  
                 now = datetime.today().isoformat()
                 lineLogFile="{"+str(now)+"} "+"{QR/QE}"+" {"+self.ipSS+":"+str(self.portaUDP)+"} "+ "{"+msg_UDP.decode('utf-8')+"}\n"
                 f.write(lineLogFile)
