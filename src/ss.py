@@ -20,55 +20,13 @@ class ss:
         self.portaTCP_SS = portaTCP_SS
         self.dictDataBase = dictDataBase
 
-    def zoneTransferSS (self):
-        #abrir socket
+    def enviaQuery_zoneTransfer (self):
         s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         s.bind(self.ipSS, self.portaTCP_SS)
-
         s.connect((self.ipSP, self.portaTCP_SP)) #conexão TCP
+        b = " ".encode('UTF-8')
+        s.sendto(b, (self.ipSP, self.portaTCP_SP))
 
-        file = open('../Files/databaseSS.txt', 'wr')
-
-        #construir query para trasferencia de zona
-        list = []
-        message_id=randint(1,65535)
-        flags="T"
-        m = "% s" % message_id
-        zero = "% s" % 0
-
-        list.append(m)
-        list.append(flags)
-        list.append(zero)
-        list.append(zero)
-        list.append(zero)
-        list.append(zero)
-        list.append(self.domainServer)
-        list.append("SOASERIAL")
-
-        #enviar query para pedir permissão
-        str = ' '.join(list)
-        if len(str) <= 1000: #Ver se o tamanho da mensagem é menor ou igual a 1000 bytes
-            print("Estou a enviar esta mensagem",str)
-            b = str.encode('UTF-8')
-            s.sendto(b, (self.ipSP, self.portaTCP_SP))
-
-
-        #recebe query com numero de linhas do ficheiro da BD 
-        i = 0
-        while True:
-
-            msg = s.recv(1024)
-
-            if not msg:
-                break
-
-            msg = msg.decode('utf-8')
-
-            self.dictDataBase = {}
-
-            self.dictDataBase[i] = msg
-
-            i = i+1
 
 
     def runSS(self):
@@ -119,11 +77,11 @@ class ss:
 
 
 def main():
-    ipSS = '10.0.0.11'
-    ipSP = '10.0.0.10'
+    ipSS = '10.4.4.2'
+    ipSP = '10.2.2.2'
     nameConfig_File = argv[1]  # ../Files/ConfigFileSS.txt 
     domainServer = argv[2]
-    portaUDP = 5555
+    portaUDP = 3333
     portaTCP_SS = 6666
     portaTCP_SP = 4444
     dictDataBase = {}

@@ -19,40 +19,21 @@ class sp:
         self.portaTCP_SP = portaTCP_SP
         self.portaTCP_SS = portaTCP_SS
         self.dictDataBase = dictDataBase
-        
-
-    def zoneTransferSP(self): #incompleto...
+        self.versao_DataBase=-1
+        self.VerifTime_DataBase=0
+    
+    def verificaQuery_zoneTransfer(self):
         s = socket.socket(socket.AF_INET, socket.SOCK_STREAM) #TCP
-
-        databaseSP = open("../Files/databaseSP.txt", "r")
-
         s.bind((self.ipSP,self.portaTCP_SP))
         s.listen()
-
-        print(f"Estou à escuta no {self.ipSP}:{self.portaTCP_SP}")
-
-        while True:
-            conn, address = s.accept()
-
-            msg = conn.recv(1024)
-
-            if not msg:
-                break
-
-            msg = msg.decode('utf-8')
-
-            proQuery = pQuery(msg,self.domainServer)
-            queryCheck = proQuery.processQuery()
-
-            if proQuery.typeValue == 'SOASERIAL' and queryCheck == True:
-
-                linhas = databaseSP.readlines()
-
-                for linha in linhas:
-                    s.sendall(str(linha))
-
-        s.close()
-
+        msg_TCP,add_TCP = s.accept()
+        msg_TCP = conn.recv(1024)
+        if not msg:
+            break
+        msg = msg.decode('utf-8')
+        #if msg==" ":
+        #Faltam aqui coisas
+        
     def runSP(self):
         # O path do ficheiro de dados do SP está armazenado na variável path_FileDataBase
         # A lista com nome listaIP_SS tem armazenado os ips do SS para este SP          Exemplo:  IP-[10.0.1.10,10.0.2.10]
@@ -66,7 +47,9 @@ class sp:
         listaIP_SS,listaPorta_SS,listaLogFile,pathFileDataBase = parseConfFile.parsingConfigFile()  
 
         parseDFile = parseDataFile(self.dictDataBase, pathFileDataBase[:-1])
-        parseDFile.parsingDataFile()
+        versao,tempoVerificacao=parseDFile.parsingDataFile()
+        self.versao_DataBase=versao
+        self.VerifTime_DataBase=tempoVerificacao
         
 
         sck_UDP = socket.socket(socket.AF_INET, socket.SOCK_DGRAM) #UDP
