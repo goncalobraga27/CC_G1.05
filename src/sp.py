@@ -1,17 +1,17 @@
-from re import T
 import socket
-from sys import argv
-from datetime import datetime
 import sys
+import threading
 import time
+from datetime import datetime
+from re import T
+from sys import argv
+from answerQuery import aQuery
 from parserConfFile import parseConfigFile
 from parserDataFile import parseDataFile
-from answerQuery import aQuery
-import threading 
 from processQuery import pQuery
 
-class sp:
 
+class sp:
     def __init__(self, ipSP, domainServer, nameConfig_File, portaUDP, portaTCP_SP, portaTCP_SS, dictDataBase):
         self.ipSP = ipSP
         self.domainServer = domainServer
@@ -23,58 +23,71 @@ class sp:
         self.tamanhoDataBase=0
         self.versao_DataBase=-1
         self.verifTime_DataBase=0
-        self.passoZT=0
         self.listaIP_SS=[]
         self.lista_logFile=[]
-        self.lockZT=threading.Lock()
 
-    def verificaDomain(d):
-        if d==sp.self.domainServer: 
+    def verificaDomain(self,d):
+        if d==self.domainServer: 
             return True
-        else: return False
-    def verificaipSS(ip):
-        for it in sp.self.listaIP_SS:
+        else: 
+            return False
+
+    def verificaipSS(self,ip):
+        for it in self.listaIP_SS:
             if it==ip: return True
         return False 
-    def zoneTransfer(self):
-        self.lockZT.acquire()
-        sck_TCP = socket.socket(socket.AF_INET, socket.SOCK_STREAM) #TCP
-        sck_TCP.bind((self.ipSP,self.portaTCP_SP))
-        sck_TCP.listen()
-        connect,add_TCP = sck_TCP.accept()
-        msg_TCP = connect.recv(1024)
-        msg = msg_TCP
-        if msg==" " and self.passoZT==0:
-            resposta=str(self.versao_DataBase)+ " "+str(self.verifTime_DataBase)
-            connect.send(resposta)
-            connect.close()
-            self.passoZT+=1
-        if msg!=" " and self.passoZT==1:
-            if sp.verificaDomain(msg)== True and sp.verificaipSS(add_TCP[0])==True:
-                connect.send(self.tamanhoDataBase)
-                connect.close()
-                self.passoZT+=1
-            else:
-                self.passoZT=0
-        if msg!=" " and self.passoZT==2:
-            if int(msg)==self.tamanhoDataBase:
-                connect.send(self.dictDataBase)
-                connect.close()
-            else:
-                self.passoZT=0
 
-        self.lockZT.release()
+    def enviarFstRep(self,connection):
+        msgEnviar=str(self.versao_DataBase)
+        connection.send(msgEnviar.encode('utf-8'))
+
+    def recebeFstMsg(connection):
+        msgRecebida = connection.recv(1024)
+        msg=msgRecebida.decode('utf-8')
+        return msg
     
-    def thread1(self):
+    def recebeSndMsg(self,connection,address):
+        msgRecebida = connection.recv(1024)
+        msg=msgRecebida.decode('utf-8')
+        if sp.verificaDomain(self,msg)== True and sp.verificaipSS(self,address[0])==True:
+            return True
+        else: 
+            return False
+
+    def enviarSndMsg(self,connection):
+        msgEnviar=str(self.tamanhoDataBase)
+        connection.send(msgEnviar.encode('utf-8'))
+
+    def recebeTrdMsg(self,connection):
+        msgRecebida = connection.recv(1024)
+        msg=msgRecebida.decode('utf-8')
+        if int(msg)==self.tamanhoDataBase: 
+            return True
+        else: 
+            return False
+    
+    def enviaTrdMsg(self,connection):
+        msgEnviar=self.dictDataBase
+        connection.send(msgEnviar.encode('utf-8'))
+
+    def runfstThread(self):
+        s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        s.bind((self.ipSP,self.portaTCP_SP))
+        s.listen()
         while True:
-            th2=threading.Thread(target=self.zoneTransfer)  
-            time.sleep(self.verifTime_DataBase)
-            th2.start()
-            return
+            time.sleep(self.verifTime_DataBase) # aqui tem de ser o tempo do soarefresh
+            connection, address = s.accept()
+            threading.Thread(target=sp.runsecThread,args=(connection,address)).start() 
+        s.close()
 
-    
+    def runsecThread(connection,address):
+        pedido=sp.recebeFstMsg(connection)
+        if pedido=="":
+            if sp.recebeSndMsg(connection,address)==True:
+                sp.enviarSndMsg(connection)
+                if sp.recebeTrdMsg(connection)==True:
+                    sp.enviaTrdMsg(connection)
 
-        
     def runSP(self):
         # O path do ficheiro de dados do SP está armazenado na variável path_FileDataBase
         # A lista com nome listaIP_SS tem armazenado os ips do SS para este SP          Exemplo:  IP-[10.0.1.10,10.0.2.10]
@@ -95,15 +108,16 @@ class sp:
         self.tamanhoDataBase=tamanhoDataBase
         
 
-        sck_UDP = socket.socket(socket.AF_INET, socket.SOCK_DGRAM) #UDP
+        sck_UDP =socket.socket(socket.AF_INET, socket.SOCK_DGRAM) #UDP
         
         sck_UDP.bind((self.ipSP, self.portaUDP))
 
         print(f"Estou à escuta no {self.ipSP}:{self.portaUDP}\n")
 
+        #threading.Thread(target=sp.runfstThread, args=(self)).start()
+
+
         while True:
-            thZT=threading.Thread(target=self.thread1)              # Onde ocorre a zone transfer 
-            thZT.start()
 
             msg_UDP,add_UDP = sck_UDP.recvfrom(1024)
 

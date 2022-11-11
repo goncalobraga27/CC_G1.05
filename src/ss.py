@@ -6,9 +6,7 @@ import time
 from processQuery import pQuery
 from parserConfFile import parseConfigFile
 from answerQuery import aQuery
-from parserDataFile import parseDataFile
 from random import randint
-from parserDataFile import parseDataFile
 
 class ss:
 
@@ -24,45 +22,53 @@ class ss:
         self.lista_logFile=[]
         self.versao_DataBase=-1
         self.verifTime_DataBase=0
-        self.passoZT=0
-        self.lockZT=threading.Lock()
 
-    def zoneTransfer(self):
-        self.lockZT.acquire()
+    
+    def enviarFstMsg(socket):
+        msg=""
+        socket.sendall(msg.encode('utf-8'))
 
-        s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        s.bind((self.ipSS, self.portaTCP_SS))
-        s.connect((self.ipSP, self.portaTCP_SP)) #conexão TCP
-        if self.passoZT==0:
-            b = " ".encode('utf-8')
-            s.sendto(b, (self.ipSP, self.portaTCP_SP))
-            self.passoZT+=1
-        s.listen()
-        connect,add_TCP = s.accept()
-        msg_TCP = connect.recv(1024)
-        mensagem=msg_TCP.decode('utf-8')
-        msg=mensagem.split(' ')
-        if int(msg[0])==self.versao_DataBase:
-            self.verifTime_DataBase=int(msg[2]) 
-        else:
-            self.verifTime_DataBase=int(msg[2]) 
-            self.passoZT+=1
-            s.sendto(self.domainServer,(self.ipSP, self.portaTCP_SP))
-            self.passoZT+=1
-            msg_TCP = connect.recv(1024)
-            s.sendto(msg_TCP,(self.ipSP, self.portaTCP_SP))
-            msg_TCP=connect.recv(1024)
-            self.dictDataBase=msg_TCP
-        self.lockZT.release()
+    def receberFstResp(socket):
+        fstResp=socket.recv(1024)
+        resp=fstResp.decode('utf-8')
+        return int(resp)
+    
+    def enviarScdMsg(self,socket):
+        msg=self.domainServer
+        socket.sendall(msg.encode('utf-8'))
+    
+    def receberScdResp(socket):
+        scdResp=socket.recv(1024)
+        resp=scdResp.decode('utf-8')
+        return int(resp)
+    
+    def enviarTrdMsg(socket,valor):
+        msg=str(valor)
+        socket.sendall(msg.encode('utf-8'))
 
-    def thread1(self):
+    def receberTrdResp(self,socket):
+        trdResp=socket.recv(1024)
+        resp=trdResp.decode('utf-8')
+        self.dictDataBase=resp
+        
+   
+    def runsecThread(self):
+        socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        socket.connect((self.ipSP,self.portaTCP_SP))
+        ss.enviarFstMsg(socket)
+        resp= ss.receberFstResp(socket)
+        if self.versao_DataBase!=resp:
+            ss.enviarScdMsg(socket)
+            resp= ss.receberScdResp(socket)
+            ss.enviarTrdMsg(socket,resp)
+            ss.receberTrdResp(socket)
+
+        
+    def runfstThread(self):
         while True:
-            th2=threading.Thread(target=self.zoneTransfer)  
-            time.sleep(self.verifTime_DataBase)
-            th2.start()
-            return
-
-
+            threading.Thread(target=ss.runsecThread,arg=(self)).start()
+            time.sleep(5) # aqui tem de ser o tempo do soarefresh
+        s.close()
 
     def runSS(self):
         parseConfFile = parseConfigFile(self.nameConfig_File)
@@ -78,16 +84,13 @@ class ss:
         
         sck = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 
-        #parseDFile = parseDataFile(dictDataBase, path_FileDataBase[:-1])
-        #parseDFile.parsingDataFile()
-
         sck.bind((self.ipSS, self.portaUDP))
 
         print(f"Estou à escuta no {self.ipSS}:{self.portaUDP}")
 
+        #threading.Thread(target=ss.runfstThread,arg=()).start()
+
         while True:
-            thZT=threading.Thread(target=self.thread1)              # Onde ocorre a zone transfer 
-            thZT.start()
 
             msg_UDP,add = sck.recvfrom(1024)
 
