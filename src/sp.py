@@ -9,84 +9,107 @@ from answerQuery import aQuery
 from parserConfFile import parseConfigFile
 from parserDataFile import parseDataFile
 from processQuery import pQuery
+from logFile import logF
 
 
 class sp:
-    def __init__(self, ipSP, domainServer, nameConfig_File, portaUDP, portaTCP_SP, portaTCP_SS, dictDataBase):
+    global dictDataBase
+    dictDataBase=dict()
+    global lock
+    lock = threading.Lock()
+    def __init__(self, ipSP, domainServer, nameConfig_File, portaUDP, portaTCP_SP, portaTCP_SS):
         self.ipSP = ipSP
         self.domainServer = domainServer
         self.nameConfig_File = nameConfig_File
         self.portaUDP = portaUDP
         self.portaTCP_SP = portaTCP_SP
         self.portaTCP_SS = portaTCP_SS
-        self.dictDataBase = dictDataBase
         self.tamanhoDataBase=0
         self.versao_DataBase=-1
         self.verifTime_DataBase=0
         self.listaIP_SS=[]
         self.lista_logFile=[]
 
-    def verificaDomain(self,d):
-        if d==self.domainServer: 
+    def verificaDomain(d,domainServer):
+        if d==domainServer: 
             return True
         else: 
             return False
 
-    def verificaipSS(self,ip):
-        for it in self.listaIP_SS:
+    def verificaipSS(ip,listaIP_SS):
+        for it in listaIP_SS:
             if it==ip: return True
         return False 
 
-    def enviarFstRep(self,connection):
-        msgEnviar=str(self.versao_DataBase)
-        connection.send(msgEnviar.encode('utf-8'))
-
-    def recebeFstMsg(connection):
-        msgRecebida = connection.recv(1024)
-        msg=msgRecebida.decode('utf-8')
-        return msg
-    
-    def recebeSndMsg(self,connection,address):
-        msgRecebida = connection.recv(1024)
-        msg=msgRecebida.decode('utf-8')
-        if sp.verificaDomain(self,msg)== True and sp.verificaipSS(self,address[0])==True:
-            return True
-        else: 
-            return False
-
-    def enviarSndMsg(self,connection):
-        msgEnviar=str(self.tamanhoDataBase)
-        connection.send(msgEnviar.encode('utf-8'))
-
-    def recebeTrdMsg(self,connection):
-        msgRecebida = connection.recv(1024)
-        msg=msgRecebida.decode('utf-8')
-        if int(msg)==self.tamanhoDataBase: 
-            return True
-        else: 
-            return False
-    
-    def enviaTrdMsg(self,connection):
-        msgEnviar=self.dictDataBase
-        connection.send(msgEnviar.encode('utf-8'))
-
-    def runfstThread(self):
+    def runfstThread(ipSP,portaTCP_SP,verifTime_DataBase,versao_DataBase,domainServer,listaIP_SS,tamanhoDataBase,lista_LogFile):
         s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        s.bind((self.ipSP,self.portaTCP_SP))
+        s.bind((ipSP,portaTCP_SP))
         s.listen()
         while True:
-            time.sleep(self.verifTime_DataBase) # aqui tem de ser o tempo do soarefresh
             connection, address = s.accept()
-            threading.Thread(target=sp.runsecThread,args=(connection,address)).start() 
+            threading.Thread(target=sp.runsecThread,args=(ipSP,connection,address,versao_DataBase,domainServer,listaIP_SS,tamanhoDataBase,lista_LogFile)).start() 
         s.close()
 
-    def runsecThread(connection,address):
-        pedido=sp.recebeFstMsg(connection)
-        if pedido=="":
-            if sp.recebeSndMsg(connection,address)==True:
-                sp.enviarSndMsg(connection)
-                if sp.recebeTrdMsg(connection)==True:
-                    sp.enviaTrdMsg(connection)
+    def runsecThread(ipSP,connection,address,versao_DataBase,domainServer,listaIP_SS,tamanhoDataBase,lista_LogFile):
+        print("Vou tratar da parte da ZT no SP")
+        lock.acquire()
+        print("Vou receber a primeira mensagem")
+        msgRecebida = connection.recv(1024)
+        msg=msgRecebida.decode('utf-8')
+        print(f"A mensagem que recebi foi {msg}")
+        if msg=="ZT":
+            print(f"Vou enviar a versão da minha base de dados\nA minha versão é esta {str(versao_DataBase)}")
+            msgEnviar=str(versao_DataBase)
+            connection.send(msgEnviar.encode('utf-8'))
+            print("Vou receber o domínio para o qual se pretende fazer a ZT")
+            msgRecebida = connection.recv(1024)
+            msg=msgRecebida.decode('utf-8')
+            print(f"O domínio que recebi foi este {msg}")
+            if sp.verificaDomain(msg,domainServer)==True and sp.verificaipSS(address[0],listaIP_SS)==True:
+                nextStep=True
+            else: 
+                nextStep=False
+                now = datetime.today().isoformat()
+                writeLogFile=logF(str(now),"EZ",address[0]+":"+str(6666),"SP",lista_LogFile[0])
+                writeLogFile.escritaLogFile()
+            print(f"Foram feitas todas as verificações e o resultado das mesmas é {nextStep}")
+            if nextStep==True:
+                print(f"Como o nextStep é true então vou enviar o tamanho da base de dados")
+                print(f"O tamanho da base de dados é este {tamanhoDataBase}")
+                msgEnviar=str(tamanhoDataBase)
+                connection.send(msgEnviar.encode('utf-8'))
+                print("Vou receber o número do tamanho da base de dados outra vez para certificar que está tudo direito")
+                msgRecebida = connection.recv(1024)
+                msg=msgRecebida.decode('utf-8')
+                print(f"O número recebido foi {msg}")
+                if int(msg)==tamanhoDataBase: 
+                    nextStep=True
+                else: 
+                    nextStep=False
+                    now = datetime.today().isoformat()
+                    writeLogFile=logF(str(now),"EZ",address[0]+":"+str(6666),"SP",lista_LogFile[0])
+                    writeLogFile.escritaLogFile()
+                if nextStep==True:
+                    print("Como o número recebido foi o correto vou enviar as novas linhas da bse de dados a base de dados")
+                    msgEnviar=dictDataBase
+                    #print(dictDataBase)
+                    linhaDB="askfnspdndfpwiwsnfiwnefpienraqgfnrqgpienrqg"
+                    connection.send(linhaDB.encode('utf-8'))
+                    print("Acabei de enviar todas as linhas novas da base de dados")
+                    now = datetime.today().isoformat()
+                    writeLogFile=logF(str(now),"ZT",address[0]+":"+str(6666),"SP",lista_LogFile[0])
+                    writeLogFile.escritaLogFile()
+            else:
+                now = datetime.today().isoformat()
+                writeLogFile=logF(str(now),"EZ",address[0]+":"+str(6666),"SP",lista_LogFile[0])
+                writeLogFile.escritaLogFile()
+        else:
+            now = datetime.today().isoformat()
+            writeLogFile=logF(str(now),"EZ",address[0]+":"+str(6666),"SP",lista_LogFile[0])
+            writeLogFile.escritaLogFile()
+        lock.release()
+            
+           
 
     def runSP(self):
         # O path do ficheiro de dados do SP está armazenado na variável path_FileDataBase
@@ -101,12 +124,15 @@ class sp:
         listaIP_SS,listaPorta_SS,listaLogFile,pathFileDataBase = parseConfFile.parsingConfigFile()  
         self.listaIP_SS=listaIP_SS
         self.lista_logFile=listaLogFile
-        parseDFile = parseDataFile(self.dictDataBase, pathFileDataBase[:-1])
+        parseDFile = parseDataFile(dictDataBase, pathFileDataBase[:-1])
         versao,tempoVerificacao,tamanhoDataBase=parseDFile.parsingDataFile()
         self.versao_DataBase=versao
         self.VerifTime_DataBase=tempoVerificacao
         self.tamanhoDataBase=tamanhoDataBase
-        
+
+        now = datetime.today().isoformat()
+        writeLogFile=logF(str(now),"EV","@",self.nameConfig_File+" "+pathFileDataBase+" "+self.lista_logFile[0],self.lista_logFile[0])
+        writeLogFile.escritaLogFile()
 
         sck_UDP =socket.socket(socket.AF_INET, socket.SOCK_DGRAM) #UDP
         
@@ -114,7 +140,7 @@ class sp:
 
         print(f"Estou à escuta no {self.ipSP}:{self.portaUDP}\n")
 
-        #threading.Thread(target=sp.runfstThread, args=(self)).start()
+        threading.Thread(target=sp.runfstThread, args=(self.ipSP,self.portaTCP_SP,self.verifTime_DataBase,self.versao_DataBase,self.domainServer,self.listaIP_SS,self.tamanhoDataBase,self.lista_logFile)).start()
 
 
         while True:
@@ -132,16 +158,17 @@ class sp:
 
             else:
                 print(f"Recebi uma mensagem do cliente {add_UDP}")
-                f=open(self.lista_logFile[0],"a")  
                 now = datetime.today().isoformat()
-                lineLogFile="{"+str(now)+"} "+"{QR/QE}"+" {"+self.ipSP+":"+str(self.portaUDP)+"} "+ "{"+msg_UDP.decode('utf-8')+"}\n"
-                f.write(lineLogFile)
-                f.close()
-                ansQuery = aQuery(proQuery_UDP.message_id,"R+A",str(0),self.dictDataBase,proQuery_UDP.typeValue)
+                writeLogFile=logF(str(now),"QR/QE",self.ipSP+":"+str(self.portaUDP),msg_UDP.decode('utf-8'),self.lista_logFile[0])
+                writeLogFile.escritaLogFile()
+                ansQuery = aQuery(proQuery_UDP.message_id,"R+A",str(0),dictDataBase,proQuery_UDP.typeValue)
                 resposta = ansQuery.answerQuery()
                 respostaDatagram = '\n'.join(resposta)
                 b =respostaDatagram.encode('UTF-8')
                 sck_UDP.sendto(b,add_UDP)
+                now = datetime.today().isoformat()
+                writeLogFile=logF(str(now),"RP\RR",add_UDP[0]+":"+str(self.portaUDP),respostaDatagram,self.lista_logFile[0])
+                writeLogFile.escritaLogFile()
 
         sck_UDP.close()
 
@@ -152,8 +179,7 @@ def main():
     portaUDP = 3333
     portaTCP_SP = 4444
     portaTCP_SS = 6666
-    dictDataBase = dict()
-    spObj = sp(ipSP,domainServer,nameConfig_File,portaUDP,portaTCP_SP, portaTCP_SS, dictDataBase)
+    spObj = sp(ipSP,domainServer,nameConfig_File,portaUDP,portaTCP_SP, portaTCP_SS)
     spObj.runSP()    
 
 if __name__ == "__main__":

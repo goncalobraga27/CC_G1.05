@@ -1,16 +1,21 @@
 from random import randint
 import socket
 from sys import argv
-
+from datetime import datetime
+from logFile import logF
 class cl:
 
-    def __init__(self, ipServer, domain, type, recc):
+    def __init__(self, ipServer, domain, type, recc,logFile):
         self.ipServer = ipServer
         self.domain = domain
         self.type = type
         self.recc = recc
+        self.logF=logFile
 
     def runCL(self):
+        now = datetime.today().isoformat()
+        writeLogFile=logF(str(now),"EV","@",self.logF,self.logF)
+        writeLogFile.escritaLogFile()
         # Abertura do socket de comunicação do cliente com os servidores
         sck = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
         # Recolha dos parâmetros que o cliente precisa para enviar a query DNS
@@ -43,6 +48,9 @@ class cl:
             print("Estou a enviar esta mensagem",strDatagram)
             b = strDatagram.encode('UTF-8')
             sck.sendto(b, (self.ipServer, 3333))
+            now = datetime.today().isoformat()
+            writeLogFile=logF(str(now),"QR/QE","localHost:"+str(3333),strDatagram,self.logF)
+            writeLogFile.escritaLogFile()
 
         msg=""
 
@@ -51,6 +59,9 @@ class cl:
             print(f"Recebi uma mensagem do servidor{add}")
             print("CONTEÚDO DA MENSAGEM:\n")
             print(msg.decode('utf-8'))
+            now = datetime.today().isoformat()
+            writeLogFile=logF(str(now),"RP/RR","localHost:"+str(3333),msg.decode('utf-8'),self.logF)
+            writeLogFile.escritaLogFile()
 
         sck.close()
 
@@ -59,7 +70,7 @@ def main():
     domain = argv[2]
     type = argv[3]
     recc = argv[4]
-    clObj = cl(ipServer,domain,type,recc)
+    clObj = cl(ipServer,domain,type,recc,"../Files/logfileCL.txt")
     clObj.runCL()
 
 if __name__ == '__main__':

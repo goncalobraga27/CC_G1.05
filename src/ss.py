@@ -1,16 +1,26 @@
-from datetime import datetime
 import socket
-from sys import argv
 import threading
 import time
-from processQuery import pQuery
-from parserConfFile import parseConfigFile
-from answerQuery import aQuery
+from datetime import datetime
 from random import randint
+from sys import argv
+
+from answerQuery import aQuery
+from parserConfFile import parseConfigFile
+from processQuery import pQuery
+from logFile import logF
 
 class ss:
+    global dictDataBase
+    dictDataBase=dict()
+    global versao_DataBase
+    versao_DataBase=-1
+    global verifTime_DataBase
+    verifTime_DataBase=5
+    global Lock 
+    Lock=threading.Lock()
 
-    def __init__(self, ipSS, ipSP, domain, nameConfig_File, portaUDP, portaTCP_SP, portaTCP_SS, dictDataBase):
+    def __init__(self, ipSS, ipSP, domain, nameConfig_File, portaUDP, portaTCP_SP, portaTCP_SS):
         self.nameConfig_File = nameConfig_File
         self.domainServer = domain
         self.ipSS = ipSS
@@ -18,55 +28,51 @@ class ss:
         self.portaUDP = portaUDP
         self.portaTCP_SP = portaTCP_SP
         self.portaTCP_SS = portaTCP_SS
-        self.dictDataBase = dictDataBase
         self.lista_logFile=[]
-        self.versao_DataBase=-1
-        self.verifTime_DataBase=0
-
-    
-    def enviarFstMsg(socket):
-        msg=""
-        socket.sendall(msg.encode('utf-8'))
-
-    def receberFstResp(socket):
-        fstResp=socket.recv(1024)
+        
+    def runsecThread(versao_DataBase,ipSP,portaTCP_SP,domainServer,lista_LogFile):
+        s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        s.connect((ipSP,portaTCP_SP))
+        Lock.acquire()
+        print("Vou enviar a primeira mensagem da ZT")
+        msg="ZT"
+        s.sendall(msg.encode('utf-8'))
+        print("Vou receber a versão da base de dados do sp")
+        fstResp=s.recv(1024)
         resp=fstResp.decode('utf-8')
-        return int(resp)
-    
-    def enviarScdMsg(self,socket):
-        msg=self.domainServer
-        socket.sendall(msg.encode('utf-8'))
-    
-    def receberScdResp(socket):
-        scdResp=socket.recv(1024)
-        resp=scdResp.decode('utf-8')
-        return int(resp)
-    
-    def enviarTrdMsg(socket,valor):
-        msg=str(valor)
-        socket.sendall(msg.encode('utf-8'))
-
-    def receberTrdResp(self,socket):
-        trdResp=socket.recv(1024)
-        resp=trdResp.decode('utf-8')
-        self.dictDataBase=resp
-        
-   
-    def runsecThread(self):
-        socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        socket.connect((self.ipSP,self.portaTCP_SP))
-        ss.enviarFstMsg(socket)
-        resp= ss.receberFstResp(socket)
-        if self.versao_DataBase!=resp:
-            ss.enviarScdMsg(socket)
-            resp= ss.receberScdResp(socket)
-            ss.enviarTrdMsg(socket,resp)
-            ss.receberTrdResp(socket)
+        print(f"A versão da base de dados do sp é esta {resp}")
+        print(f"A versão da minha base de dados(ss) é esta {versao_DataBase}")
+        if int(resp)!=versao_DataBase:
+            print(f"Vou enviar o domínio a que eu pertenço\nO meu domínio é este {domainServer}")
+            versao_DataBase=int(resp)
+            msg=domainServer
+            s.sendall(msg.encode('utf-8'))
+            print("Vou receber o número de linhas que foram alteradas na base de dados")
+            scdResp=s.recv(1024)
+            resp=scdResp.decode('utf-8')
+            print("Vou enviar novamente o número de linhas que foram alteradas na base de dados")
+            s.sendall(resp.encode('utf-8'))
+            print("Vou receber as linhas da base de dados que foram alteradas")
+            trdResp=s.recv(1024)
+            resp=trdResp.decode('utf-8')
+            print(f"As linhas novas que pertencem á base de dados são: {resp}")
+            dictDataBase["MX"]=resp         #ATENÇÃO QUE ISTO NÃO PODE ESTAR ASSIM 
+            print(dictDataBase)
+            print(f"Número da nova versão da base de dados {versao_DataBase}")
+            now = datetime.today().isoformat()
+            writeLogFile=logF(str(now),"ZT",ipSP+":"+str(portaTCP_SP),"SS",lista_LogFile[0])
+            writeLogFile.escritaLogFile()
+        else:
+            now = datetime.today().isoformat()
+            writeLogFile=logF(str(now),"ZT",ipSP+":"+str(portaTCP_SP),"SS",lista_LogFile[0])
+            writeLogFile.escritaLogFile()
+        Lock.release()
 
         
-    def runfstThread(self):
+    def runfstThread(versaoDataBase,ipSP,portaTCP_SP,domainServer,listaLogFile):
         while True:
-            threading.Thread(target=ss.runsecThread,arg=(self)).start()
+            threading.Thread(target=ss.runsecThread,args=(versaoDataBase,ipSP,portaTCP_SP,domainServer,listaLogFile)).start()
+            print(f"A versão da data base entre threads é de{versao_DataBase}")
             time.sleep(5) # aqui tem de ser o tempo do soarefresh
         s.close()
 
@@ -74,6 +80,10 @@ class ss:
         parseConfFile = parseConfigFile(self.nameConfig_File)
         listaIP_SP,listaPorta_SP,listaLogFile,path_FileDataBase=parseConfFile.parsingConfigFile()  
         self.lista_logFile=listaLogFile 
+
+        now = datetime.today().isoformat()
+        writeLogFile=logF(str(now),"EV","@",self.nameConfig_File+" "+self.lista_logFile[0],self.lista_logFile[0])
+        writeLogFile.escritaLogFile()
         # O path do ficheiro de dados do SS está armazenado na variável path_FileDataBase
         # A lista com nome listaIP_SP tem armazenado o ips do SP para este SS         Exemplo:  IP-[10.0.1.10]
         #                                                                                              |   
@@ -88,10 +98,10 @@ class ss:
 
         print(f"Estou à escuta no {self.ipSS}:{self.portaUDP}")
 
-        #threading.Thread(target=ss.runfstThread,arg=()).start()
+        threading.Thread(target=ss.runfstThread,args=(versao_DataBase,self.ipSP,self.portaTCP_SP,self.domainServer,self.lista_logFile)).start()
 
         while True:
-
+            print(dictDataBase)
             msg_UDP,add = sck.recvfrom(1024)
 
             print(msg_UDP.decode('utf-8'))
@@ -104,16 +114,17 @@ class ss:
                 print("A query pedida não é válida")
             else:
                 print(f"Recebi uma mensagem do cliente {add}")
-                f=open(self.lista_logFile[0],"a")  
                 now = datetime.today().isoformat()
-                lineLogFile="{"+str(now)+"} "+"{QR/QE}"+" {"+self.ipSS+":"+str(self.portaUDP)+"} "+ "{"+msg_UDP.decode('utf-8')+"}\n"
-                f.write(lineLogFile)
-                f.close()
-                ansQuery = aQuery(proQuery_UDP.message_id,"R",str(0),self.dictDataBase,proQuery_UDP.typeValue)
+                writeLogFile=logF(str(now),"QR/QE",self.ipSS+":"+str(self.portaUDP),msg_UDP.decode('utf-8'),self.lista_logFile[0])
+                writeLogFile.escritaLogFile()
+                ansQuery = aQuery(proQuery_UDP.message_id,"R",str(0),ss.dictDataBase,proQuery_UDP.typeValue)
                 resposta = ansQuery.answerQuery()
                 respostaDatagram = '\n'.join(resposta)
                 b =respostaDatagram.encode('UTF-8')
                 sck.sendto(b,add)
+                now = datetime.today().isoformat()
+                writeLogFile=logF(str(now),"RP/RR",self.ipSS+":"+str(self.portaUDP),respostaDatagram,self.lista_logFile[0])
+                writeLogFile.escritaLogFile()
 
         sck.close()
 
@@ -126,8 +137,7 @@ def main():
     portaUDP = 3333
     portaTCP_SS = 6666
     portaTCP_SP = 4444
-    dictDataBase = {}
-    ssObj = ss(ipSS, ipSP, domainServer,nameConfig_File,portaUDP,portaTCP_SP,portaTCP_SS, dictDataBase)
+    ssObj = ss(ipSS, ipSP, domainServer,nameConfig_File,portaUDP,portaTCP_SP,portaTCP_SS)
     ssObj.runSS()  
 
 if __name__ == '__main__':
