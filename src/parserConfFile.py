@@ -1,7 +1,10 @@
+from logFile import logF
+from datetime import datetime
 class parseConfigFile:
 
   def __init__(self, configFile):
     self.configFile = configFile  
+    
 
   def parsingConfigFile(self):
         file= open (self.configFile, "r")        

@@ -9,14 +9,13 @@ from answerQuery import aQuery
 from parserConfFile import parseConfigFile
 from processQuery import pQuery
 from logFile import logF
-
+class controlaDB:
+    def __init__(self,versao_DataBase,verifTime_DataBase):
+        self.versao=versao_DataBase
+        self.verifTime_DataBase=verifTime_DataBase
 class ss:
     global dictDataBase
     dictDataBase=dict()
-    global versao_DataBase
-    versao_DataBase=-1
-    global verifTime_DataBase
-    verifTime_DataBase=5
     global Lock 
     Lock=threading.Lock()
 
@@ -29,8 +28,8 @@ class ss:
         self.portaTCP_SP = portaTCP_SP
         self.portaTCP_SS = portaTCP_SS
         self.lista_logFile=[]
-        
-    def runsecThread(versao_DataBase,ipSP,portaTCP_SP,domainServer,lista_LogFile):
+
+    def runsecThread(controlDB,ipSP,portaTCP_SP,domainServer,lista_LogFile):
         s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         s.connect((ipSP,portaTCP_SP))
         Lock.acquire()
@@ -41,10 +40,10 @@ class ss:
         fstResp=s.recv(1024)
         resp=fstResp.decode('utf-8')
         print(f"A versão da base de dados do sp é esta {resp}")
-        print(f"A versão da minha base de dados(ss) é esta {versao_DataBase}")
-        if int(resp)!=versao_DataBase:
+        print(f"A versão da minha base de dados(ss) é esta {controlDB.versao}")
+        if int(resp)!=controlDB.versao:
+            controlDB.versao=int(resp)
             print(f"Vou enviar o domínio a que eu pertenço\nO meu domínio é este {domainServer}")
-            versao_DataBase=int(resp)
             msg=domainServer
             s.sendall(msg.encode('utf-8'))
             print("Vou receber o número de linhas que foram alteradas na base de dados")
@@ -58,7 +57,7 @@ class ss:
             print(f"As linhas novas que pertencem á base de dados são: {resp}")
             dictDataBase["MX"]=resp         #ATENÇÃO QUE ISTO NÃO PODE ESTAR ASSIM 
             print(dictDataBase)
-            print(f"Número da nova versão da base de dados {versao_DataBase}")
+            print(f"Número da nova versão da base de dados {controlDB.versao}")
             now = datetime.today().isoformat()
             writeLogFile=logF(str(now),"ZT",ipSP+":"+str(portaTCP_SP),"SS",lista_LogFile[0])
             writeLogFile.escritaLogFile()
@@ -69,10 +68,10 @@ class ss:
         Lock.release()
 
         
-    def runfstThread(versaoDataBase,ipSP,portaTCP_SP,domainServer,listaLogFile):
+    def runfstThread(ipSP,portaTCP_SP,domainServer,listaLogFile,controlDB):
         while True:
-            threading.Thread(target=ss.runsecThread,args=(versaoDataBase,ipSP,portaTCP_SP,domainServer,listaLogFile)).start()
-            print(f"A versão da data base entre threads é de{versao_DataBase}")
+            threading.Thread(target=ss.runsecThread,args=(controlDB,ipSP,portaTCP_SP,domainServer,listaLogFile)).start()
+            print(f"A versão da data base entre threads é de{controlDB.versao}")
             time.sleep(5) # aqui tem de ser o tempo do soarefresh
         s.close()
 
@@ -80,7 +79,11 @@ class ss:
         parseConfFile = parseConfigFile(self.nameConfig_File)
         listaIP_SP,listaPorta_SP,listaLogFile,path_FileDataBase=parseConfFile.parsingConfigFile()  
         self.lista_logFile=listaLogFile 
-
+        self.listaIP_SP=listaIP_SP
+        if self.listaIP_SP==[] and self.lista_logFile==[] and listaPorta_SP==[]:
+            now = datetime.today().isoformat()
+            writeLogFile=logF(str(now),"FL","127.0.0.1","Parse config File error",self.lista_logFile[0])
+            writeLogFile.escritaLogFile()
         now = datetime.today().isoformat()
         writeLogFile=logF(str(now),"EV","@",self.nameConfig_File+" "+self.lista_logFile[0],self.lista_logFile[0])
         writeLogFile.escritaLogFile()
@@ -97,8 +100,8 @@ class ss:
         sck.bind((self.ipSS, self.portaUDP))
 
         print(f"Estou à escuta no {self.ipSS}:{self.portaUDP}")
-
-        threading.Thread(target=ss.runfstThread,args=(versao_DataBase,self.ipSP,self.portaTCP_SP,self.domainServer,self.lista_logFile)).start()
+        controlDB=controlaDB(int(-1),int(5))
+        threading.Thread(target=ss.runfstThread,args=(self.ipSP,self.portaTCP_SP,self.domainServer,self.lista_logFile,controlDB)).start()
 
         while True:
             print(dictDataBase)

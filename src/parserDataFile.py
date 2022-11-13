@@ -1,8 +1,11 @@
+from logFile import logF
+from datetime import datetime
 class parseDataFile:
 
-    def __init__(self, dictDataBase, pathDataBase):
+    def __init__(self, dictDataBase, pathDataBase,lista_logFile):
         self.dictDataBase = dictDataBase
         self.pathDataBase = pathDataBase
+        self.lista_logFile=lista_logFile
 
     def parsingDataFile(self):
         file=open(self.pathDataBase,"r")
@@ -71,5 +74,9 @@ class parseDataFile:
         linha=self.dictDataBase["SOAREFRESH"]
         linhaD=linha.pop().split(' ')
         VerifTime_DataBase=int(linhaD[2])
+        if self.dictDataBase=={}:
+                now = datetime.today().isoformat()
+                writeLogFile=logF(str(now),"FL","127.0.0.1","Parse Data File error",self.lista_logFile[0])
+                writeLogFile.escritaLogFile()
 
         return versao_DataBase,VerifTime_DataBase,tamanhofile

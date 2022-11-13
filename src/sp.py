@@ -124,11 +124,16 @@ class sp:
         listaIP_SS,listaPorta_SS,listaLogFile,pathFileDataBase = parseConfFile.parsingConfigFile()  
         self.listaIP_SS=listaIP_SS
         self.lista_logFile=listaLogFile
-        parseDFile = parseDataFile(dictDataBase, pathFileDataBase[:-1])
+        if self.listaIP_SS==[] and self.lista_logFile==[] and listaPorta_SS==[] and pathFileDataBase=="":
+            now = datetime.today().isoformat()
+            writeLogFile=logF(str(now),"FL","127.0.0.1","Parse config File error",self.lista_logFile[0])
+            writeLogFile.escritaLogFile()
+        parseDFile = parseDataFile(dictDataBase, pathFileDataBase[:-1],self.lista_logFile)
         versao,tempoVerificacao,tamanhoDataBase=parseDFile.parsingDataFile()
         self.versao_DataBase=versao
         self.VerifTime_DataBase=tempoVerificacao
         self.tamanhoDataBase=tamanhoDataBase
+
 
         now = datetime.today().isoformat()
         writeLogFile=logF(str(now),"EV","@",self.nameConfig_File+" "+pathFileDataBase+" "+self.lista_logFile[0],self.lista_logFile[0])
