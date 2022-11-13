@@ -39,10 +39,13 @@ class ss:
         print("Vou receber a versão da base de dados do sp")
         fstResp=s.recv(1024)
         resp=fstResp.decode('utf-8')
-        print(f"A versão da base de dados do sp é esta {resp}")
+        versaoandTTLDB=resp.split(' ')
+        versaoDB=int(versaoandTTLDB[0])
+        controlDB.verifTime_DataBase=int(versaoandTTLDB[1])
+        print(f"A versão da base de dados do sp é esta {versaoDB}")
         print(f"A versão da minha base de dados(ss) é esta {controlDB.versao}")
-        if int(resp)!=controlDB.versao:
-            controlDB.versao=int(resp)
+        if versaoDB!=controlDB.versao:
+            controlDB.versao=versaoDB
             print(f"Vou enviar o domínio a que eu pertenço\nO meu domínio é este {domainServer}")
             msg=domainServer
             s.sendall(msg.encode('utf-8'))
@@ -55,7 +58,7 @@ class ss:
             trdResp=s.recv(1024)
             resp=trdResp.decode('utf-8')
             print(f"As linhas novas que pertencem á base de dados são: {resp}")
-            dictDataBase["MX"]=resp         #ATENÇÃO QUE ISTO NÃO PODE ESTAR ASSIM 
+            dictDataBase["NS"]=resp         #ATENÇÃO QUE ISTO NÃO PODE ESTAR ASSIM 
             print(dictDataBase)
             print(f"Número da nova versão da base de dados {controlDB.versao}")
             now = datetime.today().isoformat()
@@ -72,7 +75,7 @@ class ss:
         while True:
             threading.Thread(target=ss.runsecThread,args=(controlDB,ipSP,portaTCP_SP,domainServer,listaLogFile)).start()
             print(f"A versão da data base entre threads é de{controlDB.versao}")
-            time.sleep(5) # aqui tem de ser o tempo do soarefresh
+            time.sleep(controlDB.verifTime_DataBase) # aqui tem de ser o tempo do soarefresh
         s.close()
 
     def runSS(self):
@@ -102,7 +105,6 @@ class ss:
         print(f"Estou à escuta no {self.ipSS}:{self.portaUDP}")
         controlDB=controlaDB(int(-1),int(5))
         threading.Thread(target=ss.runfstThread,args=(self.ipSP,self.portaTCP_SP,self.domainServer,self.lista_logFile,controlDB)).start()
-
         while True:
             print(dictDataBase)
             msg_UDP,add = sck.recvfrom(1024)
@@ -120,7 +122,7 @@ class ss:
                 now = datetime.today().isoformat()
                 writeLogFile=logF(str(now),"QR/QE",self.ipSS+":"+str(self.portaUDP),msg_UDP.decode('utf-8'),self.lista_logFile[0])
                 writeLogFile.escritaLogFile()
-                ansQuery = aQuery(proQuery_UDP.message_id,"R",str(0),ss.dictDataBase,proQuery_UDP.typeValue)
+                ansQuery = aQuery(proQuery_UDP.message_id,"R",str(0),dictDataBase,proQuery_UDP.typeValue)
                 resposta = ansQuery.answerQuery()
                 respostaDatagram = '\n'.join(resposta)
                 b =respostaDatagram.encode('UTF-8')

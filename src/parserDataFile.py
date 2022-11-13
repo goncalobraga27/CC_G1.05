@@ -2,7 +2,7 @@ from logFile import logF
 from datetime import datetime
 class parseDataFile:
 
-    def __init__(self, dictDataBase, pathDataBase,lista_logFile):
+    def __init__(self,dictDataBase,pathDataBase,lista_logFile):
         self.dictDataBase = dictDataBase
         self.pathDataBase = pathDataBase
         self.lista_logFile=lista_logFile

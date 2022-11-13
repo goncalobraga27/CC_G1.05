@@ -47,10 +47,10 @@ class sp:
         s.listen()
         while True:
             connection, address = s.accept()
-            threading.Thread(target=sp.runsecThread,args=(ipSP,connection,address,versao_DataBase,domainServer,listaIP_SS,tamanhoDataBase,lista_LogFile)).start() 
+            threading.Thread(target=sp.runsecThread,args=(ipSP,connection,address,versao_DataBase,domainServer,listaIP_SS,tamanhoDataBase,lista_LogFile,verifTime_DataBase)).start() 
         s.close()
 
-    def runsecThread(ipSP,connection,address,versao_DataBase,domainServer,listaIP_SS,tamanhoDataBase,lista_LogFile):
+    def runsecThread(ipSP,connection,address,versao_DataBase,domainServer,listaIP_SS,tamanhoDataBase,lista_LogFile,verifTime_DataBase):
         print("Vou tratar da parte da ZT no SP")
         lock.acquire()
         print("Vou receber a primeira mensagem")
@@ -59,7 +59,8 @@ class sp:
         print(f"A mensagem que recebi foi {msg}")
         if msg=="ZT":
             print(f"Vou enviar a versão da minha base de dados\nA minha versão é esta {str(versao_DataBase)}")
-            msgEnviar=str(versao_DataBase)
+            print(f"O TTL da base de dados que vou enviar é este {verifTime_DataBase}")
+            msgEnviar=str(versao_DataBase)+" "+str(verifTime_DataBase)
             connection.send(msgEnviar.encode('utf-8'))
             print("Vou receber o domínio para o qual se pretende fazer a ZT")
             msgRecebida = connection.recv(1024)
@@ -133,8 +134,6 @@ class sp:
         self.versao_DataBase=versao
         self.VerifTime_DataBase=tempoVerificacao
         self.tamanhoDataBase=tamanhoDataBase
-
-
         now = datetime.today().isoformat()
         writeLogFile=logF(str(now),"EV","@",self.nameConfig_File+" "+pathFileDataBase+" "+self.lista_logFile[0],self.lista_logFile[0])
         writeLogFile.escritaLogFile()
@@ -144,8 +143,7 @@ class sp:
         sck_UDP.bind((self.ipSP, self.portaUDP))
 
         print(f"Estou à escuta no {self.ipSP}:{self.portaUDP}\n")
-
-        threading.Thread(target=sp.runfstThread, args=(self.ipSP,self.portaTCP_SP,self.verifTime_DataBase,self.versao_DataBase,self.domainServer,self.listaIP_SS,self.tamanhoDataBase,self.lista_logFile)).start()
+        threading.Thread(target=sp.runfstThread, args=(self.ipSP,self.portaTCP_SP,self.VerifTime_DataBase,self.versao_DataBase,self.domainServer,self.listaIP_SS,self.tamanhoDataBase,self.lista_logFile)).start()
 
 
         while True:
