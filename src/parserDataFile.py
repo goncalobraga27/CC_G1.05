@@ -10,8 +10,8 @@ class parseDataFile:
     def parsingDataFile(self):
         file=open(self.pathDataBase,"r")
         lines=file.readlines()
-        tamanhofile=len(lines)
         file.close()
+        tamanhofile=1
         versao_DataBase=-1
         VerifTime_DataBase=0
         for line in lines:
@@ -41,6 +41,7 @@ class parseDataFile:
                         self.dictDataBase[linhaParametros[1]]=[]
                 if (linhaParametros[1]=="PTR"):
                         self.dictDataBase[linhaParametros[1]]=[]
+                tamanhofile+=1
         for line in lines:
             linhaParametros=line.split(' ')
             if (linhaParametros[0]!='#' and linhaParametros[0]!='\n'):
@@ -69,11 +70,11 @@ class parseDataFile:
                 if (linhaParametros[1]=="PTR"):
                         self.dictDataBase[linhaParametros[1]].append(line[:-1])
         linha=self.dictDataBase["SOASERIAL"]
-        linhaD=linha.pop().split(' ')
-        versao_DataBase=int(linhaD[2])
+        linhaD=linha[0].split(' ')[2]
+        versao_DataBase=linhaD
         linha=self.dictDataBase["SOAREFRESH"]
-        linhaD=linha.pop().split(' ')
-        VerifTime_DataBase=int(linhaD[2])
+        linhaD=linha[0].split(' ')[2]
+        VerifTime_DataBase=linhaD
         if self.dictDataBase=={}:
                 now = datetime.today().isoformat()
                 writeLogFile=logF(str(now),"FL","127.0.0.1","Parse Data File error",self.lista_logFile[0])

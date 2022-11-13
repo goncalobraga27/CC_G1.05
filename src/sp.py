@@ -40,6 +40,16 @@ class sp:
         for it in listaIP_SS:
             if it==ip: return True
         return False 
+    
+    def infoDB(dictDataBase):
+        stringResultado=""
+        numeroLinhas=1
+        for it in dictDataBase.keys():
+            linhasType=dictDataBase.get(it)
+            for linha in linhasType:
+                stringResultado+=str(numeroLinhas)+ "-"+linha+"\n"
+                numeroLinhas+=1
+        return stringResultado
 
     def runfstThread(ipSP,portaTCP_SP,verifTime_DataBase,versao_DataBase,domainServer,listaIP_SS,tamanhoDataBase,lista_LogFile):
         s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -92,10 +102,9 @@ class sp:
                     writeLogFile.escritaLogFile()
                 if nextStep==True:
                     print("Como o número recebido foi o correto vou enviar as novas linhas da bse de dados a base de dados")
-                    msgEnviar=dictDataBase
-                    #print(dictDataBase)
-                    linhaDB="askfnspdndfpwiwsnfiwnefpienraqgfnrqgpienrqg"
-                    connection.send(linhaDB.encode('utf-8'))
+                    msgEnviar=sp.infoDB(dictDataBase)
+                    print(f"VOU ENVIAR ESTAS LINHAS DA BD {msgEnviar}\n")
+                    connection.send(msgEnviar.encode('utf-8'))
                     print("Acabei de enviar todas as linhas novas da base de dados")
                     now = datetime.today().isoformat()
                     writeLogFile=logF(str(now),"ZT",address[0]+":"+str(6666),"SP",lista_LogFile[0])
@@ -137,7 +146,6 @@ class sp:
         now = datetime.today().isoformat()
         writeLogFile=logF(str(now),"EV","@",self.nameConfig_File+" "+pathFileDataBase+" "+self.lista_logFile[0],self.lista_logFile[0])
         writeLogFile.escritaLogFile()
-
         sck_UDP =socket.socket(socket.AF_INET, socket.SOCK_DGRAM) #UDP
         
         sck_UDP.bind((self.ipSP, self.portaUDP))

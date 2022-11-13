@@ -28,6 +28,51 @@ class ss:
         self.portaTCP_SP = portaTCP_SP
         self.portaTCP_SS = portaTCP_SS
         self.lista_logFile=[]
+    
+    def povoaBaseDados(dicDataBase,resp):
+        dicDataBase["DEFAULT"]=[]
+        dicDataBase["SOASP"]=[]
+        dicDataBase["SOAADMIN"]=[]
+        dicDataBase["SOASERIAL"]=[]
+        dicDataBase["SOAREFRESH"]=[]
+        dicDataBase["SOARETRY"]=[]
+        dicDataBase["SOAEXPIRE"]=[]
+        dicDataBase["NS"]=[]
+        dicDataBase["A"]=[]
+        dicDataBase["CNAME"]=[]
+        dicDataBase["MX"]=[]
+        dicDataBase["PTR"]=[]
+        linhaBD=resp.split('\n')
+        for linha in linhaBD:
+            linhaP=linha.split('-')
+            if len(linhaP)!=1:
+                content=linhaP[1]
+                linhaParametros=content.split(' ')
+                if (linhaParametros[1]=="DEFAULT"):
+                    dicDataBase[linhaParametros[1]].append(content)
+                if (linhaParametros[1]=="SOASP"):
+                    dicDataBase[linhaParametros[1]].append(content)
+                if (linhaParametros[1]=="SOAADMIN"):
+                    dicDataBase[linhaParametros[1]].append(content)
+                if (linhaParametros[1]=="SOASERIAL"):
+                    dicDataBase[linhaParametros[1]].append(content)
+                if (linhaParametros[1]=="SOAREFRESH"):
+                    dicDataBase[linhaParametros[1]].append(content)
+                if (linhaParametros[1]=="SOARETRY"):
+                    dicDataBase[linhaParametros[1]].append(content)
+                if (linhaParametros[1]=="SOAEXPIRE"):
+                    dicDataBase[linhaParametros[1]].append(content)
+                if (linhaParametros[1]=="NS"):
+                    dicDataBase[linhaParametros[1]].append(content)
+                if (linhaParametros[1]=="A"):
+                    dicDataBase[linhaParametros[1]].append(content)
+                if (linhaParametros[1]=="CNAME"):
+                    dicDataBase[linhaParametros[1]].append(content)
+                if (linhaParametros[1]=="MX"):
+                    dicDataBase[linhaParametros[1]].append(content)
+                if (linhaParametros[1]=="PTR"):
+                    dicDataBase[linhaParametros[1]].append(content)
+
 
     def runsecThread(controlDB,ipSP,portaTCP_SP,domainServer,lista_LogFile):
         s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -57,9 +102,7 @@ class ss:
             print("Vou receber as linhas da base de dados que foram alteradas")
             trdResp=s.recv(1024)
             resp=trdResp.decode('utf-8')
-            print(f"As linhas novas que pertencem á base de dados são: {resp}")
-            dictDataBase["NS"]=resp         #ATENÇÃO QUE ISTO NÃO PODE ESTAR ASSIM 
-            print(dictDataBase)
+            ss.povoaBaseDados(dictDataBase,resp)       
             print(f"Número da nova versão da base de dados {controlDB.versao}")
             now = datetime.today().isoformat()
             writeLogFile=logF(str(now),"ZT",ipSP+":"+str(portaTCP_SP),"SS",lista_LogFile[0])
@@ -75,7 +118,7 @@ class ss:
         while True:
             threading.Thread(target=ss.runsecThread,args=(controlDB,ipSP,portaTCP_SP,domainServer,listaLogFile)).start()
             print(f"A versão da data base entre threads é de{controlDB.versao}")
-            time.sleep(controlDB.verifTime_DataBase) # aqui tem de ser o tempo do soarefresh
+            time.sleep(controlDB.verifTime_DataBase) 
         s.close()
 
     def runSS(self):
@@ -106,7 +149,6 @@ class ss:
         controlDB=controlaDB(int(-1),int(5))
         threading.Thread(target=ss.runfstThread,args=(self.ipSP,self.portaTCP_SP,self.domainServer,self.lista_logFile,controlDB)).start()
         while True:
-            print(dictDataBase)
             msg_UDP,add = sck.recvfrom(1024)
 
             print(msg_UDP.decode('utf-8'))
