@@ -29,7 +29,7 @@ class ss:
         self.portaTCP_SS = portaTCP_SS
         self.lista_logFile=[]
     
-    def povoaBaseDados(dicDataBase,resp):
+    def iniciaBaseDados(dicDataBase):
         dicDataBase["DEFAULT"]=[]
         dicDataBase["SOASP"]=[]
         dicDataBase["SOAADMIN"]=[]
@@ -42,36 +42,17 @@ class ss:
         dicDataBase["CNAME"]=[]
         dicDataBase["MX"]=[]
         dicDataBase["PTR"]=[]
-        linhaBD=resp.split('\n')
-        for linha in linhaBD:
-            linhaP=linha.split('-')
-            if len(linhaP)!=1:
-                content=linhaP[1]
-                linhaParametros=content.split(' ')
-                if (linhaParametros[1]=="DEFAULT"):
-                    dicDataBase[linhaParametros[1]].append(content)
-                if (linhaParametros[1]=="SOASP"):
-                    dicDataBase[linhaParametros[1]].append(content)
-                if (linhaParametros[1]=="SOAADMIN"):
-                    dicDataBase[linhaParametros[1]].append(content)
-                if (linhaParametros[1]=="SOASERIAL"):
-                    dicDataBase[linhaParametros[1]].append(content)
-                if (linhaParametros[1]=="SOAREFRESH"):
-                    dicDataBase[linhaParametros[1]].append(content)
-                if (linhaParametros[1]=="SOARETRY"):
-                    dicDataBase[linhaParametros[1]].append(content)
-                if (linhaParametros[1]=="SOAEXPIRE"):
-                    dicDataBase[linhaParametros[1]].append(content)
-                if (linhaParametros[1]=="NS"):
-                    dicDataBase[linhaParametros[1]].append(content)
-                if (linhaParametros[1]=="A"):
-                    dicDataBase[linhaParametros[1]].append(content)
-                if (linhaParametros[1]=="CNAME"):
-                    dicDataBase[linhaParametros[1]].append(content)
-                if (linhaParametros[1]=="MX"):
-                    dicDataBase[linhaParametros[1]].append(content)
-                if (linhaParametros[1]=="PTR"):
-                    dicDataBase[linhaParametros[1]].append(content)
+
+    def addBaseDados(dictDataBase,resp,flag):
+        linhaP=resp.split('-')
+        if len(linhaP)!=1:
+            conteudo=linhaP[1]
+            if int(linhaP[0])!=flag: return False
+            linhaPContent=conteudo.split(' ')
+            dictDataBase[linhaPContent[1]].append(conteudo)
+        return True 
+
+       
 
 
     def runsecThread(controlDB,ipSP,portaTCP_SP,domainServer,lista_LogFile):
@@ -100,9 +81,19 @@ class ss:
             print("Vou enviar novamente o número de linhas que foram alteradas na base de dados")
             s.sendall(resp.encode('utf-8'))
             print("Vou receber as linhas da base de dados que foram alteradas")
-            trdResp=s.recv(1024)
-            resp=trdResp.decode('utf-8')
-            ss.povoaBaseDados(dictDataBase,resp)       
+            ss.iniciaBaseDados(dictDataBase)
+            flag=1
+            verification=True
+            for i in range(int(resp)-1):
+                if verification==True:
+                    tamanhoLinha=int(s.recv(2).decode('utf-8'))
+                    trdResp=s.recv(tamanhoLinha)
+                    resp=trdResp.decode('utf-8')
+                    verification=ss.addBaseDados(dictDataBase,resp,flag)
+                    if not verification:
+                        print("A transmissão da base de dados deu problemas")
+                        s.close()
+                    flag+=1
             print(f"Número da nova versão da base de dados {controlDB.versao}")
             now = datetime.today().isoformat()
             writeLogFile=logF(str(now),"ZT",ipSP+":"+str(portaTCP_SP),"SS",lista_LogFile[0])
