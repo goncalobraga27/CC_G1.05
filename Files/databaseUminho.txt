@@ -1,0 +1,29 @@
+# DNS database file for domain campeoesUM.lei
+# It also includes a pointer to the primary server
+# of the email.campeoesUM.lei subdomain
+
+@ DEFAULT campeoesUM.lei.
+TTL DEFAULT 40000
+@ SOASP ns1.campeosUM.lei. TTL
+@ SOAADMIN dns\.admin.campeosUM.lei. TTL
+@ SOASERIAL 123456789 TTL
+@ SOAREFRESH 120 TTL
+@ SOARETRY 240 TTL
+@ SOAEXPIRE 600 TTL
+@ NS ns1.campeoesUM.lei. TTL
+@ NS ns2.campeoesUM.lei. TTL
+Smaller.@ NS sp.smaller.campeosUM.lei.
+@ MX mx1.campeoesUM.lei TTL 10
+@ MX mx2.campeoesUM.lei TTL 20
+ns1 A 193.136.130.101 TTL
+ns2 A 193.137.100.102 TTL
+sp.smaller A 193.140.90.20 TTL
+mx1 A 193.136.130.20 TTL
+mx2 A 193.136.130.21 TTL
+www A 193.136.130.80 TTL 200
+www A 193.136.130.81 TTL 200
+ftp A 193.136.130.10 TTL
+sp CNAME ns1 TTL
+ss1 CNAME ns2 TTL
+mail1 CNAME mx1 TTL
+mail2 CNAME mx2 TTL
