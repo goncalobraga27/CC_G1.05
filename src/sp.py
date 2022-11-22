@@ -4,13 +4,11 @@ import threading
 import time
 from datetime import datetime
 from re import T
-from sys import argv
 from answerQuery import aQuery
 from parserConfFile import parseConfigFile
 from parserDataFile import parseDataFile
 from processQuery import pQuery
 from logFile import logF
-
 
 class sp:
     global dictDataBase
@@ -45,53 +43,61 @@ class sp:
         s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         s.bind((ipSP,portaTCP_SP))
         s.listen()
+        
         while True:
             connection, address = s.accept()
             threading.Thread(target=sp.runsecThread,args=(ipSP,connection,address,versao_DataBase,domainServer,listaIP_SS,tamanhoDataBase,lista_LogFile,verifTime_DataBase)).start() 
         s.close()
 
     def runsecThread(ipSP,connection,address,versao_DataBase,domainServer,listaIP_SS,tamanhoDataBase,lista_LogFile,verifTime_DataBase):
-        print("Vou tratar da parte da ZT no SP")
+        sys.stdout.write("Vou tratar da parte da ZT no SP")
         lock.acquire()
-        print("Vou receber a primeira mensagem")
+        sys.stdout.write("Vou receber a primeira mensagem")
         msgRecebida = connection.recv(1024)
         msg=msgRecebida.decode('utf-8')
-        print(f"A mensagem que recebi foi {msg}")
+        sys.stdout.write(f"A mensagem que recebi foi {msg}")
+
         if msg=="ZT":
-            print(f"Vou enviar a versão da minha base de dados\nA minha versão é esta {str(versao_DataBase)}")
-            print(f"O TTL da base de dados que vou enviar é este {verifTime_DataBase}")
+            sys.stdout.write(f"Vou enviar a versão da minha base de dados\nA minha versão é esta {str(versao_DataBase)}")
+            sys.stdout.write(f"O TTL da base de dados que vou enviar é este {verifTime_DataBase}")
             msgEnviar=str(versao_DataBase)+" "+str(verifTime_DataBase)
             connection.send(msgEnviar.encode('utf-8'))
-            print("Vou receber o domínio para o qual se pretende fazer a ZT")
+            sys.stdout.write("Vou receber o domínio para o qual se pretende fazer a ZT")
             msgRecebida = connection.recv(1024)
             msg=msgRecebida.decode('utf-8')
-            print(f"O domínio que recebi foi este {msg}")
+            sys.stdout.write(f"O domínio que recebi foi este {msg}")
+
             if sp.verificaDomain(msg,domainServer)==True and sp.verificaipSS(address[0],listaIP_SS)==True:
                 nextStep=True
+
             else: 
                 nextStep=False
                 now = datetime.today().isoformat()
                 writeLogFile=logF(str(now),"EZ",address[0]+":"+str(6666),"SP",lista_LogFile[0])
                 writeLogFile.escritaLogFile()
-            print(f"Foram feitas todas as verificações e o resultado das mesmas é {nextStep}")
+            sys.stdout.write(f"Foram feitas todas as verificações e o resultado das mesmas é {nextStep}")
+
             if nextStep==True:
-                print(f"Como o nextStep é true então vou enviar o tamanho da base de dados")
-                print(f"O tamanho da base de dados é este {tamanhoDataBase}")
+                sys.stdout.write(f"Vou enviar o tamanho da base de dados")
+                sys.stdout.write(f"O tamanho da base de dados é este {tamanhoDataBase}")
                 msgEnviar=str(tamanhoDataBase)
                 connection.send(msgEnviar.encode('utf-8'))
-                print("Vou receber o número do tamanho da base de dados outra vez para certificar que está tudo direito")
+                sys.stdout.write("Vou receber o número do tamanho da base de dados outra vez para certificar que está tudo direito")
                 msgRecebida = connection.recv(1024)
                 msg=msgRecebida.decode('utf-8')
-                print(f"O número recebido foi {msg}")
+                sys.stdout.write(f"O número recebido foi {msg}")
+
                 if int(msg)==tamanhoDataBase: 
                     nextStep=True
+
                 else: 
                     nextStep=False
                     now = datetime.today().isoformat()
                     writeLogFile=logF(str(now),"EZ",address[0]+":"+str(6666),"SP",lista_LogFile[0])
                     writeLogFile.escritaLogFile()
+
                 if nextStep==True:
-                    print("Como o número recebido foi o correto vou enviar as novas linhas da base de dados para o sp ")
+                    sys.stdout.write("Como o número recebido foi o correto vou enviar as novas linhas da base de dados para o ss")
                     numeroLinhas=1
                     for it in dictDataBase.keys():
                         linhasType=dictDataBase.get(it)
@@ -101,22 +107,22 @@ class sp:
                             connection.send(stringResultado.encode('utf-8'))
                             numeroLinhas+=1
                             stringResultado=""
-                    print("Acabei de enviar todas as linhas novas da base de dados")
+                    sys.stdout.write("Acabei de enviar todas as linhas novas da base de dados")
                     now = datetime.today().isoformat()
                     writeLogFile=logF(str(now),"ZT",address[0]+":"+str(6666),"SP",lista_LogFile[0])
                     writeLogFile.escritaLogFile()
+
             else:
                 now = datetime.today().isoformat()
                 writeLogFile=logF(str(now),"EZ",address[0]+":"+str(6666),"SP",lista_LogFile[0])
                 writeLogFile.escritaLogFile()
+
         else:
             now = datetime.today().isoformat()
             writeLogFile=logF(str(now),"EZ",address[0]+":"+str(6666),"SP",lista_LogFile[0])
             writeLogFile.escritaLogFile()
         lock.release()
             
-           
-
     def runSP(self):
         # O path do ficheiro de dados do SP está armazenado na variável path_FileDataBase
         # A lista com nome listaIP_SS tem armazenado os ips do SS para este SP          Exemplo:  IP-[10.0.1.10,10.0.2.10]
@@ -130,10 +136,12 @@ class sp:
         listaIP_SS,listaPorta_SS,listaLogFile,pathFileDataBase = parseConfFile.parsingConfigFile()  
         self.listaIP_SS=listaIP_SS
         self.lista_logFile=listaLogFile
+
         if self.listaIP_SS==[] and self.lista_logFile==[] and listaPorta_SS==[] and pathFileDataBase=="":
             now = datetime.today().isoformat()
             writeLogFile=logF(str(now),"FL","127.0.0.1","Parse config File error",self.lista_logFile[0])
             writeLogFile.escritaLogFile()
+
         parseDFile = parseDataFile(dictDataBase, pathFileDataBase[:-1],self.lista_logFile)
         versao,tempoVerificacao,tamanhoDataBase=parseDFile.parsingDataFile()
         self.versao_DataBase=versao
@@ -146,25 +154,24 @@ class sp:
         
         sck_UDP.bind((self.ipSP, self.portaUDP))
 
-        print(f"Estou à escuta no {self.ipSP}:{self.portaUDP}\n")
+        sys.stdout.write(f"Estou à escuta no {self.ipSP}:{self.portaUDP}\n")
         threading.Thread(target=sp.runfstThread, args=(self.ipSP,self.portaTCP_SP,self.VerifTime_DataBase,self.versao_DataBase,self.domainServer,self.listaIP_SS,self.tamanhoDataBase,self.lista_logFile)).start()
-
 
         while True:
 
             msg_UDP,add_UDP = sck_UDP.recvfrom(1024)
 
-            print(msg_UDP.decode('utf-8'))
+            sys.stdout.write(msg_UDP.decode('utf-8'))
 
             proQuery_UDP = pQuery(msg_UDP.decode('utf-8'), self.domainServer)
 
             queryCheck_UDP=proQuery_UDP.processQuery(0)
 
             if (queryCheck_UDP==False):
-                print("A query pedida não é válida")
+                sys.stdout.write("A query pedida não é válida")
 
             else:
-                print(f"Recebi uma mensagem do cliente {add_UDP}")
+                sys.stdout.write(f"Recebi uma mensagem do cliente {add_UDP}")
                 now = datetime.today().isoformat()
                 writeLogFile=logF(str(now),"QR/QE",self.ipSP+":"+str(self.portaUDP),msg_UDP.decode('utf-8'),self.lista_logFile[0])
                 writeLogFile.escritaLogFile()
@@ -178,6 +185,7 @@ class sp:
                 writeLogFile.escritaLogFile()
 
         sck_UDP.close()
+
 
 def main():
     ipSP = '10.2.2.2'

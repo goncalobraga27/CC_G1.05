@@ -4,15 +4,16 @@ import time
 from datetime import datetime
 from random import randint
 from sys import argv
-
 from answerQuery import aQuery
 from parserConfFile import parseConfigFile
 from processQuery import pQuery
 from logFile import logF
+
 class controlaDB:
     def __init__(self,versao_DataBase,verifTime_DataBase):
         self.versao=versao_DataBase
         self.verifTime_DataBase=verifTime_DataBase
+
 class ss:
     global dictDataBase
     dictDataBase=dict()
@@ -52,35 +53,31 @@ class ss:
             dictDataBase[linhaPContent[1]].append(conteudo)
         return True 
 
-       
-
-
     def runsecThread(controlDB,ipSP,portaTCP_SP,domainServer,lista_LogFile):
         s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         s.connect((ipSP,portaTCP_SP))
         Lock.acquire()
-        print("Vou enviar a primeira mensagem da ZT")
+        sys.stdout.write("Vou enviar a primeira mensagem da ZT")
         msg="ZT"
         s.sendall(msg.encode('utf-8'))
-        print("Vou receber a versão da base de dados do sp")
+        sys.stdout.write("Vou receber a versão da base de dados do sp")
         fstResp=s.recv(1024)
         resp=fstResp.decode('utf-8')
         versaoandTTLDB=resp.split(' ')
         versaoDB=int(versaoandTTLDB[0])
         controlDB.verifTime_DataBase=int(versaoandTTLDB[1])
-        print(f"A versão da base de dados do sp é esta {versaoDB}")
-        print(f"A versão da minha base de dados(ss) é esta {controlDB.versao}")
+        sys.stdout.write(f"A versão da base de dados do sp é esta {versaoDB}")
+        sys.stdout.write(f"A versão da minha base de dados(ss) é esta {controlDB.versao}")
         if versaoDB!=controlDB.versao:
-            controlDB.versao=versaoDB
-            print(f"Vou enviar o domínio a que eu pertenço\nO meu domínio é este {domainServer}")
+            sys.stdout.write(f"Vou enviar o domínio a que eu pertenço\nO meu domínio é este {domainServer}")
             msg=domainServer
             s.sendall(msg.encode('utf-8'))
-            print("Vou receber o número de linhas que foram alteradas na base de dados")
+            sys.stdout.write("Vou receber o número de linhas que foram alteradas na base de dados")
             scdResp=s.recv(1024)
             resp=scdResp.decode('utf-8')
-            print("Vou enviar novamente o número de linhas que foram alteradas na base de dados")
+            sys.stdout.write("Vou enviar novamente o número de linhas que foram alteradas na base de dados")
             s.sendall(resp.encode('utf-8'))
-            print("Vou receber as linhas da base de dados que foram alteradas")
+            sys.stdout.write("Vou receber as linhas da base de dados que foram alteradas")
             ss.iniciaBaseDados(dictDataBase)
             flag=1
             verification=True
@@ -91,10 +88,11 @@ class ss:
                     resp=trdResp.decode('utf-8')
                     verification=ss.addBaseDados(dictDataBase,resp,flag)
                     if not verification:
-                        print("A transmissão da base de dados deu problemas")
+                        sys.stdout.write("A transmissão da base de dados deu problemas")
                         s.close()
                     flag+=1
-            print(f"Número da nova versão da base de dados {controlDB.versao}")
+            controlDB.versao=versaoDB
+            sys.stdout.write(f"Número da nova versão da base de dados {controlDB.versao}")
             now = datetime.today().isoformat()
             writeLogFile=logF(str(now),"ZT",ipSP+":"+str(portaTCP_SP),"SS",lista_LogFile[0])
             writeLogFile.escritaLogFile()
@@ -104,11 +102,10 @@ class ss:
             writeLogFile.escritaLogFile()
         Lock.release()
 
-        
     def runfstThread(ipSP,portaTCP_SP,domainServer,listaLogFile,controlDB):
         while True:
             threading.Thread(target=ss.runsecThread,args=(controlDB,ipSP,portaTCP_SP,domainServer,listaLogFile)).start()
-            print(f"A versão da data base entre threads é de{controlDB.versao}")
+            sys.stdout.write(f"A versão da data base entre threads é de{controlDB.versao}")
             time.sleep(controlDB.verifTime_DataBase) 
         s.close()
 
@@ -136,22 +133,22 @@ class ss:
 
         sck.bind((self.ipSS, self.portaUDP))
 
-        print(f"Estou à escuta no {self.ipSS}:{self.portaUDP}")
+        sys.stdout.write(f"Estou à escuta no {self.ipSS}:{self.portaUDP}")
         controlDB=controlaDB(int(-1),int(5))
         threading.Thread(target=ss.runfstThread,args=(self.ipSP,self.portaTCP_SP,self.domainServer,self.lista_logFile,controlDB)).start()
         while True:
             msg_UDP,add = sck.recvfrom(1024)
 
-            print(msg_UDP.decode('utf-8'))
+            sys.stdout.write(msg_UDP.decode('utf-8'))
 
             proQuery_UDP = pQuery(msg_UDP.decode('utf-8'), self.domainServer)
 
             queryCheck_UDP= proQuery_UDP.processQuery(0)
 
             if(queryCheck_UDP==False):
-                print("A query pedida não é válida")
+                sys.stdout.write("A query pedida não é válida")
             else:
-                print(f"Recebi uma mensagem do cliente {add}")
+                sys.stdout.write(f"Recebi uma mensagem do cliente {add}")
                 now = datetime.today().isoformat()
                 writeLogFile=logF(str(now),"QR/QE",self.ipSS+":"+str(self.portaUDP),msg_UDP.decode('utf-8'),self.lista_logFile[0])
                 writeLogFile.escritaLogFile()
