@@ -1,0 +1,29 @@
+# DNS database file for domain campeoesUC.mei
+# It also includes a pointer to the primary server
+# of the smaller.campeoesUC.mei subdomain
+
+@ DEFAULT campeoesUC.mei.
+TTL DEFAULT 86323
+@ SOASP ns1.campeoesUC.mei. TTL
+@ SOAADMIN dns\.admin.campeoesUC.mei. TTL
+@ SOASERIAL 56565565 TTL
+@ SOAREFRESH 45623 TTL
+@ SOARETRY 3762 TTL
+@ SOAEXPIRE 89665 TTL
+@ NS ns1.campeoesUC.mei. TTL
+@ NS ns2.campeoesUC.mei. TTL
+Smaller.@ NS sp.smaller.campeoesUC.mei.
+@ MX mx1.campeoesUC.mei TTL 11
+@ MX mx2.campeoesUC.mei TTL 19
+ns1 A 193.136.130.249 TTL
+ns2 A 193.137.100.253 TTL
+sp.smaller A 193.140.90.10 TTL
+mx1 A 193.136.130.201 TTL
+mx2 A 193.136.130.200 TTL
+www A 193.136.130.79 TTL 201
+www A 193.136.130.92 TTL 204
+ftp A 193.136.130.21 TTL
+sp CNAME ns1 TTL
+ss1 CNAME ns2 TTL
+mail1 CNAME mx1 TTL
+mail2 CNAME mx2 TTL 
