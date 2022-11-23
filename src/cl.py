@@ -2,6 +2,7 @@ from random import randint
 import socket
 from sys import argv
 from datetime import datetime
+import time
 from logFile import logF
 import sys
 class cl:
@@ -19,6 +20,7 @@ class cl:
         writeLogFile.escritaLogFile()
         # Abertura do socket de comunicação do cliente com os servidores
         sck = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+        sck.settimeout(5)
         # Recolha dos parâmetros que o cliente precisa para enviar a query DNS
 
         # Fim da recolha
@@ -52,9 +54,7 @@ class cl:
             now = datetime.today().isoformat()
             writeLogFile=logF(str(now),"QR/QE","localHost:"+str(3333),strDatagram,self.logF)
             writeLogFile.escritaLogFile()
-
         msg=""
-
         while msg=="":
             msg,add=sck.recvfrom(1024)
             sys.stdout.write(f"Recebi uma mensagem do servidor{add}\n")
