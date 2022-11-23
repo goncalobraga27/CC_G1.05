@@ -1,3 +1,7 @@
+# Started in: 31/09/2022
+# Changed by: Gonçalo Braga, João Gonçalves and Miguel Senra
+# Finished in: 23/11/2022
+
 import socket
 import sys
 import threading
@@ -11,13 +15,16 @@ from parserDataFile import parseDataFile
 from processQuery import pQuery
 from logFile import logF
 
-
 class sp:
-    global dictDataBase
-    dictDataBase=dict()
-    global lock
-    lock = threading.Lock()
+    
+    global dictDataBase              # Variável global que serve como estrutura de dados do SP
+    dictDataBase=dict()              # Inicialização da estrutura de dados do SP
+    global lock                      # Variável global para controlo de concorrência das threads na transferência de zona 
+    lock = threading.Lock()          # Inicialização do Lock
     def __init__(self, ipSP, domainServer, nameConfig_File, portaUDP, portaTCP_SP, portaTCP_SS):
+        """
+        Criação/Inicialização da classe sp
+        """
         self.ipSP = ipSP
         self.domainServer = domainServer
         self.nameConfig_File = nameConfig_File
@@ -31,17 +38,31 @@ class sp:
         self.lista_logFile=[]
 
     def verificaDomain(d,domainServer):
+        """
+        Verifica se dois domínios passados como parâmetros são iguais
+        """
         if d==domainServer: 
             return True
         else: 
             return False
 
-    def verificaipSS(ip,listaIP_SS):
+    def verificaipSS(ip,listaIP_SS): 
+        """
+        Verifica se um IP existe numa lista de IP's passados como parâmetro
+        """
         for it in listaIP_SS:
             if it==ip: return True
         return False 
 
     def runfstThread(ipSP,portaTCP_SP,verifTime_DataBase,versao_DataBase,domainServer,listaIP_SS,tamanhoDataBase,lista_LogFile):
+        """
+        Esta função pertence á zone transfer
+        A metodologia da função é a seguinte:
+        1º Criação/Inicialização de um socket TCP para comunicação entre servidores
+        2º Ciclo que serve para aceitar a conexão entre servidores e delega a outra thread o trabalho da zone transfer 
+
+        Esta função serve como "centro de controlo" da zone transfer
+        """
         s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         s.bind((ipSP,portaTCP_SP))
         s.listen()
@@ -51,6 +72,11 @@ class sp:
         s.close()
 
     def runsecThread(ipSP,connection,address,versao_DataBase,domainServer,listaIP_SS,tamanhoDataBase,lista_LogFile,verifTime_DataBase):
+        """
+        Esta função é a função que realmente realiza trabalho na zone transfer, tal como receber queries TCP do SS e enviar respostas ás queries do SS
+        Como podemos visualizar, é criado um protocolo para a zone transfer entre servidores
+        A especificação do protocolo aqui estabelecido, encontra-se devidamente ilustrado no relatório da primeira fase do trabalho
+        """
         print("Vou tratar da parte da ZT no SP")
         lock.acquire()
         print("Vou receber a primeira mensagem")
@@ -118,13 +144,24 @@ class sp:
            
 
     def runSP(self):
-        # O path do ficheiro de dados do SP está armazenado na variável path_FileDataBase
-        # A lista com nome listaIP_SS tem armazenado os ips do SS para este SP          Exemplo:  IP-[10.0.1.10,10.0.2.10]
-        #                                                                                              |             |
-        # A lista com nome listaPorta_SS tem armazenado as portas do SS para este SP           Porta-[3333     ,   3333]
-        # A lista com nome listaLogFile tem os paths dos logs files do domain e de todos os dominios (all), basicamente é uma lista com prioridades
-        # Exemplo : [Files/logfileSP.txt,Files/logfiles.txt]
-        #          Log file do dominio do SP, Log file do all
+        """
+        O path do ficheiro de dados do SP está armazenado na variável path_FileDataBase
+        A lista com nome listaIP_SS tem armazenado os ips do SS para este SP          Exemplo:  IP-[10.0.1.10,10.0.2.10]
+                                                                                                      |             |
+        A lista com nome listaPorta_SS tem armazenado as portas do SS para este SP           Porta-[3333     ,   3333]
+        A lista com nome listaLogFile tem os paths dos logs files do domain e de todos os dominios (all), basicamente é uma lista com prioridades
+        Exemplo : [Files/logfileSP.txt,Files/logfiles.txt]
+                 Log file do dominio do SP, Log file do all
+
+        É nesta função que existe a junção e encadeamento das diversos processos existentes no SP
+        A metodologia utilizada nesta função é a seguinte:
+        1º Parsing de todos os ficheiros que são necessários para o arranque do componente 
+        2º Preenchimento do ficheiro log com o comportamento do parsing e do arranque do componente
+        3º Inicialização do processo de zone transfer entre os servidores 
+        4º Inicialização do processo de resposta a queries dos clientes 
+
+        DISCLAIMER: Depois de "inicializados" os processos de zone transfer e respostaa queries, o servidor está pronto a fazer estes processos
+        """
 
         parseConfFile = parseConfigFile(self.nameConfig_File)
         listaIP_SS,listaPorta_SS,listaLogFile,pathFileDataBase = parseConfFile.parsingConfigFile()  
@@ -148,7 +185,6 @@ class sp:
 
         print(f"Estou à escuta no {self.ipSP}:{self.portaUDP}\n")
         threading.Thread(target=sp.runfstThread, args=(self.ipSP,self.portaTCP_SP,self.VerifTime_DataBase,self.versao_DataBase,self.domainServer,self.listaIP_SS,self.tamanhoDataBase,self.lista_logFile)).start()
-
 
         while True:
 

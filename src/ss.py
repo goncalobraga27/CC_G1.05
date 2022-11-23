@@ -1,15 +1,21 @@
+# Started in: 31/09/2022
+# Changed by: Gonçalo Braga, João Gonçalves and Miguel Senra
+# Finished in: 23/11/2022
 import socket
 import threading
 import time
 from datetime import datetime
 from random import randint
 from sys import argv
-
 from answerQuery import aQuery
 from parserConfFile import parseConfigFile
 from processQuery import pQuery
 from logFile import logF
 class controlaDB:
+    """
+    Classe que serve para controlo dos dados que surgem da zone transfer, tal como a versão da base de dados que possui 
+    e do tempo de verificação dos dados da base de dados(espécie do TTL da base de dados)
+    """
     def __init__(self,versao_DataBase,verifTime_DataBase):
         self.versao=versao_DataBase
         self.verifTime_DataBase=verifTime_DataBase
