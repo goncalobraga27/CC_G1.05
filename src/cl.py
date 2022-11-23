@@ -1,3 +1,7 @@
+# Started in: 31/09/2022
+# Changed by: Gonçalo Braga, João Gonçalves and Miguel Senra
+# Finished in: 23/11/2022
+
 from random import randint
 import socket
 from sys import argv
@@ -15,6 +19,19 @@ class cl:
         self.logF=logFile
 
     def runCL(self):
+        
+        """
+        O ip do Servidor à qual se quer enviar a query, o seu domínio, o tipo da mensagem, a flag e o path do log File são passados como argumento
+        no objeto que é passado como argumento na função. 
+
+        A metodologia utilizada nesta função é a seguinte:
+            1º É aberto um socket de comunicação UDP
+            2º É criado um datagrama UDP desincriptado com os dados da query
+            3º É enviada a mensagem se o tamanho for menor que 1000 bytes
+            4º É recebida a resposta por parte do Servidor
+            5º O socket UDP é encerrado
+        """
+
         now = datetime.today().isoformat()
         writeLogFile=logF(str(now),"EV","@",self.logF,self.logF)
         writeLogFile.escritaLogFile()

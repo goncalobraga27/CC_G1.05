@@ -1,3 +1,7 @@
+# Started in: 31/09/2022
+# Changed by: Gonçalo Braga, João Gonçalves and Miguel Senra
+# Finished in: 23/11/2022
+
 class aQuery:
     def __init__(self,message_id,flags,response_code, dictDataBase, typeValue):
         self.dictDataBase = dictDataBase

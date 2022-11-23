@@ -1,5 +1,10 @@
+# Started in: 31/09/2022
+# Changed by: Gonçalo Braga, João Gonçalves and Miguel Senra
+# Finished in: 23/11/2022
+
 from logFile import logF
 from datetime import datetime
+
 class parseConfigFile:
 
   def __init__(self, configFile):

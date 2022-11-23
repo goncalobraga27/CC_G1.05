@@ -1,3 +1,7 @@
+# Started in: 31/09/2022
+# Changed by: Gonçalo Braga, João Gonçalves and Miguel Senra
+# Finished in: 23/11/2022
+
 class pQuery:
     def __init__(self, msg, domain_server):
         self.msg = msg

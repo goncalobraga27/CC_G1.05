@@ -140,17 +140,6 @@ class ss:
         s.close()
 
     def runSS(self):
-        parseConfFile = parseConfigFile(self.nameConfig_File)
-        listaIP_SP,listaPorta_SP,listaLogFile,path_FileDataBase=parseConfFile.parsingConfigFile()  
-        self.lista_logFile=listaLogFile 
-        self.listaIP_SP=listaIP_SP
-        if self.listaIP_SP==[] and self.lista_logFile==[] and listaPorta_SP==[]:
-            now = datetime.today().isoformat()
-            writeLogFile=logF(str(now),"FL","127.0.0.1","Parse config File error",self.lista_logFile[0])
-            writeLogFile.escritaLogFile()
-        now = datetime.today().isoformat()
-        writeLogFile=logF(str(now),"EV","@",self.nameConfig_File+" "+self.lista_logFile[0],self.lista_logFile[0])
-        writeLogFile.escritaLogFile()
         """
         O path do ficheiro de dados do SS está armazenado na variável path_FileDataBase
         A lista com nome listaIP_SP tem armazenado o ips do SP para este SS         Exemplo:  IP-[10.0.1.10]
@@ -168,6 +157,18 @@ class ss:
 
         DISCLAIMER: Depois de feita a inicialização de todos os processos que ocorrem no SS, este encontra disponível para realizar este processos ciclicamente
         """
+
+        parseConfFile = parseConfigFile(self.nameConfig_File)
+        listaIP_SP,listaPorta_SP,listaLogFile,path_FileDataBase=parseConfFile.parsingConfigFile()  
+        self.lista_logFile=listaLogFile 
+        self.listaIP_SP=listaIP_SP
+        if self.listaIP_SP==[] and self.lista_logFile==[] and listaPorta_SP==[]:
+            now = datetime.today().isoformat()
+            writeLogFile=logF(str(now),"FL","127.0.0.1","Parse config File error",self.lista_logFile[0])
+            writeLogFile.escritaLogFile()
+        now = datetime.today().isoformat()
+        writeLogFile=logF(str(now),"EV","@",self.nameConfig_File+" "+self.lista_logFile[0],self.lista_logFile[0])
+        writeLogFile.escritaLogFile()
     
         
         sck = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)

@@ -3,5 +3,5 @@ campeoesUC.lei DB /home/core/Desktop/CC_G1.05/Files/dataBaseLEIuc1.txt
 campeoesUC.lei SS 10.2.2.3:3333
 campeoesUC.lei DD 127.0.0.1
 campeoesUC.lei LG /home/core/Desktop/CC_G1.05/Files/logFileLEIuc1.txt
-all LG /home/core/Desktop/CC_G1.05/Files/logFileLEI.txt
+all LG /home/core/Desktop/CC_G1.05/Files/logFileMEI.txt
 root ST /home/core/Desktop/CC_G1.05/Files/topServerMei.txt
