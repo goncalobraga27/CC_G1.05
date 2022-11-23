@@ -1,0 +1,6 @@
+# Configuration file for LEIua2 server for campeoesUA.mei
+campeoesUA.mei SP 10.1.1.3:3333
+campeoesUA.mei DD 127.0.0.1
+campeoesUA.mei LG /home/core/Desktop/CC_G1.05/logFileLEIua2.txt
+all LG /home/core/Desktop/CC_G1.05/Files/logFileLEI.txt
+root ST /home/core/Desktop/CC_G1.05/Files/topServerMei.txt

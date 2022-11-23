@@ -1,0 +1,5 @@
+# DNS database file for top server 1(ST1) in domain . for domain .lei
+NS 10.2.2.2:3333
+A 10.4.4.2:3333
+NS 10.3.3.2:3333
+A 10.1.1.2:3333
