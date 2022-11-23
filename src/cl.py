@@ -45,7 +45,7 @@ class cl:
         strDatagram = ' '.join(datagramaUDPDesincriptada)
 
         if len(strDatagram) <= 1000: #Ver se o tamanho da mensagem é menor ou igual a 1000 bytes
-            print("Estou a enviar esta mensagem",strDatagram)
+            sys.stdout.write("Estou a enviar esta mensagem",strDatagram)
             b = strDatagram.encode('UTF-8')
             sck.sendto(b, (self.ipServer, 3333))
             now = datetime.today().isoformat()
@@ -56,9 +56,9 @@ class cl:
 
         while msg=="":
             msg,add=sck.recvfrom(1024)
-            print(f"Recebi uma mensagem do servidor{add}")
-            print("CONTEÚDO DA MENSAGEM:\n")
-            print(msg.decode('utf-8'))
+            sys.stdout.write(f"Recebi uma mensagem do servidor{add}")
+            sys.stdout.write("CONTEÚDO DA MENSAGEM:\n")
+            sys.stdout.write(msg.decode('utf-8'))
             now = datetime.today().isoformat()
             writeLogFile=logF(str(now),"RP/RR","localHost:"+str(3333),msg.decode('utf-8'),self.logF)
             writeLogFile.escritaLogFile()
