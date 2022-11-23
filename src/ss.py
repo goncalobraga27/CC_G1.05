@@ -71,6 +71,11 @@ class ss:
         return True 
 
     def runsecThread(controlDB,ipSP,portaTCP_SP,domainServer,lista_LogFile):
+        """
+        Esta função é a função que realmente realiza trabalho na zone transfer, tal como enviar queries ao SP a pedir dados da base de dados e o seu processamento.
+        Como podemos visualizar, é criado um protocolo para a zone transfer entre servidores.
+        A especificação do protocolo aqui estabelecido, encontra-se devidamente ilustrado no relatório da primeira fase do trabalho.
+        """
         s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         s.connect((ipSP,portaTCP_SP))
         Lock.acquire()
@@ -146,13 +151,24 @@ class ss:
         now = datetime.today().isoformat()
         writeLogFile=logF(str(now),"EV","@",self.nameConfig_File+" "+self.lista_logFile[0],self.lista_logFile[0])
         writeLogFile.escritaLogFile()
-        # O path do ficheiro de dados do SS está armazenado na variável path_FileDataBase
-        # A lista com nome listaIP_SP tem armazenado o ips do SP para este SS         Exemplo:  IP-[10.0.1.10]
-        #                                                                                              |   
-        # A lista com nome listaPorta_SP tem armazenado as portas do SP para este SS         Porta-[3333]
-        # A lista com nome listaLogFile tem os paths dos logs files do domain e de todos os dominios (all), basicamente é uma lista com prioridades
-        # Exemplo : [Files/logfileSS.txt,Files/logfiles.txt]
-        #          Log file do dominio do SS, Log file do all
+        """
+        O path do ficheiro de dados do SS está armazenado na variável path_FileDataBase
+        A lista com nome listaIP_SP tem armazenado o ips do SP para este SS         Exemplo:  IP-[10.0.1.10]
+                                                                                                      |   
+        A lista com nome listaPorta_SP tem armazenado as portas do SP para este SS         Porta-[3333]
+        A lista com nome listaLogFile tem os paths dos logs files do domain e de todos os dominios (all), basicamente é uma lista com prioridades
+        Exemplo : [Files/logfileSS.txt,Files/logfiles.txt]
+                  Log file do dominio do SS, Log file do all
+
+        A metodologia utilizada nesta função é a seguinte:
+        1º Parsing dos ficheiros necessários para o arranque do componente
+        2º É inicializado os processos de transferência de zona entre o servidor primário 
+        3º O servidor secundário, depois de obter os dados da base de dados do seu sp, encontra-se disponível para responder a queries do cliente 
+        que lhe sejam pedidas 
+
+        DISCLAIMER: Depois de feita a inicialização de todos os processos que ocorrem no SS, este encontra disponível para realizar este processos ciclicamente
+        """
+    
         
         sck = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 
