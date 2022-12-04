@@ -1,0 +1,4 @@
+Config file for resolver server in UMinho
+campeoesUM.lei SP 10.0.14.11:3333
+campeoesUM.lei SS 10.0.26.11:3333
+all LG ../Files/logFileSRUMinho.txt

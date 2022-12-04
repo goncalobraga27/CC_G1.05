@@ -228,7 +228,7 @@ class sp:
 
 
 def main():
-    ipSP = '10.2.2.2'
+    ipSP = '10.2.2.2' #ISTO AQUI TEM DE SER ALTERADO !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     nameConfig_File = sys.argv[1]  # ../Files/ConfigFileSP.txt 
     domainServer = sys.argv[2]
     portaUDP = 3333
