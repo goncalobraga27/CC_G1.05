@@ -1,7 +1,7 @@
 # Configuration file for LEIum1 server for campeoesUM.lei
-campeoesUM.lei DB /home/core/Desktop/CC_G1.05/Files/dataBaseLEIum1.txt
-campeoesUM.lei SS 10.4.4.2:3333
+campeoesUM.lei DB ../Files/dataBaseLEIum1.txt
+campeoesUM.lei SS 10.0.26.11:3333
 campeoesUM.lei DD 127.0.0.1
-campeoesUM.lei LG /home/core/Desktop/CC_G1.05/Files/logFileLEIum1.txt
-all LG /home/core/Desktop/CC_G1.05/Files/logFileLEI.txt
-root ST /home/core/Desktop/CC_G1.05/Files/topServerLei.txt
+campeoesUM.lei LG ../Files/logFileLEIum1.txt
+all LG ../Files/logFileLEI.txt
+root ST ../Files/topServerLei.txt

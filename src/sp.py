@@ -208,10 +208,10 @@ class sp:
             queryCheck_UDP=proQuery_UDP.processQuery(0)
 
             if (queryCheck_UDP==False):
-                sys.stdout.write("A query pedida não é válida\n")
+                sys.stdout.write("\nA query pedida não é válida\n")
 
             else:
-                sys.stdout.write(f"Recebi uma mensagem do cliente {add_UDP}\n")
+                sys.stdout.write(f"\nRecebi uma mensagem do cliente {add_UDP}\n")
                 now = datetime.today().isoformat()
                 writeLogFile=logF(str(now),"QR/QE",self.ipSP+":"+str(self.portaUDP),msg_UDP.decode('utf-8'),self.lista_logFile[0])
                 writeLogFile.escritaLogFile()

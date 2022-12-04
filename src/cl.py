@@ -71,8 +71,7 @@ class cl:
             now = datetime.today().isoformat()
             writeLogFile=logF(str(now),"QR/QE","localHost:"+str(3333),strDatagram,self.logF)
             writeLogFile.escritaLogFile()
-        msg=""
-        while msg=="":
+            # Resposta ás queries pedidas
             msg,add=sck.recvfrom(1024)
             sys.stdout.write(f"Recebi uma mensagem do servidor{add}\n")
             sys.stdout.write("CONTEÚDO DA MENSAGEM:\n")
