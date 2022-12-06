@@ -72,3 +72,7 @@ EXTRA-VALUES = mx2 A 193.136.130.21 TTL }
 { 2022-12-02T14:54:18.885736 EZ 10.4.4.2:6666 SP }
 { 2022-12-02T14:56:19.000914 EZ 10.4.4.2:6666 SP }
 { 2022-12-02T14:56:19.001413 EZ 10.4.4.2:6666 SP }
+{ 2022-12-06T00:05:17.179683 EV @ ../Files/ConfigFile-UMinho-LEIum1.txt ../Files/dataBaseLEIum1.txt
+ ../Files/logFileLEIum1.txt }
+{ 2022-12-06T14:38:31.463583 EV @ ../Files/ConfigFile-UMinho-LEIum1.txt ../Files/dataBaseLEIum1.txt
+ ../Files/logFileLEIum1.txt }

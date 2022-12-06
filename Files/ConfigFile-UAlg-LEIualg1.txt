@@ -1,6 +1,6 @@
 # Configuration file for LEIualg1 server for campeoesUALG.lei
 campeoesUALG.lei DB ../Files/dataBaseLEIualg1.txt
-campeoesUALG.lei SS 10.0.17.11:3333
+campeoesUALG.lei SS 10.0.15.10:3333
 campeoesUALG.lei DD 127.0.0.1
 campeoesUALG.lei LG ../Files/logFileLEIualg1.txt
 all LG ../Files/logFileLEI.txt

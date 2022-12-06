@@ -207,10 +207,10 @@ class ss:
 
 
 def main():
-    ipSS = '10.4.4.2'
-    ipSP = '10.2.2.2'
-    nameConfig_File = argv[1]  # ../Files/ConfigFileSS.txt 
-    domainServer = argv[2]
+    ipSS = sys.argv[1]
+    ipSP = sys.argv[2]
+    nameConfig_File = sys.argv[3]  # ../Files/ConfigFileSS.txt 
+    domainServer = sys.argv[4]
     portaUDP = 3333
     portaTCP_SS = 6666
     portaTCP_SP = 4444

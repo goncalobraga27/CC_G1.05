@@ -1,6 +1,6 @@
 # Configuration file for LEIum1 server for campeoesUM.lei
 campeoesUM.lei DB ../Files/dataBaseLEIum1.txt
-campeoesUM.lei SS 10.0.26.11:3333
+campeoesUM.lei SS 10.0.34.10:3333
 campeoesUM.lei DD 127.0.0.1
 campeoesUM.lei LG ../Files/logFileLEIum1.txt
 all LG ../Files/logFileLEI.txt
