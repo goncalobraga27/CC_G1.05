@@ -1447,3 +1447,39 @@ EXTRA-VALUES = mx2 A 193.136.130.21 TTL }
 { 2022-12-07T12:32:56.663488 QR/QE localHost:3333 4812 Q+R 0 0 0 0 campeoesUM.lei MX }
 { 2022-12-07T12:35:46.651704 EV @ ../Files/logfileCL.txt }
 { 2022-12-07T12:35:46.658940 QR/QE localHost:3333 3936 Q+R 0 0 0 0 campeoesUM.lei MX }
+{ 2022-12-07T14:55:01.320446 EV @ ../Files/logfileCL.txt }
+{ 2022-12-07T14:55:01.325495 QR/QE localHost:3333 18209 Q+R 0 0 0 0 campeoesUM.lei MX }
+{ 2022-12-07T14:55:01.335191 RP/RR localHost:3333 # Header
+MESSAGE-ID = 18209,FLAGS = R+A,RESPONSE-CODE = 0
+N-VALUES = 2 , N-AUTHORITIES =2 , N-EXTRA-VALUES =4 ;
+# Data: Query Info
+QUERY-INFO.NAME =  @ , QUERY-INFO.TYPE = MX ;
+# Data: List of Response, Authorities and Extra Values
+RESPONSE-VALUES = @ MX mx1.campeoesUM.lei TTL 10
+RESPONSE-VALUES = @ MX mx2.campeoesUM.lei TTL 20
+AUTHORITIES-VALUES = @ NS ns1.campeoesUM.lei. TTL
+AUTHORITIES-VALUES = @ NS ns2.campeoesUM.lei. TTL
+EXTRA-VALUES = ns1 A 193.136.130.101 TTL
+EXTRA-VALUES = ns2 A 193.137.100.102 TTL
+EXTRA-VALUES = mx1 A 193.136.130.20 TTL
+EXTRA-VALUES = mx2 A 193.136.130.21 TTL }
+{ 2022-12-07T15:17:20.116513 EV @ ../Files/logfileCL.txt }
+{ 2022-12-07T15:17:20.126298 QR/QE localHost:3333 15491 Q+R 0 0 0 0 campeoesUM.lei MX }
+{ 2022-12-07T15:18:12.701896 EV @ ../Files/logfileCL.txt }
+{ 2022-12-07T15:18:12.713211 QR/QE localHost:3333 20768 Q+R 0 0 0 0 campeoesUM.lei MX }
+{ 2022-12-07T15:21:04.019274 EV @ ../Files/logfileCL.txt }
+{ 2022-12-07T15:21:04.031219 QR/QE localHost:3333 60096 Q+R 0 0 0 0 campeoesUM.lei MX }
+{ 2022-12-07T15:29:02.377835 EV @ ../Files/logfileCL.txt }
+{ 2022-12-07T15:29:02.391196 QR/QE localHost:3333 11607 Q+R 0 0 0 0 campeoesUM.lei MX }
+{ 2022-12-07T15:37:06.977619 EV @ ../Files/logfileCL.txt }
+{ 2022-12-07T15:37:06.989724 QR/QE localHost:3333 61031 Q+R 0 0 0 0 campeoesUM.lei MX }
+{ 2022-12-07T15:40:19.373978 EV @ ../Files/logfileCL.txt }
+{ 2022-12-07T15:40:19.384281 QR/QE localHost:3333 32597 Q+R 0 0 0 0 campeoesUM.lei MX }
+{ 2022-12-07T15:40:19.400163 RP/RR localHost:3333 # Header
+MESSAGE-ID = 32597,FLAGS = R,RESPONSE-CODE = 0
+N-VALUES = 2 ;
+# Data: Query Info
+QUERY-INFO.NAME =  @ , QUERY-INFO.TYPE = MX ;
+# Data: List of Response, Authorities and Extra Values
+RESPONSE-VALUES = mx1.campeoesUM.lei
+RESPONSE-VALUES = mx2.campeoesUM.lei }

@@ -200,3 +200,32 @@ EXTRA-VALUES = mx2 A 193.136.130.21 TTL }
  ../Files/logFileLEIum1.txt }
 { 2022-12-07T12:35:39.655545 EV @ ../Files/ConfigFile-UMinho-LEIum1.txt ../Files/dataBaseLEIum1.txt
  ../Files/logFileLEIum1.txt }
+{ 2022-12-07T14:54:45.993186 EV @ ../Files/ConfigFile-UMinho-LEIum1.txt ../Files/dataBaseLEIum1.txt
+ ../Files/logFileLEIum1.txt }
+{ 2022-12-07T14:55:01.322692 QR/QE 10.0.16.10:3333 18209 Q+R 0 0 0 0 campeoesUM.lei MX }
+{ 2022-12-07T14:55:01.325302 RP\RR 10.0.13.20:3333 # Header
+MESSAGE-ID = 18209,FLAGS = R+A,RESPONSE-CODE = 0
+N-VALUES = 2 , N-AUTHORITIES =2 , N-EXTRA-VALUES =4 ;
+# Data: Query Info
+QUERY-INFO.NAME =  @ , QUERY-INFO.TYPE = MX ;
+# Data: List of Response, Authorities and Extra Values
+RESPONSE-VALUES = @ MX mx1.campeoesUM.lei TTL 10
+RESPONSE-VALUES = @ MX mx2.campeoesUM.lei TTL 20
+AUTHORITIES-VALUES = @ NS ns1.campeoesUM.lei. TTL
+AUTHORITIES-VALUES = @ NS ns2.campeoesUM.lei. TTL
+EXTRA-VALUES = ns1 A 193.136.130.101 TTL
+EXTRA-VALUES = ns2 A 193.137.100.102 TTL
+EXTRA-VALUES = mx1 A 193.136.130.20 TTL
+EXTRA-VALUES = mx2 A 193.136.130.21 TTL }
+{ 2022-12-07T14:56:28.416494 EV @ ../Files/ConfigFile-UMinho-LEIum1.txt ../Files/dataBaseLEIum1.txt
+ ../Files/logFileLEIum1.txt }
+{ 2022-12-07T15:18:06.642393 EV @ ../Files/ConfigFile-UMinho-LEIum1.txt ../Files/dataBaseLEIum1.txt
+ ../Files/logFileLEIum1.txt }
+{ 2022-12-07T15:20:55.355903 EV @ ../Files/ConfigFile-UMinho-LEIum1.txt ../Files/dataBaseLEIum1.txt
+ ../Files/logFileLEIum1.txt }
+{ 2022-12-07T15:28:56.604396 EV @ ../Files/ConfigFile-UMinho-LEIum1.txt ../Files/dataBaseLEIum1.txt
+ ../Files/logFileLEIum1.txt }
+{ 2022-12-07T15:37:03.591846 EV @ ../Files/ConfigFile-UMinho-LEIum1.txt ../Files/dataBaseLEIum1.txt
+ ../Files/logFileLEIum1.txt }
+{ 2022-12-07T15:40:13.173499 EV @ ../Files/ConfigFile-UMinho-LEIum1.txt ../Files/dataBaseLEIum1.txt
+ ../Files/logFileLEIum1.txt }
