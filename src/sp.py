@@ -13,6 +13,7 @@ from parserConfFile import parseConfigFile
 from parserDataFile import parseDataFile
 from processQuery import pQuery
 from logFile import logF
+from threadResolver import thrResolver
 
 class sp:
     
@@ -196,7 +197,7 @@ class sp:
 
         sys.stdout.write(f"Estou à escuta no {self.ipSP}:{self.portaUDP}\n")
         threading.Thread(target=sp.runfstThread, args=(self.ipSP,self.portaTCP_SP,self.VerifTime_DataBase,self.versao_DataBase,self.domainServer,self.listaIP_SS,self.tamanhoDataBase,self.lista_logFile)).start()
-
+        threading.Thread(target=thrResolver.runfstResolver, args=(self.ipSP,3332,dictDataBase)).start()
         while True:
 
             msg_UDP,add_UDP = sck_UDP.recvfrom(1024)

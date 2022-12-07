@@ -63,7 +63,6 @@ class cl:
         # Fim do acrescento 
         datagramaUDPDesincriptada=header+data #Criação da mensagem(header+data)
         strDatagram = ' '.join(datagramaUDPDesincriptada)
-
         if len(strDatagram) <= 1000: #Ver se o tamanho da mensagem é menor ou igual a 1000 bytes
             sys.stdout.write("Estou a enviar esta mensagem\n")
             b = strDatagram.encode('UTF-8')

@@ -2,20 +2,28 @@
 # Changed by: Gonçalo Braga, João Gonçalves and Miguel Senra
 # Finished in: 2/1/23
 
-
-import datetime
-import socket
-import sys
 from cacheSR import cache
 from entryCache import entry
-from logFile import logF
+import socket
+import sys
+import threading
+import time
+from datetime import datetime
+from random import randint
+from sys import argv
+from answerQuery import aQuery
 from parserConfigFileSR import parseConfigFileSR
+from processQuery import pQuery
+from logFile import logF
+
+
 class sr:
 
-    def __init__(self,ipSR,portaSR,nameConfigFile):
+    def __init__(self,ipSR,portaSR,nameConfigFile,domainSR):
         self.ipSR=ipSR
         self.portaSR=portaSR
         self.nameConfigFile=nameConfigFile
+        self.domainSR=domainSR
         self.listaIP_SP=[]
         self.listaIP_SS=[]
         self.listaPorta_SP=[]
@@ -24,6 +32,8 @@ class sr:
     
     def runSR(self):
         c=cache()
+        for key in c.cache.keys():
+            print(c.cache[key].stringEntry())
         """
         Parte do parsing do config file do SR
         """
@@ -49,14 +59,34 @@ class sr:
         sys.stdout.write(f"Estou à escuta no {self.ipSR}:{self.portaSR}\n")
         while True:
 
-            e1=entry("campeoesUM.lei","MX","mx1.campeoesUM.lei","15","10","SP","5s","0","Valid")
-            e2=entry("campeoesUM.lei","MX","mx2.campeoesUM.lei","17","10","SP","5s","0","Valid")
-            e3=entry("campeoesUM.lei","MX","mx3.campeoesUM.lei","18","10","SP","2s","0","Valid")
-            e4=entry("campeoesUM.lei","MX","mx4.campeoesUM.lei","18","10","SP","1s","0","Valid")
-            c.addEntry(e1)
-            c.addEntry(e2)
-            c.addEntry(e3)
-            c.addEntry(e4)
+            msg_UDP,add_UDP = sck_UDP.recvfrom(1024)
+
+            sys.stdout.write(msg_UDP.decode('utf-8'))
+            proQuery_UDP = pQuery(msg_UDP.decode('utf-8'), self.domainSR)
+            queryCheck_UDP=proQuery_UDP.processQuery(0)
+
+            if (queryCheck_UDP==False):
+                sys.stdout.write("\nA query pedida não é válida\n")
+            else:
+                sys.stdout.write(f"\nRecebi uma mensagem do cliente {add_UDP}\n")
+                now = datetime.today().isoformat()
+                writeLogFile=logF(str(now),"QR/QE",self.ipSR+":"+str(self.portaSR),msg_UDP.decode('utf-8'),self.listaLogFile[0])
+                writeLogFile.escritaLogFile()
+                sck = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+                pedidoNormal="MX"
+                pedido=pedidoNormal.encode('UTF-8')
+                sck.sendto(pedido, (self.listaIP_SP[0], 3332))
+                msg_UDP,add_UDP = sck.recvfrom(1024)
+                numberLinhas=int(msg_UDP.decode('UTF-8'))
+
+                for i in range(0,numberLinhas):
+                    msg_UDP,add_UDP = sck.recvfrom(1024)
+                    linha=msg_UDP.decode('UTF-8')
+                    listaParametrosLinha=linha.split(' ')
+                    e1=entry(self.domainSR,pedidoNormal,listaParametrosLinha[2],listaParametrosLinha[3],listaParametrosLinha[4],"SP","0","0","Valid")
+                    c.addEntry(e1)
+                    #for key in c.cache.keys():
+                        #print(c.cache[key].stringEntry())
 
 
 
@@ -68,7 +98,8 @@ class sr:
 def main():
     ipSR=sys.argv[1]
     nameConfigFile = sys.argv[2]
-    srObj=sr(ipSR,3333,nameConfigFile)
+    domainSR=sys.argv[3]
+    srObj=sr(ipSR,3333,nameConfigFile,domainSR)
     srObj.runSR()
 
 if __name__ == "__main__":

@@ -1,0 +1,4 @@
+Config file for resolver server in UAveiro
+campeoesUA.lei SP 10.0.25.10:3333
+campeoesUA.lei SS 10.0.31.10:3333
+all LG ../Files/logFileSRUAveiro.txt

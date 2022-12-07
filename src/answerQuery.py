@@ -44,4 +44,4 @@ class aQuery:
         listaCabecalho.append("# Data: List of Response, Authorities and Extra Values")
         
 
-        return listaCabecalho+listaRes
+        return (listaCabecalho+listaRes)

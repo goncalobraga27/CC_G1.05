@@ -42,6 +42,7 @@ class pQuery:
             else:
                     return False
             self.message_id=lista_ParametrosQuery[0]
-            self.typeValue=lista_ParametrosQuery[7]        
+            self.typeValue=lista_ParametrosQuery[7]   
+
             return queryCheck
-        #else:
+        

@@ -1,0 +1,4 @@
+Config file for resolver server in UCoimbra
+campeoesUC.lei SP 10.0.20.10:3333
+campeoesUC.lei SS 10.0.15.10:3333
+all LG ../Files/logFileSRUCoimbra.txt
