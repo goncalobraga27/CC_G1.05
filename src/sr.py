@@ -11,10 +11,10 @@ import time
 from datetime import datetime
 from random import randint
 from sys import argv
-from answerQuery import aQuery
 from parserConfigFileSR import parseConfigFileSR
 from processQuery import pQuery
 from logFile import logF
+from answerQuerySR import aQuerySR
 
 
 class sr:
@@ -32,8 +32,6 @@ class sr:
     
     def runSR(self):
         c=cache()
-        for key in c.cache.keys():
-            print(c.cache[key].stringEntry())
         """
         Parte do parsing do config file do SR
         """
@@ -68,13 +66,15 @@ class sr:
             if (queryCheck_UDP==False):
                 sys.stdout.write("\nA query pedida não é válida\n")
             else:
+                """
+                Parte onde se pede os dados a um servidor(NESTE CASO AINDA SÓ PEDE AO SP!!!!!!!!!!!!!!)
+                """
                 sys.stdout.write(f"\nRecebi uma mensagem do cliente {add_UDP}\n")
                 now = datetime.today().isoformat()
                 writeLogFile=logF(str(now),"QR/QE",self.ipSR+":"+str(self.portaSR),msg_UDP.decode('utf-8'),self.listaLogFile[0])
                 writeLogFile.escritaLogFile()
                 sck = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-                pedidoNormal="MX"
-                pedido=pedidoNormal.encode('UTF-8')
+                pedido=proQuery_UDP.typeValue.encode('UTF-8')
                 sck.sendto(pedido, (self.listaIP_SP[0], 3332))
                 msg_UDP,add_UDP = sck.recvfrom(1024)
                 numberLinhas=int(msg_UDP.decode('UTF-8'))
@@ -83,11 +83,14 @@ class sr:
                     msg_UDP,add_UDP = sck.recvfrom(1024)
                     linha=msg_UDP.decode('UTF-8')
                     listaParametrosLinha=linha.split(' ')
-                    e1=entry(self.domainSR,pedidoNormal,listaParametrosLinha[2],listaParametrosLinha[3],listaParametrosLinha[4],"SP","0","0","Valid")
+                    e1=entry(self.domainSR,proQuery_UDP.typeValue,listaParametrosLinha[2],listaParametrosLinha[3],listaParametrosLinha[4],"SP","0","0","Valid")
                     c.addEntry(e1)
-                    #for key in c.cache.keys():
-                        #print(c.cache[key].stringEntry())
-
+                
+                ansQuerySR = aQuerySR(proQuery_UDP.message_id,"R",str(0),c.cache,proQuery_UDP.typeValue)
+                resposta = ansQuerySR.answerQuery()
+                respostaDatagram = '\n'.join(resposta)
+                b =respostaDatagram.encode('UTF-8')
+                sck_UDP.sendto(b,add_UDP)
 
 
 

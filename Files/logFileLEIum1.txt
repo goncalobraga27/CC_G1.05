@@ -196,3 +196,7 @@ EXTRA-VALUES = ns1 A 193.136.130.101 TTL
 EXTRA-VALUES = ns2 A 193.137.100.102 TTL
 EXTRA-VALUES = mx1 A 193.136.130.20 TTL
 EXTRA-VALUES = mx2 A 193.136.130.21 TTL }
+{ 2022-12-07T12:32:48.367698 EV @ ../Files/ConfigFile-UMinho-LEIum1.txt ../Files/dataBaseLEIum1.txt
+ ../Files/logFileLEIum1.txt }
+{ 2022-12-07T12:35:39.655545 EV @ ../Files/ConfigFile-UMinho-LEIum1.txt ../Files/dataBaseLEIum1.txt
+ ../Files/logFileLEIum1.txt }
