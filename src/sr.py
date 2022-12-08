@@ -2,6 +2,7 @@
 # Changed by: Gonçalo Braga, João Gonçalves and Miguel Senra
 # Finished in: 2/1/23
 
+
 from cacheSR import cache
 from entryCache import entry
 import socket
@@ -15,6 +16,10 @@ from parserConfigFileSR import parseConfigFileSR
 from processQuery import pQuery
 from logFile import logF
 from answerQuerySR import aQuerySR
+
+from re import T
+from processQuery import pQuery
+from logFile import logF
 
 
 class sr:
@@ -75,19 +80,20 @@ class sr:
                 writeLogFile.escritaLogFile()
                 sck = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
                 pedido=proQuery_UDP.typeValue.encode('UTF-8')
+                print(f"PEDIDO FEITO NO SR {pedido}")
                 sck.sendto(pedido, (self.listaIP_SP[0], 3332))
-                msg_UDP,add_UDP = sck.recvfrom(1024)
+                msg_UDP,add_UDP_SR = sck.recvfrom(1024)
                 numberLinhas=int(msg_UDP.decode('UTF-8'))
 
                 for i in range(0,numberLinhas):
-                    msg_UDP,add_UDP = sck.recvfrom(1024)
+                    msg_UDP,add_UDP_SR = sck.recvfrom(1024)
                     linha=msg_UDP.decode('UTF-8')
                     listaParametrosLinha=linha.split(' ')
                     e1=entry(self.domainSR,proQuery_UDP.typeValue,listaParametrosLinha[2],listaParametrosLinha[3],listaParametrosLinha[4],"SP","0","0","Valid")
                     c.addEntry(e1)
                 
                 ansQuerySR = aQuerySR(proQuery_UDP.message_id,"R",str(0),c.cache,proQuery_UDP.typeValue)
-                resposta = ansQuerySR.answerQuery()
+                resposta = ansQuerySR.answerQuerySR()
                 respostaDatagram = '\n'.join(resposta)
                 b =respostaDatagram.encode('UTF-8')
                 sck_UDP.sendto(b,add_UDP)

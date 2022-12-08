@@ -15,6 +15,7 @@ class thrResolver:
         while True:
             msg_UDP,add_UDP = sck_UDP.recvfrom(1024)
             tipoPedido=msg_UDP.decode('utf-8')
+            print(f"TIPO DO PEDIDO RECEBIDO {tipoPedido}")
             listaResultado=dictDataBase[tipoPedido]
             sck_UDP.sendto(str(len(listaResultado)).encode('UTF-8'),add_UDP)
             for linhaDataBase in listaResultado:
