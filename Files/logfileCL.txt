@@ -1518,3 +1518,229 @@ EXTRA-VALUES = ns1 A 193.136.130.101 TTL
 EXTRA-VALUES = ns2 A 193.137.100.102 TTL
 EXTRA-VALUES = mx1 A 193.136.130.20 TTL
 EXTRA-VALUES = mx2 A 193.136.130.21 TTL }
+{ 2022-12-08T17:39:54.581038 EV @ ../Files/logfileCL.txt }
+{ 2022-12-08T17:39:54.587145 QR/QE localHost:3333 21588 Q+R 0 0 0 0 campeoesUM.lei MX }
+{ 2022-12-08T17:39:54.587648 RP/RR localHost:3333 # Header
+MESSAGE-ID = 21588,FLAGS = R+A,RESPONSE-CODE = 0
+N-VALUES = 2 , N-AUTHORITIES =2 , N-EXTRA-VALUES =4 ;
+# Data: Query Info
+QUERY-INFO.NAME =  @ , QUERY-INFO.TYPE = MX ;
+# Data: List of Response, Authorities and Extra Values
+RESPONSE-VALUES = @ MX mx1.campeoesUM.lei TTL 10
+RESPONSE-VALUES = @ MX mx2.campeoesUM.lei TTL 20
+AUTHORITIES-VALUES = @ NS ns1.campeoesUM.lei. TTL
+AUTHORITIES-VALUES = @ NS ns2.campeoesUM.lei. TTL
+EXTRA-VALUES = ns1 A 193.136.130.101 TTL
+EXTRA-VALUES = ns2 A 193.137.100.102 TTL
+EXTRA-VALUES = mx1 A 193.136.130.20 TTL
+EXTRA-VALUES = mx2 A 193.136.130.21 TTL }
+{ 2022-12-08T17:40:00.726127 EV @ ../Files/logfileCL.txt }
+{ 2022-12-08T17:40:00.729557 QR/QE localHost:3333 31472 Q+R 0 0 0 0 campeoesUM.lei MX }
+{ 2022-12-08T17:40:00.739508 RP/RR localHost:3333 # Header
+MESSAGE-ID = 31472,FLAGS = R+A,RESPONSE-CODE = 0
+N-VALUES = 2 , N-AUTHORITIES =2 , N-EXTRA-VALUES =4 ;
+# Data: Query Info
+QUERY-INFO.NAME =  @ , QUERY-INFO.TYPE = MX ;
+# Data: List of Response, Authorities and Extra Values
+RESPONSE-VALUES = @ MX mx1.campeoesUM.lei TTL 10
+RESPONSE-VALUES = @ MX mx2.campeoesUM.lei TTL 20
+AUTHORITIES-VALUES = @ NS ns1.campeoesUM.lei. TTL
+AUTHORITIES-VALUES = @ NS ns2.campeoesUM.lei. TTL
+EXTRA-VALUES = ns1 A 193.136.130.101 TTL
+EXTRA-VALUES = ns2 A 193.137.100.102 TTL
+EXTRA-VALUES = mx1 A 193.136.130.20 TTL
+EXTRA-VALUES = mx2 A 193.136.130.21 TTL }
+{ 2022-12-08T17:40:26.965249 EV @ ../Files/logfileCL.txt }
+{ 2022-12-08T17:40:26.969984 QR/QE localHost:3333 28148 Q+R 0 0 0 0 campeoesUM.lei MX }
+{ 2022-12-08T17:40:26.980664 RP/RR localHost:3333 # Header
+MESSAGE-ID = 28148,FLAGS = R,RESPONSE-CODE = 0
+N-VALUES = 2 , N-AUTHORITIES =2 , N-EXTRA-VALUES =4 ;
+# Data: Query Info
+QUERY-INFO.NAME =  @ , QUERY-INFO.TYPE = MX ;
+# Data: List of Response, Authorities and Extra Values
+RESPONSE-VALUES = @ MX mx1.campeoesUM.lei TTL 10
+RESPONSE-VALUES = @ MX mx2.campeoesUM.lei TTL 20
+AUTHORITIES-VALUES = @ NS ns1.campeoesUM.lei. TTL
+AUTHORITIES-VALUES = @ NS ns2.campeoesUM.lei. TTL
+EXTRA-VALUES = ns1 A 193.136.130.101 TTL
+EXTRA-VALUES = ns2 A 193.137.100.102 TTL
+EXTRA-VALUES = mx1 A 193.136.130.20 TTL
+EXTRA-VALUES = mx2 A 193.136.130.21 TTL }
+{ 2022-12-08T17:40:37.984662 EV @ ../Files/logfileCL.txt }
+{ 2022-12-08T17:40:37.990499 QR/QE localHost:3333 53117 Q+R 0 0 0 0 campeoesUM.lei MX }
+{ 2022-12-08T17:40:58.738539 EV @ ../Files/logfileCL.txt }
+{ 2022-12-08T17:40:58.746323 QR/QE localHost:3333 64553 Q+R 0 0 0 0 campeoesUM.lei MX }
+{ 2022-12-08T17:40:58.753040 RP/RR localHost:3333 # Header
+MESSAGE-ID = 64553,FLAGS = R,RESPONSE-CODE = 0
+N-VALUES = 2 ;
+# Data: Query Info
+QUERY-INFO.NAME =  @ , QUERY-INFO.TYPE = MX ;
+# Data: List of Response, Authorities and Extra Values
+RESPONSE-VALUES = mx1.campeoesUM.lei
+RESPONSE-VALUES = mx2.campeoesUM.lei }
+{ 2022-12-08T17:41:17.987468 EV @ ../Files/logfileCL.txt }
+{ 2022-12-08T17:41:17.991730 QR/QE localHost:3333 36949 Q+R 0 0 0 0 campeoesUM.lei MX }
+{ 2022-12-08T17:41:17.992020 RP/RR localHost:3333 # Header
+MESSAGE-ID = 36949,FLAGS = R,RESPONSE-CODE = 0
+N-VALUES = 4 ;
+# Data: Query Info
+QUERY-INFO.NAME =  @ , QUERY-INFO.TYPE = MX ;
+# Data: List of Response, Authorities and Extra Values
+RESPONSE-VALUES = mx1.campeoesUM.lei
+RESPONSE-VALUES = mx2.campeoesUM.lei
+RESPONSE-VALUES = mx1.campeoesUM.lei
+RESPONSE-VALUES = mx2.campeoesUM.lei }
+{ 2022-12-08T18:51:00.425714 EV @ ../Files/logfileCL.txt }
+{ 2022-12-08T18:51:00.430350 QR/QE localHost:3333 35624 Q+R 0 0 0 0 campeoesUC.lei MX }
+{ 2022-12-08T18:52:01.106876 EV @ ../Files/logfileCL.txt }
+{ 2022-12-08T18:52:01.107660 QR/QE localHost:3333 3862 Q+R 0 0 0 0 campeoesUC.lei MX }
+{ 2022-12-08T20:53:43.919032 EV @ ../Files/logfileCL.txt }
+{ 2022-12-08T20:53:43.927088 QR/QE localHost:3333 32511 Q+R 0 0 0 0 campeoesUC.lei MX }
+{ 2022-12-08T21:10:40.315694 EV @ ../Files/logfileCL.txt }
+{ 2022-12-08T21:10:40.323463 QR/QE localHost:3333 346 Q+R 0 0 0 0 campeoesUC.lei MX }
+{ 2022-12-08T21:11:18.314076 EV @ ../Files/logfileCL.txt }
+{ 2022-12-08T21:11:18.320332 QR/QE localHost:3333 13453 Q+R 0 0 0 0 campeoesUC.lei MX }
+{ 2022-12-08T21:12:47.613859 EV @ ../Files/logfileCL.txt }
+{ 2022-12-08T21:12:47.616002 QR/QE localHost:3333 27622 Q+R 0 0 0 0 campeoesUC.lei MX }
+{ 2022-12-08T21:15:47.931585 EV @ ../Files/logfileCL.txt }
+{ 2022-12-08T21:15:47.933260 QR/QE localHost:3333 33570 Q+R 0 0 0 0 campeoesUC.mei MX }
+{ 2022-12-08T21:16:09.545460 EV @ ../Files/logfileCL.txt }
+{ 2022-12-08T21:16:09.547602 QR/QE localHost:3333 16652 Q+R 0 0 0 0 campeoesUALG.lei MX }
+{ 2022-12-08T21:16:26.373272 EV @ ../Files/logfileCL.txt }
+{ 2022-12-08T21:16:26.375412 QR/QE localHost:3333 29146 Q+R 0 0 0 0 campeoesUA.mei MX }
+{ 2022-12-08T21:16:40.365668 EV @ ../Files/logfileCL.txt }
+{ 2022-12-08T21:16:40.367342 QR/QE localHost:3333 7417 Q+R 0 0 0 0 campeoesUM.lei MX }
+{ 2022-12-08T21:16:40.367566 RP/RR localHost:3333 # Header
+MESSAGE-ID = 7417,FLAGS = R,RESPONSE-CODE = 0
+N-VALUES = 2 ;
+# Data: Query Info
+QUERY-INFO.NAME =  @ , QUERY-INFO.TYPE = MX ;
+# Data: List of Response, Authorities and Extra Values
+RESPONSE-VALUES = mx1.campeoesUM.lei
+RESPONSE-VALUES = mx2.campeoesUM.lei }
+{ 2022-12-08T21:16:47.329335 EV @ ../Files/logfileCL.txt }
+{ 2022-12-08T21:16:47.336028 QR/QE localHost:3333 47972 Q+R 0 0 0 0 campeoesUM.lei MX }
+{ 2022-12-08T21:16:47.342986 RP/RR localHost:3333 # Header
+MESSAGE-ID = 47972,FLAGS = R,RESPONSE-CODE = 0
+N-VALUES = 4 ;
+# Data: Query Info
+QUERY-INFO.NAME =  @ , QUERY-INFO.TYPE = MX ;
+# Data: List of Response, Authorities and Extra Values
+RESPONSE-VALUES = mx1.campeoesUM.lei
+RESPONSE-VALUES = mx2.campeoesUM.lei
+RESPONSE-VALUES = mx1.campeoesUM.lei
+RESPONSE-VALUES = mx2.campeoesUM.lei }
+{ 2022-12-08T21:26:41.842866 EV @ ../Files/logfileCL.txt }
+{ 2022-12-08T21:26:41.851035 QR/QE localHost:3333 56596 Q+R 0 0 0 0 campeoesUM.lei MX }
+{ 2022-12-08T21:26:41.856953 RP/RR localHost:3333 # Header
+MESSAGE-ID = 56596,FLAGS = R,RESPONSE-CODE = 0
+N-VALUES = 2 ;
+# Data: Query Info
+QUERY-INFO.NAME =  @ , QUERY-INFO.TYPE = MX ;
+# Data: List of Response, Authorities and Extra Values
+RESPONSE-VALUES = mx1.campeoesUM.lei
+RESPONSE-VALUES = mx2.campeoesUM.lei }
+{ 2022-12-08T21:27:26.626347 EV @ ../Files/logfileCL.txt }
+{ 2022-12-08T21:27:26.630533 QR/QE localHost:3333 19834 Q+R 0 0 0 0 campeoesUA.mei MX }
+{ 2022-12-08T21:27:41.023503 EV @ ../Files/logfileCL.txt }
+{ 2022-12-08T21:27:41.028088 QR/QE localHost:3333 9190 Q+R 0 0 0 0 campeoesUC.mei MX }
+{ 2022-12-08T21:27:56.713488 EV @ ../Files/logfileCL.txt }
+{ 2022-12-08T21:27:56.718950 QR/QE localHost:3333 26332 Q+R 0 0 0 0 campeoesUALG.lei MX }
+{ 2022-12-08T21:44:20.986593 EV @ ../Files/logfileCL.txt }
+{ 2022-12-08T21:44:20.991016 QR/QE localHost:3333 19439 Q+R 0 0 0 0 campeoesUALG.lei MX }
+{ 2022-12-08T21:44:40.624702 EV @ ../Files/logfileCL.txt }
+{ 2022-12-08T21:44:40.626289 QR/QE localHost:3333 52712 Q+R 0 0 0 0 campeoesUALG.lei MX }
+{ 2022-12-08T21:45:00.881655 EV @ ../Files/logfileCL.txt }
+{ 2022-12-08T21:45:00.884104 QR/QE localHost:3333 61745 Q+R 0 0 0 0 campeoesUA.mei MX }
+{ 2022-12-08T21:57:43.200902 EV @ ../Files/logfileCL.txt }
+{ 2022-12-08T21:57:43.208923 QR/QE localHost:3333 49104 Q+R 0 0 0 0 campeoesUA.mei MX }
+{ 2022-12-08T21:57:57.979380 EV @ ../Files/logfileCL.txt }
+{ 2022-12-08T21:57:57.991927 QR/QE localHost:3333 36198 Q+R 0 0 0 0 campeoesUA.mei MX }
+{ 2022-12-08T21:59:28.716397 EV @ ../Files/logfileCL.txt }
+{ 2022-12-08T21:59:28.720886 QR/QE localHost:3333 32113 Q+R 0 0 0 0 campeoesUA.mei MX }
+{ 2022-12-08T22:29:48.897105 EV @ ../Files/logfileCL.txt }
+{ 2022-12-08T22:29:48.909607 QR/QE localHost:3333 9251 Q+R 0 0 0 0 campeoesUA.mei MX }
+{ 2022-12-08T22:30:45.964279 EV @ ../Files/logfileCL.txt }
+{ 2022-12-08T22:30:45.970872 QR/QE localHost:3333 5100 Q+R 0 0 0 0 campeoesUC.mei MX }
+{ 2022-12-08T22:31:49.707881 EV @ ../Files/logfileCL.txt }
+{ 2022-12-08T22:31:49.717034 QR/QE localHost:3333 54992 Q+R 0 0 0 0 campeoesUALG.lei MX }
+{ 2022-12-08T22:32:30.207969 EV @ ../Files/logfileCL.txt }
+{ 2022-12-08T22:32:30.208899 QR/QE localHost:3333 38618 Q+R 0 0 0 0 campeoesUALG.lei MX }
+{ 2022-12-08T22:32:43.617804 EV @ ../Files/logfileCL.txt }
+{ 2022-12-08T22:32:43.619505 QR/QE localHost:3333 6158 Q+R 0 0 0 0 campeoesUALG.lei MX }
+{ 2022-12-08T22:33:42.977491 EV @ ../Files/logfileCL.txt }
+{ 2022-12-08T22:33:42.981641 QR/QE localHost:3333 12640 Q+R 0 0 0 0 campeoesUALG.lei MX }
+{ 2022-12-08T22:34:58.929426 EV @ ../Files/logfileCL.txt }
+{ 2022-12-08T22:34:58.932451 QR/QE localHost:3333 44750 Q+R 0 0 0 0 campeoesUALG.lei MX }
+{ 2022-12-08T22:36:08.132253 EV @ ../Files/logfileCL.txt }
+{ 2022-12-08T22:36:08.135589 QR/QE localHost:3333 57146 Q+R 0 0 0 0 campeoesUALG.lei MX }
+{ 2022-12-08T22:36:29.345927 EV @ ../Files/logfileCL.txt }
+{ 2022-12-08T22:36:29.349898 QR/QE localHost:3333 62853 Q+R 0 0 0 0 campeoesUALG.lei MX }
+{ 2022-12-08T22:36:44.201238 EV @ ../Files/logfileCL.txt }
+{ 2022-12-08T22:36:44.206721 QR/QE localHost:3333 13494 Q+R 0 0 0 0 campeoesUC.mei MX }
+{ 2022-12-08T22:50:02.670319 EV @ ../Files/logfileCL.txt }
+{ 2022-12-08T22:50:02.674717 QR/QE localHost:3333 61641 Q+R 0 0 0 0 campeoesUC.mei MX }
+{ 2022-12-08T22:52:33.947701 EV @ ../Files/logfileCL.txt }
+{ 2022-12-08T22:52:33.957407 QR/QE localHost:3333 14485 Q+R 0 0 0 0 campeoesUC.mei MX }
+{ 2022-12-08T22:54:38.492347 EV @ ../Files/logfileCL.txt }
+{ 2022-12-08T22:54:38.498210 QR/QE localHost:3333 41991 Q+R 0 0 0 0 campeoesUC.mei MX }
+{ 2022-12-08T22:54:38.499258 RP/RR localHost:3333 # Header
+MESSAGE-ID = 41991,FLAGS = R,RESPONSE-CODE = 0
+N-VALUES = 2 ;
+# Data: Query Info
+QUERY-INFO.NAME =  @ , QUERY-INFO.TYPE = MX ;
+# Data: List of Response, Authorities and Extra Values
+RESPONSE-VALUES = mx1.campeoesUC.mei
+RESPONSE-VALUES = mx2.campeoesUC.mei }
+{ 2022-12-08T23:07:13.781316 EV @ ../Files/logfileCL.txt }
+{ 2022-12-08T23:07:13.785070 QR/QE localHost:3333 38237 Q+R 0 0 0 0 campeoesUC.mei MX }
+{ 2022-12-08T23:07:13.791117 RP/RR localHost:3333 # Header
+MESSAGE-ID = 38237,FLAGS = R,RESPONSE-CODE = 0
+N-VALUES = 2 ;
+# Data: Query Info
+QUERY-INFO.NAME =  @ , QUERY-INFO.TYPE = MX ;
+# Data: List of Response, Authorities and Extra Values
+RESPONSE-VALUES = mx1.campeoesUC.mei
+RESPONSE-VALUES = mx2.campeoesUC.mei }
+{ 2022-12-08T23:07:40.808369 EV @ ../Files/logfileCL.txt }
+{ 2022-12-08T23:07:40.813826 QR/QE localHost:3333 57643 Q+R 0 0 0 0 campeoesUALG.lei MX }
+{ 2022-12-08T23:07:40.823274 RP/RR localHost:3333 # Header
+MESSAGE-ID = 57643,FLAGS = R,RESPONSE-CODE = 0
+N-VALUES = 4 ;
+# Data: Query Info
+QUERY-INFO.NAME =  @ , QUERY-INFO.TYPE = MX ;
+# Data: List of Response, Authorities and Extra Values
+RESPONSE-VALUES = mx1.campeoesUC.mei
+RESPONSE-VALUES = mx2.campeoesUC.mei
+RESPONSE-VALUES = mx1.campeoesUAlg.lei
+RESPONSE-VALUES = mx2.campeoesUAlg.lei }
+{ 2022-12-08T23:07:59.048202 EV @ ../Files/logfileCL.txt }
+{ 2022-12-08T23:07:59.056485 QR/QE localHost:3333 11403 Q+R 0 0 0 0 campeoesUA.mei MX }
+{ 2022-12-08T23:07:59.058023 RP/RR localHost:3333 # Header
+MESSAGE-ID = 11403,FLAGS = R,RESPONSE-CODE = 0
+N-VALUES = 6 ;
+# Data: Query Info
+QUERY-INFO.NAME =  @ , QUERY-INFO.TYPE = MX ;
+# Data: List of Response, Authorities and Extra Values
+RESPONSE-VALUES = mx1.campeoesUC.mei
+RESPONSE-VALUES = mx2.campeoesUC.mei
+RESPONSE-VALUES = mx1.campeoesUAlg.lei
+RESPONSE-VALUES = mx2.campeoesUAlg.lei
+RESPONSE-VALUES = mx1.campeoesUA.mei
+RESPONSE-VALUES = mx2.campeoesUA.mei }
+{ 2022-12-08T23:08:11.221700 EV @ ../Files/logfileCL.txt }
+{ 2022-12-08T23:08:11.233199 QR/QE localHost:3333 43357 Q+R 0 0 0 0 campeoesUM.lei MX }
+{ 2022-12-08T23:08:11.234699 RP/RR localHost:3333 # Header
+MESSAGE-ID = 43357,FLAGS = R,RESPONSE-CODE = 0
+N-VALUES = 8 ;
+# Data: Query Info
+QUERY-INFO.NAME =  @ , QUERY-INFO.TYPE = MX ;
+# Data: List of Response, Authorities and Extra Values
+RESPONSE-VALUES = mx1.campeoesUC.mei
+RESPONSE-VALUES = mx2.campeoesUC.mei
+RESPONSE-VALUES = mx1.campeoesUAlg.lei
+RESPONSE-VALUES = mx2.campeoesUAlg.lei
+RESPONSE-VALUES = mx1.campeoesUA.mei
+RESPONSE-VALUES = mx2.campeoesUA.mei
+RESPONSE-VALUES = mx1.campeoesUM.lei
+RESPONSE-VALUES = mx2.campeoesUM.lei }

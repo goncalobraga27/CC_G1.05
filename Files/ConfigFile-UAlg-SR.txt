@@ -1,4 +1,5 @@
 Config file for resolver server in UAlg
-campeoesUALG.lei SP 10.0.30.10:3333
-campeoesUALG.lei SS 10.0.24.10:3333
+campeoesUALG.lei DD 10.0.30.10:3333
+.lei DD 10.0.34.10:3332
+.mei DD 10.0.35.10:3332
 all LG ../Files/logFileSRUAlg.txt

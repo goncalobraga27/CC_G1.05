@@ -55,7 +55,7 @@ class sp:
             if it==ip: return True
         return False 
 
-    def runfstThread(ipSP,portaTCP_SP,verifTime_DataBase,versao_DataBase,domainServer,listaIP_SS,tamanhoDataBase,lista_LogFile):
+    def runfstThread(ipSP,portaTCP_SP,verifTime_DataBase,versao_DataBase,domainServer,listaIP_SS,tamanhoDataBase,lista_LogFile,debug):
         """
         Esta função pertence á zone transfer
         A metodologia da função é a seguinte:
@@ -70,38 +70,38 @@ class sp:
         
         while True:
             connection, address = s.accept()
-            threading.Thread(target=sp.runsecThread,args=(ipSP,connection,address,versao_DataBase,domainServer,listaIP_SS,tamanhoDataBase,lista_LogFile,verifTime_DataBase)).start() 
+            threading.Thread(target=sp.runsecThread,args=(ipSP,connection,address,versao_DataBase,domainServer,listaIP_SS,tamanhoDataBase,lista_LogFile,verifTime_DataBase,debug)).start() 
         s.close()
 
-    def runsecThread(ipSP,connection,address,versao_DataBase,domainServer,listaIP_SS,tamanhoDataBase,lista_LogFile,verifTime_DataBase):
+    def runsecThread(ipSP,connection,address,versao_DataBase,domainServer,listaIP_SS,tamanhoDataBase,lista_LogFile,verifTime_DataBase,debug):
         """
         Esta função é a função que realmente realiza trabalho na zone transfer, tal como receber queries TCP do SS e enviar respostas ás queries do SS.
         Como podemos visualizar, é criado um protocolo para a zone transfer entre servidores.
         A especificação do protocolo aqui estabelecido, encontra-se devidamente ilustrado no relatório da primeira fase do trabalho.
         """
-        if self.debug==1:
+        if debug==1:
             sys.stdout.write("Vou tratar da parte da ZT no SP\n")
             sys.stdout.write("Vou tratar da parte da ZT no SP\n")
 
         lock.acquire()
-        if self.debug==1:
+        if debug==1:
             sys.stdout.write("Vou receber a primeira mensagem\n")
         msgRecebida = connection.recv(1024)
         msg=msgRecebida.decode('utf-8')
-        if self.debug==1:
+        if debug==1:
             sys.stdout.write(f"A mensagem que recebi foi {msg}\n")
 
         if msg=="ZT":
-            if self.debug==1:
+            if debug==1:
                 sys.stdout.write(f"Vou enviar a versão da minha base de dados\nA minha versão é esta {str(versao_DataBase)}\n")
                 sys.stdout.write(f"O TTL da base de dados que vou enviar é este {verifTime_DataBase}\n")
             msgEnviar=str(versao_DataBase)+" "+str(verifTime_DataBase)
             connection.send(msgEnviar.encode('utf-8'))
-            if self.debug==1:
+            if debug==1:
                 sys.stdout.write("Vou receber o domínio para o qual se pretende fazer a ZT\n")
             msgRecebida = connection.recv(1024)
             msg=msgRecebida.decode('utf-8')
-            if self.debug==1:
+            if debug==1:
                 sys.stdout.write(f"O domínio que recebi foi este {msg}\n")
 
             if sp.verificaDomain(msg,domainServer)==True and sp.verificaipSS(address[0],listaIP_SS)==True:
@@ -112,20 +112,20 @@ class sp:
                 now = datetime.today().isoformat()
                 writeLogFile=logF(str(now),"EZ",address[0]+":"+str(6666),"SP",lista_LogFile[0])
                 writeLogFile.escritaLogFile()
-            if self.debug==1:    
+            if debug==1:    
                 sys.stdout.write(f"Foram feitas todas as verificações e o resultado das mesmas é {nextStep}\n")
 
             if nextStep==True:
-                if self.debug==1:
+                if debug==1:
                     sys.stdout.write(f"Vou enviar o tamanho da base de dados\n")
                     sys.stdout.write(f"O tamanho da base de dados é este {tamanhoDataBase}\n")
                 msgEnviar=str(tamanhoDataBase)
                 connection.send(msgEnviar.encode('utf-8'))
-                if self.debug==1:
+                if debug==1:
                     sys.stdout.write("Vou receber o número do tamanho da base de dados outra vez para certificar que está tudo direito\n")
                 msgRecebida = connection.recv(1024)
                 msg=msgRecebida.decode('utf-8')
-                if self.debug==1:
+                if debug==1:
                     sys.stdout.write(f"O número recebido foi {msg}\n")
 
                 if int(msg)==tamanhoDataBase: 
@@ -138,7 +138,7 @@ class sp:
                     writeLogFile.escritaLogFile()
 
                 if nextStep==True:
-                    if self.debug==1:
+                    if debug==1:
                         sys.stdout.write("Como o número recebido foi o correto vou enviar as novas linhas da base de dados para o ss\n")
                     numeroLinhas=1
                     for it in dictDataBase.keys():
@@ -149,7 +149,7 @@ class sp:
                             connection.send(stringResultado.encode('utf-8'))
                             numeroLinhas+=1
                             stringResultado=""
-                    if self.debug==1:
+                    if debug==1:
                         sys.stdout.write("Acabei de enviar todas as linhas novas da base de dados\n")
                     now = datetime.today().isoformat()
                     writeLogFile=logF(str(now),"ZT",address[0]+":"+str(6666),"SP",lista_LogFile[0])
@@ -210,7 +210,7 @@ class sp:
 
         if self.debug==1:
             sys.stdout.write(f"Estou à escuta no {self.ipSP}:{self.portaUDP}\n")
-        threading.Thread(target=sp.runfstThread, args=(self.ipSP,self.portaTCP_SP,self.VerifTime_DataBase,self.versao_DataBase,self.domainServer,self.listaIP_SS,self.tamanhoDataBase,self.lista_logFile)).start()
+        threading.Thread(target=sp.runfstThread, args=(self.ipSP,self.portaTCP_SP,self.VerifTime_DataBase,self.versao_DataBase,self.domainServer,self.listaIP_SS,self.tamanhoDataBase,self.lista_logFile,self.debug)).start()
         threading.Thread(target=thrResolver.runfstResolver, args=(self.ipSP,3332,dictDataBase)).start()
         while True:
 

@@ -1,5 +1,1 @@
-# DNS database file for top server 2(ST2) in domain . for domain .mei
-NS 10.1.1.3:3333
-A 10.3.3.3:3333
-NS 10.4.4.3:3333
-A 10.2.2.3:3333
+.mei DD 10.0.37.10:3334

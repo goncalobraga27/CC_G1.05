@@ -1,7 +1,7 @@
 # Configuration file for LEIuc1 server for campeoesUC.mei
-campeoesUC.lei DB ../Files/dataBaseLEIuc1.txt
-campeoesUC.lei SS 10.0.15.10:3333
-campeoesUC.lei DD 127.0.0.1
-campeoesUC.lei LG ../Files/logFileLEIuc1.txt
+campeoesUC.mei DB ../Files/dataBaseLEIuc1.txt
+campeoesUC.mei SS 10.0.15.10:3333
+campeoesUC.mei DD 127.0.0.1
+campeoesUC.mei LG ../Files/logFileLEIuc1.txt
 all LG ../Files/logFileMEI.txt
 root ST ../Files/topServerMei.txt
