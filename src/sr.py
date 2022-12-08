@@ -213,12 +213,6 @@ class sr:
                         b =respostaDatagram.encode('UTF-8')
                         sck_UDP.sendto(b,add_UDP)
                         
-                        
-
-
-
-        
-
 
 def main():
     ipSR=sys.argv[1]
