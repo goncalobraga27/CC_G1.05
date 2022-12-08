@@ -234,3 +234,24 @@ EXTRA-VALUES = ns1 A 193.136.130.101 TTL
 EXTRA-VALUES = ns2 A 193.137.100.102 TTL
 EXTRA-VALUES = mx1 A 193.136.130.20 TTL
 EXTRA-VALUES = mx2 A 193.136.130.21 TTL }
+{ 2022-12-08T11:51:59.392129 EV @ ../Files/ConfigFile-UMinho-LEIum1.txt ../Files/dataBaseLEIum1.txt
+ ../Files/logFileLEIum1.txt }
+{ 2022-12-08T11:53:01.680154 EV @ ../Files/ConfigFile-UMinho-LEIum1.txt ../Files/dataBaseLEIum1.txt
+ ../Files/logFileLEIum1.txt }
+{ 2022-12-08T11:53:23.012543 EV @ ../Files/ConfigFile-UMinho-LEIum1.txt ../Files/dataBaseLEIum1.txt
+ ../Files/logFileLEIum1.txt }
+{ 2022-12-08T11:54:10.978577 QR/QE 10.0.16.10:3333 16701 Q+R 0 0 0 0 campeoesUM.lei MX }
+{ 2022-12-08T11:54:10.978837 RP\RR 10.0.13.20:3333 # Header
+MESSAGE-ID = 16701,FLAGS = R+A,RESPONSE-CODE = 0
+N-VALUES = 2 , N-AUTHORITIES =2 , N-EXTRA-VALUES =4 ;
+# Data: Query Info
+QUERY-INFO.NAME =  @ , QUERY-INFO.TYPE = MX ;
+# Data: List of Response, Authorities and Extra Values
+RESPONSE-VALUES = @ MX mx1.campeoesUM.lei TTL 10
+RESPONSE-VALUES = @ MX mx2.campeoesUM.lei TTL 20
+AUTHORITIES-VALUES = @ NS ns1.campeoesUM.lei. TTL
+AUTHORITIES-VALUES = @ NS ns2.campeoesUM.lei. TTL
+EXTRA-VALUES = ns1 A 193.136.130.101 TTL
+EXTRA-VALUES = ns2 A 193.137.100.102 TTL
+EXTRA-VALUES = mx1 A 193.136.130.20 TTL
+EXTRA-VALUES = mx2 A 193.136.130.21 TTL }

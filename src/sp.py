@@ -250,8 +250,8 @@ def main():
     nameConfig_File = sys.argv[2]  # ../Files/ConfigFileSP.txt 
     domainServer = sys.argv[3]
     debug=0
-    if len(argv)==6:
-        debug=int(argv[5])
+    if len(sys.argv)==5:
+        debug=int(sys.argv[4])
     portaUDP = 3333
     portaTCP_SP = 4444
     portaTCP_SS = 6666
