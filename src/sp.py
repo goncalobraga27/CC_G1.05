@@ -21,7 +21,7 @@ class sp:
     dictDataBase=dict()              # Inicialização da estrutura de dados do SP
     global lock                      # Variável global para controlo de concorrência das threads na transferência de zona 
     lock = threading.Lock()          # Inicialização do Lock
-    def __init__(self, ipSP, domainServer, nameConfig_File, portaUDP, portaTCP_SP, portaTCP_SS):
+    def __init__(self, ipSP, domainServer, nameConfig_File, portaUDP, portaTCP_SP, portaTCP_SS,modo):
         """
         Criação/Inicialização da classe sp
         """
@@ -36,6 +36,7 @@ class sp:
         self.verifTime_DataBase=0
         self.listaIP_SS=[]
         self.lista_logFile=[]
+        self.debug=modo
 
     def verificaDomain(d,domainServer):
         """
@@ -78,24 +79,30 @@ class sp:
         Como podemos visualizar, é criado um protocolo para a zone transfer entre servidores.
         A especificação do protocolo aqui estabelecido, encontra-se devidamente ilustrado no relatório da primeira fase do trabalho.
         """
-        sys.stdout.write("Vou tratar da parte da ZT no SP\n")
-        sys.stdout.write("Vou tratar da parte da ZT no SP\n")
+        if self.debug==1:
+            sys.stdout.write("Vou tratar da parte da ZT no SP\n")
+            sys.stdout.write("Vou tratar da parte da ZT no SP\n")
 
         lock.acquire()
-        sys.stdout.write("Vou receber a primeira mensagem\n")
+        if self.debug==1:
+            sys.stdout.write("Vou receber a primeira mensagem\n")
         msgRecebida = connection.recv(1024)
         msg=msgRecebida.decode('utf-8')
-        sys.stdout.write(f"A mensagem que recebi foi {msg}\n")
+        if self.debug==1:
+            sys.stdout.write(f"A mensagem que recebi foi {msg}\n")
 
         if msg=="ZT":
-            sys.stdout.write(f"Vou enviar a versão da minha base de dados\nA minha versão é esta {str(versao_DataBase)}\n")
-            sys.stdout.write(f"O TTL da base de dados que vou enviar é este {verifTime_DataBase}\n")
+            if self.debug==1:
+                sys.stdout.write(f"Vou enviar a versão da minha base de dados\nA minha versão é esta {str(versao_DataBase)}\n")
+                sys.stdout.write(f"O TTL da base de dados que vou enviar é este {verifTime_DataBase}\n")
             msgEnviar=str(versao_DataBase)+" "+str(verifTime_DataBase)
             connection.send(msgEnviar.encode('utf-8'))
-            sys.stdout.write("Vou receber o domínio para o qual se pretende fazer a ZT\n")
+            if self.debug==1:
+                sys.stdout.write("Vou receber o domínio para o qual se pretende fazer a ZT\n")
             msgRecebida = connection.recv(1024)
             msg=msgRecebida.decode('utf-8')
-            sys.stdout.write(f"O domínio que recebi foi este {msg}\n")
+            if self.debug==1:
+                sys.stdout.write(f"O domínio que recebi foi este {msg}\n")
 
             if sp.verificaDomain(msg,domainServer)==True and sp.verificaipSS(address[0],listaIP_SS)==True:
                 nextStep=True
@@ -105,17 +112,21 @@ class sp:
                 now = datetime.today().isoformat()
                 writeLogFile=logF(str(now),"EZ",address[0]+":"+str(6666),"SP",lista_LogFile[0])
                 writeLogFile.escritaLogFile()
-            sys.stdout.write(f"Foram feitas todas as verificações e o resultado das mesmas é {nextStep}\n")
+            if self.debug==1:    
+                sys.stdout.write(f"Foram feitas todas as verificações e o resultado das mesmas é {nextStep}\n")
 
             if nextStep==True:
-                sys.stdout.write(f"Vou enviar o tamanho da base de dados\n")
-                sys.stdout.write(f"O tamanho da base de dados é este {tamanhoDataBase}\n")
+                if self.debug==1:
+                    sys.stdout.write(f"Vou enviar o tamanho da base de dados\n")
+                    sys.stdout.write(f"O tamanho da base de dados é este {tamanhoDataBase}\n")
                 msgEnviar=str(tamanhoDataBase)
                 connection.send(msgEnviar.encode('utf-8'))
-                sys.stdout.write("Vou receber o número do tamanho da base de dados outra vez para certificar que está tudo direito\n")
+                if self.debug==1:
+                    sys.stdout.write("Vou receber o número do tamanho da base de dados outra vez para certificar que está tudo direito\n")
                 msgRecebida = connection.recv(1024)
                 msg=msgRecebida.decode('utf-8')
-                sys.stdout.write(f"O número recebido foi {msg}\n")
+                if self.debug==1:
+                    sys.stdout.write(f"O número recebido foi {msg}\n")
 
                 if int(msg)==tamanhoDataBase: 
                     nextStep=True
@@ -127,7 +138,8 @@ class sp:
                     writeLogFile.escritaLogFile()
 
                 if nextStep==True:
-                    sys.stdout.write("Como o número recebido foi o correto vou enviar as novas linhas da base de dados para o ss\n")
+                    if self.debug==1:
+                        sys.stdout.write("Como o número recebido foi o correto vou enviar as novas linhas da base de dados para o ss\n")
                     numeroLinhas=1
                     for it in dictDataBase.keys():
                         linhasType=dictDataBase.get(it)
@@ -137,7 +149,8 @@ class sp:
                             connection.send(stringResultado.encode('utf-8'))
                             numeroLinhas+=1
                             stringResultado=""
-                    sys.stdout.write("Acabei de enviar todas as linhas novas da base de dados\n")
+                    if self.debug==1:
+                        sys.stdout.write("Acabei de enviar todas as linhas novas da base de dados\n")
                     now = datetime.today().isoformat()
                     writeLogFile=logF(str(now),"ZT",address[0]+":"+str(6666),"SP",lista_LogFile[0])
                     writeLogFile.escritaLogFile()
@@ -195,24 +208,28 @@ class sp:
         
         sck_UDP.bind((self.ipSP, self.portaUDP))
 
-        sys.stdout.write(f"Estou à escuta no {self.ipSP}:{self.portaUDP}\n")
+        if self.debug==1:
+            sys.stdout.write(f"Estou à escuta no {self.ipSP}:{self.portaUDP}\n")
         threading.Thread(target=sp.runfstThread, args=(self.ipSP,self.portaTCP_SP,self.VerifTime_DataBase,self.versao_DataBase,self.domainServer,self.listaIP_SS,self.tamanhoDataBase,self.lista_logFile)).start()
         threading.Thread(target=thrResolver.runfstResolver, args=(self.ipSP,3332,dictDataBase)).start()
         while True:
 
             msg_UDP,add_UDP = sck_UDP.recvfrom(1024)
 
-            sys.stdout.write(msg_UDP.decode('utf-8'))
+            if self.debug==1:
+                sys.stdout.write(msg_UDP.decode('utf-8'))
 
             proQuery_UDP = pQuery(msg_UDP.decode('utf-8'), self.domainServer)
 
             queryCheck_UDP=proQuery_UDP.processQuery(0)
 
             if (queryCheck_UDP==False):
-                sys.stdout.write("\nA query pedida não é válida\n")
+                if self.debug==1:
+                    sys.stdout.write("\nA query pedida não é válida\n")
 
             else:
-                sys.stdout.write(f"\nRecebi uma mensagem do cliente {add_UDP}\n")
+                if self.debug==1:
+                    sys.stdout.write(f"\nRecebi uma mensagem do cliente {add_UDP}\n")
                 now = datetime.today().isoformat()
                 writeLogFile=logF(str(now),"QR/QE",self.ipSP+":"+str(self.portaUDP),msg_UDP.decode('utf-8'),self.lista_logFile[0])
                 writeLogFile.escritaLogFile()
@@ -232,10 +249,13 @@ def main():
     ipSP = sys.argv[1]
     nameConfig_File = sys.argv[2]  # ../Files/ConfigFileSP.txt 
     domainServer = sys.argv[3]
+    debug=0
+    if len(argv)==6:
+        debug=int(argv[5])
     portaUDP = 3333
     portaTCP_SP = 4444
     portaTCP_SS = 6666
-    spObj = sp(ipSP,domainServer,nameConfig_File,portaUDP,portaTCP_SP, portaTCP_SS)
+    spObj = sp(ipSP,domainServer,nameConfig_File,portaUDP,portaTCP_SP, portaTCP_SS,debug)
     spObj.runSP()    
 
 if __name__ == "__main__":

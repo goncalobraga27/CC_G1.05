@@ -11,12 +11,13 @@ from logFile import logF
 import sys
 class cl:
 
-    def __init__(self, ipServer, domain, type, recc,logFile):
+    def __init__(self, ipServer, domain, type, recc,logFile,modo):
         self.ipServer = ipServer
         self.domain = domain
         self.type = type
         self.recc = recc
         self.logF=logFile
+        self.debug=modo
 
     def runCL(self):
         
@@ -64,7 +65,8 @@ class cl:
         datagramaUDPDesincriptada=header+data #Criação da mensagem(header+data)
         strDatagram = ' '.join(datagramaUDPDesincriptada)
         if len(strDatagram) <= 1000: #Ver se o tamanho da mensagem é menor ou igual a 1000 bytes
-            sys.stdout.write("Estou a enviar esta mensagem\n")
+            if self.debug==1:
+                sys.stdout.write("Estou a enviar esta mensagem\n")
             b = strDatagram.encode('UTF-8')
             sck.sendto(b, (self.ipServer, 3333))
             now = datetime.today().isoformat()
@@ -72,11 +74,13 @@ class cl:
             writeLogFile.escritaLogFile()
             # Resposta ás queries pedidas
             msg,add=sck.recvfrom(1024)
-            sys.stdout.write(f"Recebi uma mensagem do servidor{add}\n")
-            sys.stdout.write("CONTEÚDO DA MENSAGEM:\n")
+            if self.debug==1:
+                sys.stdout.write(f"Recebi uma mensagem do servidor{add}\n")
+                sys.stdout.write("CONTEÚDO DA MENSAGEM:\n")
             m=msg.decode('utf-8')
             imprime=m+"\n"
-            sys.stdout.write(imprime)
+            if self.debug==1:
+                sys.stdout.write(imprime)
             now = datetime.today().isoformat()
             writeLogFile=logF(str(now),"RP/RR","localHost:"+str(3333),msg.decode('utf-8'),self.logF)
             writeLogFile.escritaLogFile()
@@ -88,7 +92,10 @@ def main():
     domain = argv[2]
     type = argv[3]
     recc = argv[4]
-    clObj = cl(ipServer,domain,type,recc,"../Files/logfileCL.txt")
+    debug=0
+    if len(argv)==6:
+        debug=int(argv[5])
+    clObj = cl(ipServer,domain,type,recc,"../Files/logfileCL.txt",debug)
     clObj.runCL()
 
 if __name__ == '__main__':
