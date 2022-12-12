@@ -33,7 +33,7 @@ class sp:
         self.portaTCP_SS = portaTCP_SS
         self.tamanhoDataBase=0
         self.versao_DataBase=-1
-        self.verifTime_DataBase=120
+        self.verifTime_DataBase=0
         self.listaIP_SS=[]
         self.lista_logFile=[]
         self.debug=modo
@@ -64,7 +64,7 @@ class sp:
 
         Esta função serve como "centro de controlo" da zone transfer.
         """
-    
+
         sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
         sock.bind((self.ipSP,self.portaTCP_SP))
@@ -202,7 +202,7 @@ class sp:
         parseDFile = parseDataFile(dictDataBase, pathFileDataBase[:-1],self.lista_logFile)
         versao,tempoVerificacao,tamanhoDataBase=parseDFile.parsingDataFile()
         self.versao_DataBase=versao
-        self.VerifTime_DataBase=tempoVerificacao
+        self.verifTime_DataBase=tempoVerificacao
         self.tamanhoDataBase=tamanhoDataBase
         now = datetime.today().isoformat()
         writeLogFile=logF(str(now),"EV","@",self.nameConfig_File+" "+pathFileDataBase+" "+self.lista_logFile[0],self.lista_logFile[0])
