@@ -33,7 +33,7 @@ class sp:
         self.portaTCP_SS = portaTCP_SS
         self.tamanhoDataBase=0
         self.versao_DataBase=-1
-        self.verifTime_DataBase=0
+        self.verifTime_DataBase=120
         self.listaIP_SS=[]
         self.lista_logFile=[]
         self.debug=modo
@@ -55,7 +55,7 @@ class sp:
             if it==ip: return True
         return False 
 
-    def runfstThread(ipSP,portaTCP_SP,verifTime_DataBase,versao_DataBase,domainServer,listaIP_SS,tamanhoDataBase,lista_LogFile,debug):
+    def runfstThread(self):
         """
         Esta função pertence á zone transfer
         A metodologia da função é a seguinte:
@@ -64,81 +64,84 @@ class sp:
 
         Esta função serve como "centro de controlo" da zone transfer.
         """
-        s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        s.bind((ipSP,portaTCP_SP))
-        s.listen()
-        
-        while True:
-            connection, address = s.accept()
-            threading.Thread(target=sp.runsecThread,args=(ipSP,connection,address,versao_DataBase,domainServer,listaIP_SS,tamanhoDataBase,lista_LogFile,verifTime_DataBase,debug)).start() 
-        s.close()
+    
+        sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
-    def runsecThread(ipSP,connection,address,versao_DataBase,domainServer,listaIP_SS,tamanhoDataBase,lista_LogFile,verifTime_DataBase,debug):
+        sock.bind((self.ipSP,self.portaTCP_SP))
+        sock.listen()
+
+        while True:
+            connection, address = sock.accept()
+            threading.Thread(target=sp.runsecThread,args=(self,connection,address)).start() 
+        sock.close()
+
+    def runsecThread(self,connection,address):
         """
         Esta função é a função que realmente realiza trabalho na zone transfer, tal como receber queries TCP do SS e enviar respostas ás queries do SS.
         Como podemos visualizar, é criado um protocolo para a zone transfer entre servidores.
         A especificação do protocolo aqui estabelecido, encontra-se devidamente ilustrado no relatório da primeira fase do trabalho.
         """
-        if debug==1:
+        if self.debug==1:
             sys.stdout.write("Vou tratar da parte da ZT no SP\n")
             sys.stdout.write("Vou tratar da parte da ZT no SP\n")
 
         lock.acquire()
-        if debug==1:
+        if self.debug==1:
             sys.stdout.write("Vou receber a primeira mensagem\n")
         msgRecebida = connection.recv(1024)
         msg=msgRecebida.decode('utf-8')
-        if debug==1:
+        if self.debug==1:
             sys.stdout.write(f"A mensagem que recebi foi {msg}\n")
 
         if msg=="ZT":
-            if debug==1:
-                sys.stdout.write(f"Vou enviar a versão da minha base de dados\nA minha versão é esta {str(versao_DataBase)}\n")
-                sys.stdout.write(f"O TTL da base de dados que vou enviar é este {verifTime_DataBase}\n")
-            msgEnviar=str(versao_DataBase)+" "+str(verifTime_DataBase)
+            if self.debug==1:
+                sys.stdout.write(f"Vou enviar a versão da minha base de dados\nA minha versão é esta {str(self.versao_DataBase)}\n")
+                print(self.verifTime_DataBase)
+                sys.stdout.write(f"O TTL da base de dados que vou enviar é este {self.verifTime_DataBase}\n")
+            msgEnviar=str(self.versao_DataBase)+" "+str(self.verifTime_DataBase)
             connection.send(msgEnviar.encode('utf-8'))
-            if debug==1:
+            if self.debug==1:
                 sys.stdout.write("Vou receber o domínio para o qual se pretende fazer a ZT\n")
             msgRecebida = connection.recv(1024)
             msg=msgRecebida.decode('utf-8')
-            if debug==1:
+            if self.debug==1:
                 sys.stdout.write(f"O domínio que recebi foi este {msg}\n")
 
-            if sp.verificaDomain(msg,domainServer)==True and sp.verificaipSS(address[0],listaIP_SS)==True:
+            if sp.verificaDomain(msg,self.domainServer)==True and sp.verificaipSS(address[0],self.listaIP_SS)==True:
                 nextStep=True
 
             else: 
                 nextStep=False
                 now = datetime.today().isoformat()
-                writeLogFile=logF(str(now),"EZ",address[0]+":"+str(6666),"SP",lista_LogFile[0])
+                writeLogFile=logF(str(now),"EZ",address[0]+":"+str(6666),"SP",self.lista_logFile[0])
                 writeLogFile.escritaLogFile()
-            if debug==1:    
+            if self.debug==1:    
                 sys.stdout.write(f"Foram feitas todas as verificações e o resultado das mesmas é {nextStep}\n")
 
             if nextStep==True:
-                if debug==1:
+                if self.debug==1:
                     sys.stdout.write(f"Vou enviar o tamanho da base de dados\n")
-                    sys.stdout.write(f"O tamanho da base de dados é este {tamanhoDataBase}\n")
-                msgEnviar=str(tamanhoDataBase)
+                    sys.stdout.write(f"O tamanho da base de dados é este {self.tamanhoDataBase}\n")
+                msgEnviar=str(self.tamanhoDataBase)
                 connection.send(msgEnviar.encode('utf-8'))
-                if debug==1:
+                if self.debug==1:
                     sys.stdout.write("Vou receber o número do tamanho da base de dados outra vez para certificar que está tudo direito\n")
                 msgRecebida = connection.recv(1024)
                 msg=msgRecebida.decode('utf-8')
-                if debug==1:
+                if self.debug==1:
                     sys.stdout.write(f"O número recebido foi {msg}\n")
 
-                if int(msg)==tamanhoDataBase: 
+                if int(msg)==self.tamanhoDataBase: 
                     nextStep=True
 
                 else: 
                     nextStep=False
                     now = datetime.today().isoformat()
-                    writeLogFile=logF(str(now),"EZ",address[0]+":"+str(6666),"SP",lista_LogFile[0])
+                    writeLogFile=logF(str(now),"EZ",address[0]+":"+str(6666),"SP",self.lista_logFile[0])
                     writeLogFile.escritaLogFile()
 
                 if nextStep==True:
-                    if debug==1:
+                    if self.debug==1:
                         sys.stdout.write("Como o número recebido foi o correto vou enviar as novas linhas da base de dados para o ss\n")
                     numeroLinhas=1
                     for it in dictDataBase.keys():
@@ -149,20 +152,20 @@ class sp:
                             connection.send(stringResultado.encode('utf-8'))
                             numeroLinhas+=1
                             stringResultado=""
-                    if debug==1:
+                    if self.debug==1:
                         sys.stdout.write("Acabei de enviar todas as linhas novas da base de dados\n")
                     now = datetime.today().isoformat()
-                    writeLogFile=logF(str(now),"ZT",address[0]+":"+str(6666),"SP",lista_LogFile[0])
+                    writeLogFile=logF(str(now),"ZT",address[0]+":"+str(6666),"SP",self.lista_logFile[0])
                     writeLogFile.escritaLogFile()
 
             else:
                 now = datetime.today().isoformat()
-                writeLogFile=logF(str(now),"EZ",address[0]+":"+str(6666),"SP",lista_LogFile[0])
+                writeLogFile=logF(str(now),"EZ",address[0]+":"+str(6666),"SP",self.lista_logFile[0])
                 writeLogFile.escritaLogFile()
 
         else:
             now = datetime.today().isoformat()
-            writeLogFile=logF(str(now),"EZ",address[0]+":"+str(6666),"SP",lista_LogFile[0])
+            writeLogFile=logF(str(now),"EZ",address[0]+":"+str(6666),"SP",self.lista_logFile[0])
             writeLogFile.escritaLogFile()
         lock.release()
             
@@ -205,12 +208,12 @@ class sp:
         writeLogFile=logF(str(now),"EV","@",self.nameConfig_File+" "+pathFileDataBase+" "+self.lista_logFile[0],self.lista_logFile[0])
         writeLogFile.escritaLogFile()
         sck_UDP =socket.socket(socket.AF_INET, socket.SOCK_DGRAM) #UDP
-        
         sck_UDP.bind((self.ipSP, self.portaUDP))
 
         if self.debug==1:
             sys.stdout.write(f"Estou à escuta no {self.ipSP}:{self.portaUDP}\n")
-        threading.Thread(target=sp.runfstThread, args=(self.ipSP,self.portaTCP_SP,self.VerifTime_DataBase,self.versao_DataBase,self.domainServer,self.listaIP_SS,self.tamanhoDataBase,self.lista_logFile,self.debug)).start()
+    
+        threading.Thread(target=sp.runfstThread, args=(self,)).start()
         threading.Thread(target=thrResolver.runfstResolver, args=(self.ipSP,3332,dictDataBase)).start()
         while True:
 

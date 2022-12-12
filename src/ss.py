@@ -70,14 +70,14 @@ class ss:
             dictDataBase[linhaPContent[1]].append(conteudo)
         return True 
 
-    def runsecThread(controlDB,ipSP,portaTCP_SP,domainServer,lista_LogFile):
+    def runsecThread(self,controlDB):
         """
         Esta função é a função que realmente realiza trabalho na zone transfer, tal como enviar queries ao SP a pedir dados da base de dados e o seu processamento.
         Como podemos visualizar, é criado um protocolo para a zone transfer entre servidores.
         A especificação do protocolo aqui estabelecido, encontra-se devidamente ilustrado no relatório da primeira fase do trabalho.
         """
         s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        s.connect((ipSP,portaTCP_SP))
+        s.connect((self.ipSP,self.portaTCP_SP))
         Lock.acquire()
         sys.stdout.write("Vou enviar a primeira mensagem da ZT\n")
         msg="ZT"
@@ -91,8 +91,8 @@ class ss:
         sys.stdout.write(f"A versão da base de dados do sp é esta {versaoDB}\n")
         sys.stdout.write(f"A versão da minha base de dados(ss) é esta {controlDB.versao}\n")
         if versaoDB!=controlDB.versao:
-            sys.stdout.write(f"Vou enviar o domínio a que eu pertenço\nO meu domínio é este {domainServer}\n")
-            msg=domainServer
+            sys.stdout.write(f"Vou enviar o domínio a que eu pertenço\nO meu domínio é este {self.domainServer}\n")
+            msg=self.domainServer
             s.sendall(msg.encode('utf-8'))
             sys.stdout.write("Vou receber o número de linhas que foram alteradas na base de dados\n")
             scdResp=s.recv(1024)
@@ -116,15 +116,15 @@ class ss:
             controlDB.versao=versaoDB
             sys.stdout.write(f"Número da nova versão da base de dados {controlDB.versao}\n")
             now = datetime.today().isoformat()
-            writeLogFile=logF(str(now),"ZT",ipSP+":"+str(portaTCP_SP),"SS",lista_LogFile[0])
+            writeLogFile=logF(str(now),"ZT",self.ipSP+":"+str(self.portaTCP_SP),"SS",self.lista_logFile[0])
             writeLogFile.escritaLogFile()
         else:
             now = datetime.today().isoformat()
-            writeLogFile=logF(str(now),"ZT",ipSP+":"+str(portaTCP_SP),"SS",lista_LogFile[0])
+            writeLogFile=logF(str(now),"ZT",self.ipSP+":"+str(self.portaTCP_SP),"SS",self.lista_logFile[0])
             writeLogFile.escritaLogFile()
         Lock.release()
 
-    def runfstThread(ipSP,portaTCP_SP,domainServer,listaLogFile,controlDB):
+    def runfstThread(self,controlDB):
         """
         Esta função serve de controlo da ZT
         A metodologia utilizada na mesma é a seguinte:
@@ -134,7 +134,7 @@ class ss:
         3º Fazer a ZT em intervalos de verifTime_DataBase segundos a zone transfer 
         """
         while True:
-            threading.Thread(target=ss.runsecThread,args=(controlDB,ipSP,portaTCP_SP,domainServer,listaLogFile)).start()
+            threading.Thread(target=ss.runsecThread,args=(self,controlDB)).start()
             sys.stdout.write(f"A versão da data base entre threads é de{controlDB.versao}\n")
             time.sleep(controlDB.verifTime_DataBase) 
         s.close()
@@ -177,7 +177,7 @@ class ss:
 
         sys.stdout.write(f"Estou à escuta no {self.ipSS}:{self.portaUDP}\n")
         controlDB=controlaDB(int(-1),int(5))
-        threading.Thread(target=ss.runfstThread,args=(self.ipSP,self.portaTCP_SP,self.domainServer,self.lista_logFile,controlDB)).start()
+        threading.Thread(target=ss.runfstThread,args=(self,controlDB,)).start()
         while True:
             msg_UDP,add = sck.recvfrom(1024)
 
