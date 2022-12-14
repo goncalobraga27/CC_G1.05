@@ -176,7 +176,7 @@ class sr:
                             msg_UDP,add_UDP_SR = sckSP.recvfrom(1024)
                             linha=msg_UDP.decode('UTF-8')
                             listaParametrosLinha=linha.split(' ')
-                            e1=entry(domain,proQuery.typeValue,listaParametrosLinha[2],listaParametrosLinha[3],listaParametrosLinha[4],"SP","0","0","Valid")
+                            e1=entry(domain,proQuery.typeValue,listaParametrosLinha[2],"0","SP","0","0","Valid","0") #### Ver isto
                             c.addEntry(e1)
                         
                         ansQuerySR = aQuerySR(proQuery.message_id,"R",str(0),c.cache,proQuery.typeValue)
@@ -204,7 +204,7 @@ class sr:
                             msg_UDP,add_UDP_SR = sckSP.recvfrom(1024)
                             linha=msg_UDP.decode('UTF-8')
                             listaParametrosLinha=linha.split(' ')
-                            e1=entry(domain,proQuery.typeValue,listaParametrosLinha[2],listaParametrosLinha[3],listaParametrosLinha[4],"SP","0","0","Valid")
+                            e1=entry(domain,proQuery.typeValue,listaParametrosLinha[2],"0","SP","0","0","Valid","0") #### Ver isto 
                             c.addEntry(e1)
                         
                         ansQuerySR = aQuerySR(proQuery.message_id,"R",str(0),c.cache,proQuery.typeValue)
