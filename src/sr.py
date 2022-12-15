@@ -86,11 +86,16 @@ class sr:
                 for i in range(0,numberLinhas):
                     msg_UDP,add_UDP_SR = sck.recvfrom(1024)
                     linha=msg_UDP.decode('UTF-8')
+                    print(linha)
                     listaParametrosLinha=linha.split(' ')
-                    e1=entry(self.domainSR,proQuery.typeValue,listaParametrosLinha[2],listaParametrosLinha[3],listaParametrosLinha[4],"SP","0","0","Valid")
-                    c.addEntry(e1)
-                
-                ansQuerySR = aQuerySR(proQuery.message_id,"R",str(0),c.cache,proQuery.typeValue)
+                    if(len(listaParametrosLinha)==6):
+                            e1=entry(domain,proQuery.typeValue,listaParametrosLinha[3],listaParametrosLinha[4],listaParametrosLinha[5],"SP",datetime.today().isoformat(),"0","VALID")  
+                            c.addEntry(e1)
+                    if(len(listaParametrosLinha)==5):
+                        e1=entry(domain,proQuery.typeValue,listaParametrosLinha[3],listaParametrosLinha[4],0,"SP",datetime.today().isoformat(),"0","VALID")
+                        c.addEntry(e1)
+        
+                ansQuerySR = aQuerySR(proQuery.message_id,"R",str(0),c.cache,proQuery.typeValue,domain)
                 resposta = ansQuerySR.answerQuerySR()
                 respostaDatagram = '\n'.join(resposta)
                 b =respostaDatagram.encode('UTF-8')
@@ -118,11 +123,16 @@ class sr:
                         for i in range(0,numberLinhas):
                             msg_UDP,add_UDP_SR = sckSP.recvfrom(1024)
                             linha=msg_UDP.decode('UTF-8')
+                            print(linha)
                             listaParametrosLinha=linha.split(' ')
-                            e1=entry(domain,proQuery.typeValue,listaParametrosLinha[2],listaParametrosLinha[3],listaParametrosLinha[4],"SP","0","0","Valid")
-                            c.addEntry(e1)
+                            if(len(listaParametrosLinha)==6):
+                                e1=entry(domain,proQuery.typeValue,listaParametrosLinha[3],listaParametrosLinha[4],listaParametrosLinha[5],"SP",datetime.today().isoformat(),"0","VALID")  
+                                c.addEntry(e1)
+                            if(len(listaParametrosLinha)==5):
+                                e1=entry(domain,proQuery.typeValue,listaParametrosLinha[3],listaParametrosLinha[4],0,"SP",datetime.today().isoformat(),"0","VALID")
+                                c.addEntry(e1)
                         
-                        ansQuerySR = aQuerySR(proQuery.message_id,"R",str(0),c.cache,proQuery.typeValue)
+                        ansQuerySR = aQuerySR(proQuery.message_id,"R",str(0),c.cache,proQuery.typeValue,domain)
                         resposta = ansQuerySR.answerQuerySR()
                         respostaDatagram = '\n'.join(resposta)
                         b =respostaDatagram.encode('UTF-8')
@@ -146,11 +156,16 @@ class sr:
                         for i in range(0,numberLinhas):
                             msg_UDP,add_UDP_SR = sckSP.recvfrom(1024)
                             linha=msg_UDP.decode('UTF-8')
+                            print(linha)
                             listaParametrosLinha=linha.split(' ')
-                            e1=entry(domain,proQuery.typeValue,listaParametrosLinha[2],listaParametrosLinha[3],listaParametrosLinha[4],"SP","0","0","Valid")
-                            c.addEntry(e1)
+                            if(len(listaParametrosLinha)==6):
+                                e1=entry(domain,proQuery.typeValue,listaParametrosLinha[3],listaParametrosLinha[4],listaParametrosLinha[5],"SP",datetime.today().isoformat(),"0","VALID")  
+                                c.addEntry(e1)
+                            if(len(listaParametrosLinha)==5):
+                                e1=entry(domain,proQuery.typeValue,listaParametrosLinha[3],listaParametrosLinha[4],0,"SP",datetime.today().isoformat(),"0","VALID")
+                                c.addEntry(e1)
                         
-                        ansQuerySR = aQuerySR(proQuery.message_id,"R",str(0),c.cache,proQuery.typeValue)
+                        ansQuerySR = aQuerySR(proQuery.message_id,"R",str(0),c.cache,proQuery.typeValue,domain)
                         resposta = ansQuerySR.answerQuerySR()
                         respostaDatagram = '\n'.join(resposta)
                         b =respostaDatagram.encode('UTF-8')
@@ -175,11 +190,16 @@ class sr:
                         for i in range(0,numberLinhas):
                             msg_UDP,add_UDP_SR = sckSP.recvfrom(1024)
                             linha=msg_UDP.decode('UTF-8')
+                            print(linha)
                             listaParametrosLinha=linha.split(' ')
-                            e1=entry(domain,proQuery.typeValue,listaParametrosLinha[2],"0","SP","0","0","Valid","0") #### Ver isto
-                            c.addEntry(e1)
+                            if(len(listaParametrosLinha)==6):
+                                e1=entry(domain,proQuery.typeValue,listaParametrosLinha[3],listaParametrosLinha[4],listaParametrosLinha[5],"SP",datetime.today().isoformat(),"0","VALID")  
+                                c.addEntry(e1)
+                            if(len(listaParametrosLinha)==5):
+                                e1=entry(domain,proQuery.typeValue,listaParametrosLinha[3],listaParametrosLinha[4],0,"SP",datetime.today().isoformat(),"0","VALID")
+                                c.addEntry(e1)
                         
-                        ansQuerySR = aQuerySR(proQuery.message_id,"R",str(0),c.cache,proQuery.typeValue)
+                        ansQuerySR = aQuerySR(proQuery.message_id,"R",str(0),c.cache,proQuery.typeValue,domain)
                         resposta = ansQuerySR.answerQuerySR()
                         respostaDatagram = '\n'.join(resposta)
                         b =respostaDatagram.encode('UTF-8')
@@ -203,11 +223,18 @@ class sr:
                         for i in range(0,numberLinhas):
                             msg_UDP,add_UDP_SR = sckSP.recvfrom(1024)
                             linha=msg_UDP.decode('UTF-8')
+                            print(linha)
+                            "campeoesUC.mei @ MX mx1.campeoesUC.mei TTL 11"
                             listaParametrosLinha=linha.split(' ')
-                            e1=entry(domain,proQuery.typeValue,listaParametrosLinha[2],"0","SP","0","0","Valid","0") #### Ver isto 
-                            c.addEntry(e1)
+                            if(len(listaParametrosLinha)==6):
+                                e1=entry(domain,proQuery.typeValue,listaParametrosLinha[3],listaParametrosLinha[4],listaParametrosLinha[5],"SP",datetime.today().isoformat(),"0","VALID")  
+                                c.addEntry(e1)
+                            if(len(listaParametrosLinha)==5):
+                                e1=entry(domain,proQuery.typeValue,listaParametrosLinha[3],listaParametrosLinha[4],0,"SP",datetime.today().isoformat(),"0","VALID")
+                                c.addEntry(e1)
+                            
                         
-                        ansQuerySR = aQuerySR(proQuery.message_id,"R",str(0),c.cache,proQuery.typeValue)
+                        ansQuerySR = aQuerySR(proQuery.message_id,"R",str(0),c.cache,proQuery.typeValue,domain)
                         resposta = ansQuerySR.answerQuerySR()
                         respostaDatagram = '\n'.join(resposta)
                         b =respostaDatagram.encode('UTF-8')

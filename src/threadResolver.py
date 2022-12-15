@@ -9,7 +9,7 @@ from re import T
 
 class thrResolver:
 
-    def runfstResolver(ipSP,porta,dictDataBase): # Thread utilizada no sp para atender pedidos do sr 
+    def runfstResolver(domainServer,ipSP,porta,dictDataBase): # Thread utilizada no sp para atender pedidos do sr 
         lock = threading.Lock()
         lock.acquire()
         sck_UDP =socket.socket(socket.AF_INET, socket.SOCK_DGRAM) #UDP
@@ -20,7 +20,7 @@ class thrResolver:
             listaResultado=dictDataBase[tipoPedido]
             sck_UDP.sendto(str(len(listaResultado)).encode('UTF-8'),add_UDP)
             for linhaDataBase in listaResultado:
-                sck_UDP.sendto(linhaDataBase.encode('UTF-8'),add_UDP)
+                sck_UDP.sendto((domainServer+" "+linhaDataBase).encode('UTF-8'),add_UDP)
         lock.release()
 
         

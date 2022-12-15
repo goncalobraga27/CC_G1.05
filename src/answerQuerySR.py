@@ -1,11 +1,12 @@
-
+from entryCache import entry
 class aQuerySR:
-    def __init__(self,message_id,flags,response_code, cache, typeValue):
+    def __init__(self,message_id,flags,response_code, cache, typeValue,domain):
         self.cache = cache
         self.typeValue = typeValue
         self.message_id = message_id
         self.flags=flags
         self.response_code=response_code
+        self.domain=domain
     def answerQuerySR(self):
         listaRes=[]
         listaCabecalho=[]
@@ -28,6 +29,7 @@ class aQuerySR:
         listaResultado=[]
         for key in self.cache.keys():
             eR=self.cache[key]
-            listaResultado.append(eR.value)
+            if(eR.name==self.domain and eR.type==self.typeValue):
+                listaResultado.append(eR.value)
         return listaResultado
 
