@@ -16,7 +16,7 @@ from parserConfigFileSR import parseConfigFileSR
 from processQuerySR import pQuerySR
 from logFile import logF
 from answerQuerySR import aQuerySR
-
+from threadCache import thrCache
 from re import T
 from processQuery import pQuery
 from logFile import logF
@@ -37,6 +37,7 @@ class sr:
     
     def runSR(self):
         c=cache()
+        #threading.Thread(target=thrCache.runControlCache, args=(c,)).start()
         """
         Parte do parsing do config file do SR
         """
@@ -48,7 +49,7 @@ class sr:
         self.listaIP_ST=listaIP_ST
         self.listaPorta_ST=listaPorta_ST
         if self.listaIP_SP==[] and self.listaPorta_SP==[] and  self.listaLogFile==[]:
-            now = datetime.today().isoformat()
+            now = datetime.now()
             writeLogFile=logF(str(now),"FL","127.0.0.1","Parse config File error",self.listaLogFile[0])
             writeLogFile.escritaLogFile()
         
@@ -74,7 +75,7 @@ class sr:
                 Parte onde se pede os dados ao servidor primário do domínio 
                 """
                 sys.stdout.write(f"\nRecebi uma mensagem do cliente {add_UDP}\n")
-                now = datetime.today().isoformat()
+                now = datetime.now()
                 writeLogFile=logF(str(now),"QR/QE",self.ipSR+":"+str(self.portaSR),msg_UDP.decode('utf-8'),self.listaLogFile[0])
                 writeLogFile.escritaLogFile()
                 sck = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
@@ -86,14 +87,17 @@ class sr:
                 for i in range(0,numberLinhas):
                     msg_UDP,add_UDP_SR = sck.recvfrom(1024)
                     linha=msg_UDP.decode('UTF-8')
-                    print(linha)
                     listaParametrosLinha=linha.split(' ')
+                    if(len(listaParametrosLinha)==3):
+                        ttlS=listaParametrosLinha[2]
+                        ttl=int(ttlS)
                     if(len(listaParametrosLinha)==6):
-                            e1=entry(domain,proQuery.typeValue,listaParametrosLinha[3],listaParametrosLinha[4],listaParametrosLinha[5],"SP",datetime.today().isoformat(),"0","VALID")  
-                            c.addEntry(e1)
-                    if(len(listaParametrosLinha)==5):
-                        e1=entry(domain,proQuery.typeValue,listaParametrosLinha[3],listaParametrosLinha[4],0,"SP",datetime.today().isoformat(),"0","VALID")
+                        e1=entry(domain,proQuery.typeValue,listaParametrosLinha[3],ttl,listaParametrosLinha[5],"SP",datetime.now(),"0","VALID")  
                         c.addEntry(e1)
+                    if(len(listaParametrosLinha)==5):
+                        e1=entry(domain,proQuery.typeValue,listaParametrosLinha[3],ttl,"0","SP",datetime.now(),"0","VALID")
+                        c.addEntry(e1)
+
         
                 ansQuerySR = aQuerySR(proQuery.message_id,"R",str(0),c.cache,proQuery.typeValue,domain)
                 resposta = ansQuerySR.answerQuerySR()
@@ -125,11 +129,14 @@ class sr:
                             linha=msg_UDP.decode('UTF-8')
                             print(linha)
                             listaParametrosLinha=linha.split(' ')
+                            if(len(listaParametrosLinha)==3):
+                                ttlS=listaParametrosLinha[2]
+                                ttl=int(ttlS)
                             if(len(listaParametrosLinha)==6):
-                                e1=entry(domain,proQuery.typeValue,listaParametrosLinha[3],listaParametrosLinha[4],listaParametrosLinha[5],"SP",datetime.today().isoformat(),"0","VALID")  
+                                e1=entry(domain,proQuery.typeValue,listaParametrosLinha[3],ttl,listaParametrosLinha[5],"SP",datetime.now(),"0","VALID")  
                                 c.addEntry(e1)
                             if(len(listaParametrosLinha)==5):
-                                e1=entry(domain,proQuery.typeValue,listaParametrosLinha[3],listaParametrosLinha[4],0,"SP",datetime.today().isoformat(),"0","VALID")
+                                e1=entry(domain,proQuery.typeValue,listaParametrosLinha[3],ttl,0,"SP",datetime.now(),"0","VALID")
                                 c.addEntry(e1)
                         
                         ansQuerySR = aQuerySR(proQuery.message_id,"R",str(0),c.cache,proQuery.typeValue,domain)
@@ -158,11 +165,14 @@ class sr:
                             linha=msg_UDP.decode('UTF-8')
                             print(linha)
                             listaParametrosLinha=linha.split(' ')
+                            if(len(listaParametrosLinha)==3):
+                                ttlS=listaParametrosLinha[2]
+                                ttl=int(ttlS)
                             if(len(listaParametrosLinha)==6):
-                                e1=entry(domain,proQuery.typeValue,listaParametrosLinha[3],listaParametrosLinha[4],listaParametrosLinha[5],"SP",datetime.today().isoformat(),"0","VALID")  
+                                e1=entry(domain,proQuery.typeValue,listaParametrosLinha[3],ttl,listaParametrosLinha[5],"SP",datetime.now(),"0","VALID")  
                                 c.addEntry(e1)
                             if(len(listaParametrosLinha)==5):
-                                e1=entry(domain,proQuery.typeValue,listaParametrosLinha[3],listaParametrosLinha[4],0,"SP",datetime.today().isoformat(),"0","VALID")
+                                e1=entry(domain,proQuery.typeValue,listaParametrosLinha[3],ttl,0,"SP",datetime.now(),"0","VALID")
                                 c.addEntry(e1)
                         
                         ansQuerySR = aQuerySR(proQuery.message_id,"R",str(0),c.cache,proQuery.typeValue,domain)
@@ -190,13 +200,15 @@ class sr:
                         for i in range(0,numberLinhas):
                             msg_UDP,add_UDP_SR = sckSP.recvfrom(1024)
                             linha=msg_UDP.decode('UTF-8')
-                            print(linha)
                             listaParametrosLinha=linha.split(' ')
+                            if(len(listaParametrosLinha)==3):
+                                ttlS=listaParametrosLinha[2]
+                                ttl=int(ttlS)
                             if(len(listaParametrosLinha)==6):
-                                e1=entry(domain,proQuery.typeValue,listaParametrosLinha[3],listaParametrosLinha[4],listaParametrosLinha[5],"SP",datetime.today().isoformat(),"0","VALID")  
+                                e1=entry(domain,proQuery.typeValue,listaParametrosLinha[3],ttl,listaParametrosLinha[5],"SP",datetime.now(),"0","VALID")  
                                 c.addEntry(e1)
                             if(len(listaParametrosLinha)==5):
-                                e1=entry(domain,proQuery.typeValue,listaParametrosLinha[3],listaParametrosLinha[4],0,"SP",datetime.today().isoformat(),"0","VALID")
+                                e1=entry(domain,proQuery.typeValue,listaParametrosLinha[3],ttl,0,"SP",datetime.now(),"0","VALID")
                                 c.addEntry(e1)
                         
                         ansQuerySR = aQuerySR(proQuery.message_id,"R",str(0),c.cache,proQuery.typeValue,domain)
@@ -226,11 +238,14 @@ class sr:
                             print(linha)
                             "campeoesUC.mei @ MX mx1.campeoesUC.mei TTL 11"
                             listaParametrosLinha=linha.split(' ')
+                            if(len(listaParametrosLinha)==3):
+                                ttlS=listaParametrosLinha[2]
+                                ttl=int(ttlS)
                             if(len(listaParametrosLinha)==6):
-                                e1=entry(domain,proQuery.typeValue,listaParametrosLinha[3],listaParametrosLinha[4],listaParametrosLinha[5],"SP",datetime.today().isoformat(),"0","VALID")  
+                                e1=entry(domain,proQuery.typeValue,listaParametrosLinha[3],ttl,listaParametrosLinha[5],"SP",datetime.now(),"0","VALID")  
                                 c.addEntry(e1)
                             if(len(listaParametrosLinha)==5):
-                                e1=entry(domain,proQuery.typeValue,listaParametrosLinha[3],listaParametrosLinha[4],0,"SP",datetime.today().isoformat(),"0","VALID")
+                                e1=entry(domain,proQuery.typeValue,listaParametrosLinha[3],ttl,0,"SP",datetime.now(),"0","VALID")
                                 c.addEntry(e1)
                             
                         

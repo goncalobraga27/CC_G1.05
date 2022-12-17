@@ -16,10 +16,10 @@ class entry:
         result+="Name: "+self.name+"\n"
         result+="Type: "+self.type+"\n"
         result+="Value: "+self.value+"\n"
-        result+="TTL: "+self.ttl+"\n"
+        result+="TTL: "+str(self.ttl)+"\n"
         result+="Order: "+self.order+"\n"
         result+="Origin: "+self.origin+"\n"
-        result+="TimeStamp: "+self.timestamp+"\n"
+        result+="TimeStamp: "+str(self.timestamp)+"\n"
         result+="Index: "+str(self.index)+"\n"
         result+="Status: "+self.status+"\n\n\n"
         return result
@@ -27,6 +27,11 @@ class entry:
     def setIndex(self,numero):
         self.index=numero
     
+    def getTTL(self):
+        return self.ttl
+    
+    def getTimeStamp(self):
+        return self.timestamp
 
 
 

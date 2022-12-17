@@ -19,6 +19,8 @@ class thrResolver:
             tipoPedido=msg_UDP.decode('utf-8')
             listaResultado=dictDataBase[tipoPedido]
             sck_UDP.sendto(str(len(listaResultado)).encode('UTF-8'),add_UDP)
+            listaTypeDefault=dictDataBase["DEFAULT"]
+            sck_UDP.sendto(listaTypeDefault[1].encode('UTF-8'),add_UDP)
             for linhaDataBase in listaResultado:
                 sck_UDP.sendto((domainServer+" "+linhaDataBase).encode('UTF-8'),add_UDP)
         lock.release()

@@ -19,7 +19,7 @@ class aQuerySR:
             nValues+=1
         listaCabecalho.append(("N-VALUES = "+str(nValues))+" ;")
         listaCabecalho.append("# Data: Query Info")
-        listaCabecalho.append("QUERY-INFO.NAME = "+" @ ,"+" QUERY-INFO.TYPE = "+self.typeValue+" ;")
+        listaCabecalho.append("QUERY-INFO.NAME = "+self.domain+","+" QUERY-INFO.TYPE = "+self.typeValue+" ;")
         listaCabecalho.append("# Data: List of Response, Authorities and Extra Values")
         
 
