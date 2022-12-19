@@ -16,8 +16,8 @@ class cl:
         self.domain = domain
         self.type = type
         self.recc = recc
-        self.logF=logFile
-        self.debug=modo
+        self.logF = logFile
+        self.debug = modo
 
     def runCL(self):
         
