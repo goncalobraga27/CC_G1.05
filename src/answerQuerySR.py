@@ -11,8 +11,11 @@ class aQuerySR:
         listaRes=[]
         listaCabecalho=[]
         listaCabecalho.append("# Header")
-        listaCabecalho.append("MESSAGE-ID = "+self.message_id+",FLAGS = "+self.flags+",RESPONSE-CODE = "+self.response_code)
         listaRespValues=aQuerySR.giveResponse(self)
+        if listaRespValues !=[]:
+            listaCabecalho.append("MESSAGE-ID = "+self.message_id+",FLAGS = "+self.flags+",RESPONSE-CODE = "+self.response_code)
+        else : 
+            listaCabecalho.append("MESSAGE-ID = "+self.message_id+",FLAGS = "+self.flags+",RESPONSE-CODE = "+"1")
         nValues=0
         for it1 in listaRespValues:
             listaRes.append("RESPONSE-VALUES = "+it1)
@@ -31,5 +34,15 @@ class aQuerySR:
             eR=self.cache[key]
             if(eR.name==self.domain and eR.type==self.typeValue):
                 listaResultado.append(eR.value)
+            else:
+                return []
         return listaResultado
+    
+    def canGiveResponse(self):
+        for key in self.cache.keys():
+            e=self.cache[key]
+            if(e.name==self.domain and e.type==self.typeValue):
+                return True
+        return False
+
 
