@@ -113,7 +113,7 @@ class messageDNS:
 
         #Number of Values - 1 byte
         nOfValues = (self.numberOfValues).to_bytes(1,"big", signed=False)
-        bytes+=nOfValues
+        bytes += nOfValues
 
         #Number of Authorities - 1 byte
         nOfAuthorities = (self.numberOfAuthorities).to_bytes(1,"big", signed=False)

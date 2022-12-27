@@ -213,8 +213,10 @@ class sp:
 
         if self.debug==1:
             sys.stdout.write(f"Estou à escuta no {self.ipSP}:{self.portaUDP}\n")
+            
         threading.Thread(target=sp.runfstThread, args=(self,)).start()
         threading.Thread(target=thrResolver.runfstResolver, args=(self.domainServer,self.ipSP,3332,dictDataBase)).start()
+        
         while True:
 
             msg_UDP,add_UDP = sck_UDP.recvfrom(1024)
