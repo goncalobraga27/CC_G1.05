@@ -21,6 +21,7 @@ class sp:
     dictDataBase=dict()              # Inicialização da estrutura de dados do SP
     global lock                      # Variável global para controlo de concorrência das threads na transferência de zona 
     lock = threading.Lock()          # Inicialização do Lock
+    
     def __init__(self, ipSP, domainServer, nameConfig_File, portaUDP, portaTCP_SP, portaTCP_SS,modo):
         """
         Criação/Inicialização da classe sp
@@ -235,11 +236,12 @@ class sp:
                 now = datetime.today().isoformat()
                 writeLogFile=logF(str(now),"QR/QE",self.ipSP+":"+str(self.portaUDP),msg_UDP.decode('utf-8'),self.lista_logFile[0])
                 writeLogFile.escritaLogFile()
-                ansQuery = aQuery(proQuery_UDP.message_id,"R+A",str(0),dictDataBase,proQuery_UDP.typeValue)
-                resposta = ansQuery.answerQuery()
+                ansQuery = aQuery(proQuery_UDP.message_id,"R+A",str(0),dictDataBase,proQuery_UDP.typeValue,self.domainServer)
+                resposta,bytes = ansQuery.answerQuery()
                 respostaDatagram = '\n'.join(resposta)
-                b =respostaDatagram.encode('UTF-8')
-                sck_UDP.sendto(b,add_UDP)
+                
+                sck_UDP.sendto(bytes,add_UDP)
+                
                 now = datetime.today().isoformat()
                 writeLogFile=logF(str(now),"RP\RR",add_UDP[0]+":"+str(self.portaUDP),respostaDatagram,self.lista_logFile[0])
                 writeLogFile.escritaLogFile()

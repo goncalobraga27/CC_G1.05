@@ -76,6 +76,7 @@ class cl:
         now = datetime.today().isoformat()
         writeLogFile=logF(str(now),"QR/QE","localHost:"+str(3333),msg,self.logF)
         writeLogFile.escritaLogFile()
+        
         # Resposta ás queries pedidas
         msg,add=sck.recvfrom(1024)
         if self.debug==1:
