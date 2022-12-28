@@ -1,0 +1,1 @@
+ip.in-address.reverse. NS 10.0.41.10:3332

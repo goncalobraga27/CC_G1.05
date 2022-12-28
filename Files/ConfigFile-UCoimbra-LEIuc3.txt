@@ -1,0 +1,6 @@
+# Configuration file for LEIuc2 server for campeoesUC.mei
+campeoesUC.mei SP 10.0.20.10:3333
+campeoesUC.mei DD 127.0.0.1
+campeoesUC.mei LG ../Files/logFileLEIuc3.txt
+all LG ../Files/logFileMEI.txt
+root ST ../Files/topServerMei.txt

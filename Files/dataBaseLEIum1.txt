@@ -3,7 +3,7 @@
 # of the email.campeoesUM.lei subdomain
 
 @ DEFAULT campeoesUM.lei.
-TTL DEFAULT 40000
+TTL DEFAULT 10
 @ SOASP ns1.campeosUM.lei. TTL
 @ SOAADMIN dns\.admin.campeosUM.lei. TTL
 @ SOASERIAL 123456789 TTL

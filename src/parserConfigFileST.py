@@ -19,4 +19,9 @@ class parseConfigFileST:
                     listaP=lista_Parametros[2].split(':')
                     ipSDT=listaP[0]
                     portaSDT=listaP[1]
+                if(lista_Parametros[1]=='NS'):
+                    mainDomain=lista_Parametros[0]
+                    listaP=lista_Parametros[2].split(':')
+                    ipSDT=listaP[0]
+                    portaSDT=listaP[1]
         return (mainDomain,ipSDT,portaSDT)

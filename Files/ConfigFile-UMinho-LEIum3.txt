@@ -1,0 +1,6 @@
+# Configuration file for LEIum2 server for campeoesUM.lei
+campeoesUM.lei SP 10.0.16.10:3333
+campeoesUM.lei DD 127.0.0.1
+campeoesUM.lei LG ../Files/logFileLEIum3.txt
+all LG ../Files/logFileLEI.txt
+root ST ../Files/topServerLei.txt

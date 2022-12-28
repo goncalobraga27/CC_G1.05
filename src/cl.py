@@ -68,7 +68,10 @@ class cl:
             if self.debug==1:
                 sys.stdout.write("Estou a enviar esta mensagem\n")
             b = strDatagram.encode('UTF-8')
-            sck.sendto(b, (self.ipServer, 3333))
+            if (self.domain==".reverse." or self.domain ==".in-address.reverse." or self.domain == "ip.in-address.reverse."): 
+                sck.sendto(b, (self.ipServer, 3332))
+            else:
+                sck.sendto(b, (self.ipServer, 3333))
             now = datetime.today().isoformat()
             writeLogFile=logF(str(now),"QR/QE","localHost:"+str(3333),strDatagram,self.logF)
             writeLogFile.escritaLogFile()

@@ -1,0 +1,6 @@
+# Configuration file for LEIualg2 server for campeoesUALG.lei
+campeoesUALG.lei SP 10.0.30.10:3333
+campeoesUALG.lei DD 127.0.0.1
+campeoesUALG.lei LG ../Files/logFileLEIualg3.txt
+all LG ../Files/logFileLEI.txt
+root ST ../Files/topServerLei.txt

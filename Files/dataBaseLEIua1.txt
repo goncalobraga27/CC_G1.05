@@ -3,7 +3,7 @@
 # of the smaller.campeoesUA.mei subdomain
 
 @ DEFAULT campeoesUA.mei.
-TTL DEFAULT 87895
+TTL DEFAULT 10
 @ SOASP ns1.campeoesUA.mei. TTL
 @ SOAADMIN dns\.admin.campeoesUA.mei. TTL
 @ SOASERIAL 64545464 TTL
