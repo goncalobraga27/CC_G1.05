@@ -2990,3 +2990,40 @@ RESPONSE-VALUES = 193.136.130.21 }
 { 2022-12-28T12:16:13.111957 QR/QE localHost:3333 61367 Q+R 0 0 0 0 .in-address.reverse. NS }
 { 2022-12-28T12:16:13.119188 RP/RR localHost:3333 O servidor com este endereçamento é que te pode ajudar 10.0.41.10:3332
  }
+{ 2022-12-29T16:10:08.312646 EV @ ../Files/logfileCL.txt }
+{ 2022-12-29T16:10:08.323273 QR/QE localHost:3333 57235 Q+R 0 0 0 0 ip.in-address.reverse. PTR 10.0.42.10 }
+{ 2022-12-29T16:11:47.479600 EV @ ../Files/logfileCL.txt }
+{ 2022-12-29T16:11:47.483660 QR/QE localHost:3333 47095 Q+R 0 0 0 0 campeoesUM.lei MX }
+{ 2022-12-29T16:24:34.522102 EV @ ../Files/logfileCL.txt }
+{ 2022-12-29T16:24:34.530006 QR/QE localHost:3333 40479 Q+R 0 0 0 0 ip.in-address.reverse. PTR 10.0.42.10 }
+{ 2022-12-29T16:27:25.979284 EV @ ../Files/logfileCL.txt }
+{ 2022-12-29T16:27:25.989693 QR/QE localHost:3333 39553 Q+R 0 0 0 0 ip.in-address.reverse. PTR 10.0.42.10 }
+{ 2022-12-29T16:28:06.925125 EV @ ../Files/logfileCL.txt }
+{ 2022-12-29T16:28:06.926840 QR/QE localHost:3333 43133 Q+R 0 0 0 0 campeoesUM.lei MX }
+{ 2022-12-29T16:28:20.660731 EV @ ../Files/logfileCL.txt }
+{ 2022-12-29T16:28:20.663561 QR/QE localHost:3333 24665 Q+R 0 0 0 0 campeoesUM.lei MX }
+{ 2022-12-29T16:47:06.138876 EV @ ../Files/logfileCL.txt }
+{ 2022-12-29T16:47:06.141257 QR/QE localHost:3333 11857 Q+R 0 0 0 0 ip.in-address.reverse. PTR 10.0.42.10 }
+{ 2022-12-29T16:47:06.142041 RP/RR localHost:3333 # Header
+MESSAGE-ID = 11857,FLAGS = R+A,RESPONSE-CODE = 0
+N-VALUES = 1 , N-AUTHORITIES = 0 , N-EXTRA-VALUES = 0;
+# Data: Query Info
+QUERY-INFO.NAME =  @ , QUERY-INFO.TYPE = PTR ;
+# Data: List of Response, Authorities and Extra Values
+RESPONSE-VALUES = LEIum3 }
+{ 2022-12-29T16:55:46.276589 EV @ ../Files/logfileCL.txt }
+{ 2022-12-29T16:55:46.279658 QR/QE localHost:3333 39069 Q+R 0 0 0 0 ip.in-address.reverse. PTR 10.0.29.20 }
+{ 2022-12-29T16:55:46.286182 RP/RR localHost:3333 # Header
+MESSAGE-ID = 39069,FLAGS = R+A,RESPONSE-CODE = 0
+N-VALUES = 1 , N-AUTHORITIES = 0 , N-EXTRA-VALUES = 0;
+# Data: Query Info
+QUERY-INFO.NAME =  @ , QUERY-INFO.TYPE = PTR ;
+# Data: List of Response, Authorities and Extra Values }
+{ 2022-12-29T16:56:06.442678 EV @ ../Files/logfileCL.txt }
+{ 2022-12-29T16:56:06.445187 QR/QE localHost:3333 65206 Q+R 0 0 0 0 ip.in-address.reverse. PTR 20.29.0.10 }
+{ 2022-12-29T16:56:06.451824 RP/RR localHost:3333 # Header
+MESSAGE-ID = 65206,FLAGS = R+A,RESPONSE-CODE = 0
+N-VALUES = 1 , N-AUTHORITIES = 0 , N-EXTRA-VALUES = 0;
+# Data: Query Info
+QUERY-INFO.NAME =  @ , QUERY-INFO.TYPE = PTR ;
+# Data: List of Response, Authorities and Extra Values }

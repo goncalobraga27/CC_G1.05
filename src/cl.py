@@ -11,11 +11,12 @@ from logFile import logF
 import sys
 class cl:
 
-    def __init__(self, ipServer, domain, type, recc,logFile,modo):
+    def __init__(self, ipServer, domain, type, recc,ipAdescobrir,logFile,modo):
         self.ipServer = ipServer
         self.domain = domain
         self.type = type
         self.recc = recc
+        self.ipDescobrir=ipAdescobrir
         self.logF = logFile
         self.debug = modo
 
@@ -44,26 +45,43 @@ class cl:
         # Fim da recolha
         # Criação do datagrama UDP para posterior envio 
         # Acrescentar parâmetros do cabeçalho e do data
-        header=[]
-        data=[]
-        message_id=randint(1,65535)
-        flags="Q+"+self.recc
-        m="% s" % message_id
-        zero="% s" % 0
-        header.append(m)
-        header.append(flags)
-        header.append(zero)
-        header.append(zero)
-        header.append(zero)
-        header.append(zero)
-        data.append(self.domain)
-        data.append(self.type)
-        #data.append(NULL)
-        #data.append(NULL)
-        #data.append(NULL)
-        # Fim do acrescento 
-        datagramaUDPDesincriptada=header+data #Criação da mensagem(header+data)
-        strDatagram = ' '.join(datagramaUDPDesincriptada)
+        if self.ipDescobrir=="":
+            header=[]
+            data=[]
+            message_id=randint(1,65535)
+            flags="Q+"+self.recc
+            m="% s" % message_id
+            zero="% s" % 0
+            header.append(m)
+            header.append(flags)
+            header.append(zero)
+            header.append(zero)
+            header.append(zero)
+            header.append(zero)
+            data.append(self.domain)
+            data.append(self.type)
+            # Fim do acrescento 
+            datagramaUDPDesincriptada=header+data #Criação da mensagem(header+data)
+            strDatagram = ' '.join(datagramaUDPDesincriptada)
+        else:
+            header=[]
+            data=[]
+            message_id=randint(1,65535)
+            flags="Q+"+self.recc
+            m="% s" % message_id
+            zero="% s" % 0
+            header.append(m)
+            header.append(flags)
+            header.append(zero)
+            header.append(zero)
+            header.append(zero)
+            header.append(zero)
+            data.append(self.domain)
+            data.append(self.type)
+            data.append(self.ipDescobrir)
+            # Fim do acrescento 
+            datagramaUDPDesincriptada=header+data #Criação da mensagem(header+data)
+            strDatagram = ' '.join(datagramaUDPDesincriptada)
         if len(strDatagram) <= 1000: #Ver se o tamanho da mensagem é menor ou igual a 1000 bytes
             if self.debug==1:
                 sys.stdout.write("Estou a enviar esta mensagem\n")
@@ -94,11 +112,19 @@ def main():
     ipServer = argv[1]
     domain = argv[2]
     type = argv[3]
-    recc = argv[4]
-    debug=0
-    if len(argv)==6:
-        debug=int(argv[5])
-    clObj = cl(ipServer,domain,type,recc,"../Files/logfileCL.txt",debug)
+    ipADescobrir=""
+    if (domain == "ip.in-address.reverse."): 
+        ipADescobrir=argv[4]
+        recc = argv[5]
+        debug=0
+        if len(argv)==7:
+            debug=int(argv[6])
+    else:
+        recc = argv[4]
+        debug=0
+        if len(argv)==6:
+            debug=int(argv[5])
+    clObj = cl(ipServer,domain,type,recc,ipADescobrir,"../Files/logfileCL.txt",debug)
     clObj.runCL()
 
 if __name__ == '__main__':

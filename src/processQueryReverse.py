@@ -2,17 +2,17 @@
 # Changed by: Gonçalo Braga, João Gonçalves and Miguel Senra
 # Finished in: 23/11/2022
 
-class pQuery:
+class pQueryReverse:
     def __init__(self, msg, domain_server):
         self.msg = msg
         self.domain_server = domain_server
         self.message_id=""
         self.typeValue=""
+        self.ipDescobrir=""
 
-    # Exemplo de uma querie recebida  (cliente-servidor): message_id flags 0 0 0 0 domain type             type nos args da função ->0
-    # Exemplo de uma querie recebida (servidorsec-servidor prim):                                          type nos args da função ->1
-    def processQuery(self,type):
-        if(type==0):
+
+    # Exemplo de uma querie recebida  (cliente-servidor): message_id flags 0 0 0 0 domain type IP                                                   
+    def processQuery(self):
             query=str(self.msg)
             queryCheck=True
             lista_ParametrosQuery=query.split(' ')
@@ -34,15 +34,14 @@ class pQuery:
                 queryCheck=True
             else:
                 return False
-            if (lista_ParametrosQuery[7]=='DEFAULT' or lista_ParametrosQuery[7]=='SOASP' or lista_ParametrosQuery[7]=='SOAADMIN' or\
-                lista_ParametrosQuery[7]=='SOASERIAL' or  lista_ParametrosQuery[7]=='SOAREFRESH' or  lista_ParametrosQuery[7]=='SOARETRY' or\
-                lista_ParametrosQuery[7]=='SOAEXPIRE' or lista_ParametrosQuery[7]=='NS' or lista_ParametrosQuery[7]=='A' or\
-                lista_ParametrosQuery[7]=='CNAME' or lista_ParametrosQuery[7]=='MX'):
+            if (lista_ParametrosQuery[7]=='PTR'):
                             queryCheck=True
-            else:
-                    return False
+            listaIP=lista_ParametrosQuery[8].split('.')
+            if (int(listaIP[3])==10):
+                queryCheck=True
             self.message_id=lista_ParametrosQuery[0]
-            self.typeValue=lista_ParametrosQuery[7]   
+            self.typeValue=lista_ParametrosQuery[7]  
+            self.ipDescobrir=lista_ParametrosQuery[8] 
 
             return queryCheck
         

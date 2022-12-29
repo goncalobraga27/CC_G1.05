@@ -8,10 +8,10 @@ import threading
 import time
 from datetime import datetime
 from re import T
-from answerQuery import aQuery
-from parserConfFile import parseConfigFile
-from parserDataFile import parseDataFile
-from processQuery import pQuery
+from answerQueryReverse import aQueryReverse
+from parserConfigFileSPReverse import parseConfigFileReverse
+from parserDataFileSPReverse import parseDataFileReverse
+from processQueryReverse import pQueryReverse
 from logFile import logF
 from threadResolver import thrResolver
 
@@ -27,6 +27,7 @@ class spReverse:
         self.domainServer = domainServer
         self.nameConfig_File = nameConfig_File
         self.portaUDP = portaUDP
+        self.lista_logFile=[]
         self.debug=modo
 
    
@@ -50,29 +51,29 @@ class spReverse:
         DISCLAIMER: Depois de "inicializados" os processos de zone transfer e respostaa queries, o servidor está pronto a fazer estes processos
         """
 
-        parseConfFile = parseConfigFileSPRverse(self.nameConfig_File)
+        parseConfFile = parseConfigFileReverse(self.nameConfig_File)
         listaLogFile,pathFileDataBase = parseConfFile.parsingConfigFile()  
+        self.lista_logFile=listaLogFile
+        self.nameConfig_File=pathFileDataBase
+    
 
-        if self.listaIP_SS==[] and self.lista_logFile==[] and listaPorta_SS==[] and pathFileDataBase=="":
+        if  self.lista_logFile==[] and pathFileDataBase=="":
             now = datetime.today().isoformat()
             writeLogFile=logF(str(now),"FL","127.0.0.1","Parse config File error",self.lista_logFile[0])
             writeLogFile.escritaLogFile()
 
-        parseDFile = parseDataFile(dictDataBase, pathFileDataBase[:-1],self.lista_logFile)
-        versao,tempoVerificacao,tamanhoDataBase=parseDFile.parsingDataFile()
-        self.versao_DataBase=versao
-        self.verifTime_DataBase=tempoVerificacao
-        self.tamanhoDataBase=tamanhoDataBase
+        parseDFile = parseDataFileReverse(dictDataBase, pathFileDataBase[:-1],self.lista_logFile)
+        parseDFile.parsingDataFile()
+
         now = datetime.today().isoformat()
         writeLogFile=logF(str(now),"EV","@",self.nameConfig_File+" "+pathFileDataBase+" "+self.lista_logFile[0],self.lista_logFile[0])
         writeLogFile.escritaLogFile()
+
         sck_UDP =socket.socket(socket.AF_INET, socket.SOCK_DGRAM) #UDP
         sck_UDP.bind((self.ipSP, self.portaUDP))
 
         if self.debug==1:
             sys.stdout.write(f"Estou à escuta no {self.ipSP}:{self.portaUDP}\n")
-        threading.Thread(target=sp.runfstThread, args=(self,)).start()
-        threading.Thread(target=thrResolver.runfstResolver, args=(self.domainServer,self.ipSP,3332,dictDataBase)).start()
         while True:
 
             msg_UDP,add_UDP = sck_UDP.recvfrom(1024)
@@ -80,9 +81,10 @@ class spReverse:
             if self.debug==1:
                 sys.stdout.write(msg_UDP.decode('utf-8'))
 
-            proQuery_UDP = pQuery(msg_UDP.decode('utf-8'), self.domainServer)
+            proQuery_UDP = pQueryReverse(msg_UDP.decode('utf-8'), self.domainServer)
 
-            queryCheck_UDP=proQuery_UDP.processQuery(0)
+            queryCheck_UDP=proQuery_UDP.processQuery()
+
 
             if (queryCheck_UDP==False):
                 if self.debug==1:
@@ -91,14 +93,17 @@ class spReverse:
             else:
                 if self.debug==1:
                     sys.stdout.write(f"\nRecebi uma mensagem do cliente {add_UDP}\n")
+
                 now = datetime.today().isoformat()
                 writeLogFile=logF(str(now),"QR/QE",self.ipSP+":"+str(self.portaUDP),msg_UDP.decode('utf-8'),self.lista_logFile[0])
                 writeLogFile.escritaLogFile()
-                ansQuery = aQuery(proQuery_UDP.message_id,"R+A",str(0),dictDataBase,proQuery_UDP.typeValue)
+
+                ansQuery = aQueryReverse(proQuery_UDP.message_id,"R+A",str(0),dictDataBase,proQuery_UDP.typeValue,proQuery_UDP.ipDescobrir)
                 resposta = ansQuery.answerQuery()
                 respostaDatagram = '\n'.join(resposta)
                 b =respostaDatagram.encode('UTF-8')
                 sck_UDP.sendto(b,add_UDP)
+
                 now = datetime.today().isoformat()
                 writeLogFile=logF(str(now),"RP\RR",add_UDP[0]+":"+str(self.portaUDP),respostaDatagram,self.lista_logFile[0])
                 writeLogFile.escritaLogFile()
@@ -113,7 +118,7 @@ def main():
     debug=0
     if len(sys.argv)==5:
         debug=int(sys.argv[4])
-    portaUDP = 3333
+    portaUDP = 3332
     spObj = spReverse(ipSP,domainServer,portaUDP,nameConfig_File,debug)
     spObj.runSPReverse()    
 

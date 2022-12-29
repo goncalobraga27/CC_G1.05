@@ -1,0 +1,3 @@
+# Configuration file for SPReverse server for ip.in-address.reverse.
+ip.in-address.reverse. DB ../Files/dataBaseSPReverse.txt
+ip.in-address.reverse. LG ../Files/logFileSPReverse.txt

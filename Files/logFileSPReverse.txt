@@ -1,0 +1,42 @@
+{ 2022-12-29T15:35:27.795808 EV @ ../Files/dataBaseSPReverse.txt
+ ../Files/dataBaseSPReverse.txt
+ ../Files/logFileSPReverse.txt }
+{ 2022-12-29T15:42:15.811411 EV @ ../Files/dataBaseSPReverse.txt
+ ../Files/dataBaseSPReverse.txt
+ ../Files/logFileSPReverse.txt }
+{ 2022-12-29T16:10:08.317558 QR/QE 10.0.41.10:3332 57235 Q+R 0 0 0 0 ip.in-address.reverse. PTR 10.0.42.10 }
+{ 2022-12-29T16:24:27.886689 EV @ ../Files/dataBaseSPReverse.txt
+ ../Files/dataBaseSPReverse.txt
+ ../Files/logFileSPReverse.txt }
+{ 2022-12-29T16:27:21.561980 EV @ ../Files/dataBaseSPReverse.txt
+ ../Files/dataBaseSPReverse.txt
+ ../Files/logFileSPReverse.txt }
+{ 2022-12-29T16:27:25.981292 QR/QE 10.0.41.10:3332 39553 Q+R 0 0 0 0 ip.in-address.reverse. PTR 10.0.42.10 }
+{ 2022-12-29T16:28:02.413019 EV @ ../Files/dataBaseSPReverse.txt
+ ../Files/dataBaseSPReverse.txt
+ ../Files/logFileSPReverse.txt }
+{ 2022-12-29T16:47:01.183282 EV @ ../Files/dataBaseSPReverse.txt
+ ../Files/dataBaseSPReverse.txt
+ ../Files/logFileSPReverse.txt }
+{ 2022-12-29T16:47:06.140427 QR/QE 10.0.41.10:3332 11857 Q+R 0 0 0 0 ip.in-address.reverse. PTR 10.0.42.10 }
+{ 2022-12-29T16:47:06.140970 RP\RR 10.0.13.20:3332 # Header
+MESSAGE-ID = 11857,FLAGS = R+A,RESPONSE-CODE = 0
+N-VALUES = 1 , N-AUTHORITIES = 0 , N-EXTRA-VALUES = 0;
+# Data: Query Info
+QUERY-INFO.NAME =  @ , QUERY-INFO.TYPE = PTR ;
+# Data: List of Response, Authorities and Extra Values
+RESPONSE-VALUES = LEIum3 }
+{ 2022-12-29T16:55:46.278781 QR/QE 10.0.41.10:3332 39069 Q+R 0 0 0 0 ip.in-address.reverse. PTR 10.0.29.20 }
+{ 2022-12-29T16:55:46.279354 RP\RR 10.0.13.20:3332 # Header
+MESSAGE-ID = 39069,FLAGS = R+A,RESPONSE-CODE = 0
+N-VALUES = 1 , N-AUTHORITIES = 0 , N-EXTRA-VALUES = 0;
+# Data: Query Info
+QUERY-INFO.NAME =  @ , QUERY-INFO.TYPE = PTR ;
+# Data: List of Response, Authorities and Extra Values }
+{ 2022-12-29T16:56:06.444556 QR/QE 10.0.41.10:3332 65206 Q+R 0 0 0 0 ip.in-address.reverse. PTR 20.29.0.10 }
+{ 2022-12-29T16:56:06.444892 RP\RR 10.0.13.20:3332 # Header
+MESSAGE-ID = 65206,FLAGS = R+A,RESPONSE-CODE = 0
+N-VALUES = 1 , N-AUTHORITIES = 0 , N-EXTRA-VALUES = 0;
+# Data: Query Info
+QUERY-INFO.NAME =  @ , QUERY-INFO.TYPE = PTR ;
+# Data: List of Response, Authorities and Extra Values }
