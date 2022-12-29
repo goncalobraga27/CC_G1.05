@@ -98,7 +98,6 @@ class sp:
         if msg=="ZT":
             if self.debug==1:
                 sys.stdout.write(f"Vou enviar a versão da minha base de dados\nA minha versão é esta {str(self.versao_DataBase)}\n")
-                print(self.verifTime_DataBase)
                 sys.stdout.write(f"O TTL da base de dados que vou enviar é este {self.verifTime_DataBase}\n")
             msgEnviar=str(self.versao_DataBase)+" "+str(self.verifTime_DataBase)
             connection.send(msgEnviar.encode('utf-8'))
@@ -225,14 +224,10 @@ class sp:
             m = MessageDNS()
 
             msg_UDP = m.deserialize(msg_UDP)
-            
-            print(msg_UDP)
 
             proQuery_UDP = pQuery(msg_UDP, self.domainServer)
 
             queryCheck_UDP=proQuery_UDP.processQuery()
-            
-            print(queryCheck_UDP)
 
             if (queryCheck_UDP==False):
                 if self.debug==1:
