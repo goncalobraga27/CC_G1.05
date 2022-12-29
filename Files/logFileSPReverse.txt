@@ -40,3 +40,14 @@ N-VALUES = 1 , N-AUTHORITIES = 0 , N-EXTRA-VALUES = 0;
 # Data: Query Info
 QUERY-INFO.NAME =  @ , QUERY-INFO.TYPE = PTR ;
 # Data: List of Response, Authorities and Extra Values }
+{ 2022-12-29T17:43:38.277878 EV @ ../Files/dataBaseSPReverse.txt
+ ../Files/dataBaseSPReverse.txt
+ ../Files/logFileSPReverse.txt }
+{ 2022-12-29T17:55:03.662350 QR/QE 10.0.41.10:3332 37312 Q+R 0 0 0 0 ip.in-address.reverse. PTR 10.46.0.10 }
+{ 2022-12-29T17:55:03.662580 RP\RR 10.0.13.20:3332 # Header
+MESSAGE-ID = 37312,FLAGS = R+A,RESPONSE-CODE = 0
+N-VALUES = 1 , N-AUTHORITIES = 0 , N-EXTRA-VALUES = 0;
+# Data: Query Info
+QUERY-INFO.NAME =  @ , QUERY-INFO.TYPE = PTR ;
+# Data: List of Response, Authorities and Extra Values
+RESPONSE-VALUES = UAmx }

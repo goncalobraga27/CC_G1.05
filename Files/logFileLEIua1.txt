@@ -2,3 +2,7 @@
  ../Files/logFileLEIua1.txt }
 { 2022-12-20T16:07:57.417541 EV @ ../Files/ConfigFile-UAveiro-LEIua1.txt ../Files/dataBaseLEIua1.txt
  ../Files/logFileLEIua1.txt }
+{ 2022-12-29T17:31:14.776106 EV @ ../Files/ConfigFile-UAveiro-LEIua1.txt ../Files/dataBaseLEIua1.txt
+ ../Files/logFileLEIua1.txt }
+{ 2022-12-29T17:31:26.337320 EV @ ../Files/ConfigFile-UAveiro-LEIua1.txt ../Files/dataBaseLEIua1.txt
+ ../Files/logFileLEIua1.txt }

@@ -3027,3 +3027,83 @@ N-VALUES = 1 , N-AUTHORITIES = 0 , N-EXTRA-VALUES = 0;
 # Data: Query Info
 QUERY-INFO.NAME =  @ , QUERY-INFO.TYPE = PTR ;
 # Data: List of Response, Authorities and Extra Values }
+{ 2022-12-29T17:45:37.305356 EV @ ../Files/logfileCL.txt }
+{ 2022-12-29T17:45:37.318314 QR/QE localHost:3333 46743 Q+R 0 0 0 0 campeoesUM.lei MX }
+{ 2022-12-29T17:45:37.332658 RP/RR localHost:3333 # Header
+MESSAGE-ID = 46743,FLAGS = R,RESPONSE-CODE = 2
+N-VALUES = 2 ;
+# Data: Query Info
+QUERY-INFO.NAME = campeoesUM.lei, QUERY-INFO.TYPE = MX ;
+# Data: List of Response, Authorities and Extra Values
+RESPONSE-VALUES = mx1.campeoesUM.lei
+RESPONSE-VALUES = mx2.campeoesUM.lei }
+{ 2022-12-29T17:45:49.347278 EV @ ../Files/logfileCL.txt }
+{ 2022-12-29T17:45:49.349899 QR/QE localHost:3333 25896 Q+R 0 0 0 0 campeoesUALG.lei MX }
+{ 2022-12-29T17:45:49.355963 RP/RR localHost:3333 # Header
+MESSAGE-ID = 25896,FLAGS = R,RESPONSE-CODE = 1
+N-VALUES = 0 ;
+# Data: Query Info
+QUERY-INFO.NAME = campeoesUALG.lei, QUERY-INFO.TYPE = MX ;
+# Data: List of Response, Authorities and Extra Values }
+{ 2022-12-29T17:45:59.636525 EV @ ../Files/logfileCL.txt }
+{ 2022-12-29T17:45:59.653306 QR/QE localHost:3333 40662 Q+R 0 0 0 0 campeoesUalg.lei MX }
+{ 2022-12-29T17:46:29.844179 EV @ ../Files/logfileCL.txt }
+{ 2022-12-29T17:46:29.845389 QR/QE localHost:3333 25139 Q+R 0 0 0 0 campeoesUAlg.lei MX }
+{ 2022-12-29T17:48:49.899364 EV @ ../Files/logfileCL.txt }
+{ 2022-12-29T17:48:49.900446 QR/QE localHost:3333 2180 Q+R 0 0 0 0 campeoesUALG.lei MX }
+{ 2022-12-29T17:49:05.248617 EV @ ../Files/logfileCL.txt }
+{ 2022-12-29T17:49:05.274197 QR/QE localHost:3333 38004 Q+R 0 0 0 0 campeoesUAlg.lei MX }
+{ 2022-12-29T17:49:16.735558 EV @ ../Files/logfileCL.txt }
+{ 2022-12-29T17:49:16.736531 QR/QE localHost:3333 32188 Q+R 0 0 0 0 campeoesUalg.lei MX }
+{ 2022-12-29T17:50:01.088603 EV @ ../Files/logfileCL.txt }
+{ 2022-12-29T17:50:01.089679 QR/QE localHost:3333 38257 Q+R 0 0 0 0 campeoesUC.mei MX }
+{ 2022-12-29T17:50:28.542209 EV @ ../Files/logfileCL.txt }
+{ 2022-12-29T17:50:28.548948 QR/QE localHost:3333 52260 Q+R 0 0 0 0 campeoesUC.mei MX }
+{ 2022-12-29T17:50:28.562138 RP/RR localHost:3333 # Header
+MESSAGE-ID = 52260,FLAGS = R,RESPONSE-CODE = 2
+N-VALUES = 2 ;
+# Data: Query Info
+QUERY-INFO.NAME = campeoesUC.mei, QUERY-INFO.TYPE = MX ;
+# Data: List of Response, Authorities and Extra Values
+RESPONSE-VALUES = mx1.campeoesUC.mei
+RESPONSE-VALUES = mx2.campeoesUC.mei }
+{ 2022-12-29T17:50:46.560782 EV @ ../Files/logfileCL.txt }
+{ 2022-12-29T17:50:46.576748 QR/QE localHost:3333 38398 Q+R 0 0 0 0 campeoesUA.mei MX }
+{ 2022-12-29T17:50:46.577226 RP/RR localHost:3333 # Header
+MESSAGE-ID = 38398,FLAGS = R,RESPONSE-CODE = 1
+N-VALUES = 0 ;
+# Data: Query Info
+QUERY-INFO.NAME = campeoesUA.mei, QUERY-INFO.TYPE = MX ;
+# Data: List of Response, Authorities and Extra Values }
+{ 2022-12-29T17:51:03.009301 EV @ ../Files/logfileCL.txt }
+{ 2022-12-29T17:51:03.020173 QR/QE localHost:3333 47443 Q+R 0 0 0 0 campeoesUA.mei MX }
+{ 2022-12-29T17:51:03.030698 RP/RR localHost:3333 # Header
+MESSAGE-ID = 47443,FLAGS = R,RESPONSE-CODE = 2
+N-VALUES = 2 ;
+# Data: Query Info
+QUERY-INFO.NAME = campeoesUA.mei, QUERY-INFO.TYPE = MX ;
+# Data: List of Response, Authorities and Extra Values
+RESPONSE-VALUES = mx1.campeoesUA.mei
+RESPONSE-VALUES = mx2.campeoesUA.mei }
+{ 2022-12-29T17:52:04.647413 EV @ ../Files/logfileCL.txt }
+{ 2022-12-29T17:52:04.658182 QR/QE localHost:3333 15596 Q+R 0 0 0 0 reverse. PTR }
+{ 2022-12-29T17:52:26.871130 EV @ ../Files/logfileCL.txt }
+{ 2022-12-29T17:52:26.872445 QR/QE localHost:3333 25126 Q+R 0 0 0 0 .reverse. PTR }
+{ 2022-12-29T17:53:06.158649 EV @ ../Files/logfileCL.txt }
+{ 2022-12-29T17:53:06.160302 QR/QE localHost:3333 45837 Q+R 0 0 0 0 .reverse. PTR }
+{ 2022-12-29T17:53:06.166652 RP/RR localHost:3333 O servidor com este endereçamento é que te pode ajudar 10.0.40.10:3334 }
+{ 2022-12-29T17:53:47.217093 EV @ ../Files/logfileCL.txt }
+{ 2022-12-29T17:53:47.221198 QR/QE localHost:3333 38821 Q+R 0 0 0 0 .in-address.reverse. PTR }
+{ 2022-12-29T17:54:27.136177 EV @ ../Files/logfileCL.txt }
+{ 2022-12-29T17:54:27.137995 QR/QE localHost:3333 8592 Q+R 0 0 0 0 .in-address.reverse. PTR }
+{ 2022-12-29T17:54:27.139579 RP/RR localHost:3333 O servidor com este endereçamento é que te pode ajudar 10.0.41.10:3332
+ }
+{ 2022-12-29T17:55:03.660968 EV @ ../Files/logfileCL.txt }
+{ 2022-12-29T17:55:03.662726 QR/QE localHost:3333 37312 Q+R 0 0 0 0 ip.in-address.reverse. PTR 10.46.0.10 }
+{ 2022-12-29T17:55:03.670902 RP/RR localHost:3333 # Header
+MESSAGE-ID = 37312,FLAGS = R+A,RESPONSE-CODE = 0
+N-VALUES = 1 , N-AUTHORITIES = 0 , N-EXTRA-VALUES = 0;
+# Data: Query Info
+QUERY-INFO.NAME =  @ , QUERY-INFO.TYPE = PTR ;
+# Data: List of Response, Authorities and Extra Values
+RESPONSE-VALUES = UAmx }
