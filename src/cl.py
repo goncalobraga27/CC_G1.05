@@ -8,7 +8,7 @@ from sys import argv
 from datetime import datetime
 import time
 from logFile import logF
-import messageDNS 
+from messageDNS import MessageDNS
 import sys
 
 
@@ -48,25 +48,31 @@ class cl:
         # Criação do datagrama UDP para posterior envio 
         # Acrescentar parâmetros do cabeçalho e do data
         message_id=randint(1,65535)
-
-        message_id = "% s" % message_id
         flags = "Q+"+self.recc
-        zero = "% s" % 0
-        response_code = zero
-        numberOfValues = zero
-        numberOfAuthorities = zero
-        numberOfExtraValues = zero
+        response_code = 0
+        numberOfValues = 0
+        numberOfAuthorities = 0
+        numberOfExtraValues = 0
         domain = self.domain
         type = self.type
         responseValues = None
         authoritiesValues = None
         extraValues = None
 
-        msg = message_id + flags + response_code + numberOfValues + numberOfAuthorities + numberOfExtraValues + domain + type + responseValues + authoritiesValues + extraValues   
+        m = str(message_id) + flags + str(response_code) + str(numberOfValues) + str(numberOfAuthorities) + str(numberOfExtraValues) + domain + type
 
-        msg = messageDNS(message_id,flags,response_code,numberOfValues,numberOfAuthorities,numberOfAuthorities,numberOfExtraValues,domain,type,responseValues,authoritiesValues,extraValues)
+        if int(numberOfValues) > 0:
+            m += responseValues
+        if int(numberOfAuthorities) > 0:
+            m += authoritiesValues  
+        if int(numberOfExtraValues) > 0:
+            m+= extraValues 
+
+        msg = MessageDNS(message_id,flags,response_code,numberOfValues,numberOfAuthorities,numberOfExtraValues,domain,type,responseValues,authoritiesValues,extraValues)
         
         b = msg.serialize()
+        
+        print(b)
 
         if self.debug==1:
             sys.stdout.write("Estou a enviar esta mensagem\n")
@@ -74,20 +80,23 @@ class cl:
         sck.sendto(b, (self.ipServer, 3333))
         
         now = datetime.today().isoformat()
-        writeLogFile=logF(str(now),"QR/QE","localHost:"+str(3333),msg,self.logF)
+        writeLogFile=logF(str(now),"QR/QE","localHost:"+str(3333),m,self.logF)
         writeLogFile.escritaLogFile()
         
         # Resposta ás queries pedidas
-        msg,add=sck.recvfrom(1024)
+        m,add=sck.recvfrom(1024)
         if self.debug==1:
             sys.stdout.write(f"Recebi uma mensagem do servidor{add}\n")
             sys.stdout.write("CONTEÚDO DA MENSAGEM:\n")
-        m=msg.decode('utf-8')
-        imprime=m+"\n"
+            
+        m = msg.deserialize(m)
+        
+        imprime = m + "\n"
+        
         if self.debug==1:
             sys.stdout.write(imprime)
         now = datetime.today().isoformat()
-        writeLogFile=logF(str(now),"RP/RR","localHost:"+str(3333),msg.decode('utf-8'),self.logF)
+        writeLogFile=logF(str(now),"RP/RR","localHost:"+str(3333),m,self.logF)
         writeLogFile.escritaLogFile()
 
         sck.close()

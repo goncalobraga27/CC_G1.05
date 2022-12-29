@@ -15,9 +15,10 @@ class MessageDNS:
         self.authoritiesValues = authoritiesValues
         self.extraValues = extraValues
 
+
     def encodeFlags(self):
         flags = -1
-
+        
         if self.flags == "Q":
             flags = 0
         if self.flags == "R":
@@ -26,12 +27,16 @@ class MessageDNS:
             flags = 2
         if self.flags == "Q+R":
             flags = 3
-        if self.flags == "A+R":
+        if self.flags == "R+A":
             flags = 4
+
+        print(flags)
+        print(self.flags)
 
         byte = flags.to_bytes(1, "big", signed=False)
 
         return byte
+    
 
     def decodeFlags(self,num):
         if num == 0:
@@ -43,7 +48,8 @@ class MessageDNS:
         elif num == 3:
             self.flags = "Q+R"
         elif num == 4:
-            self.flags = "A+R"
+            self.flags = "R+A"
+            
 
     def encodeResponseCode(self):
         resp= int(self.responseCode)
@@ -53,9 +59,12 @@ class MessageDNS:
         byte = resp.to_bytes(1, "big", signed=False)
 
         return byte
+    
 
     def decodeResponseCode(self,num):
         self.responseCode = str(num)
+        
+        
     def encodeTypeOfValue(self):
         resp = -1
         # Query Type
@@ -87,6 +96,7 @@ class MessageDNS:
         byte = resp.to_bytes(1, "big", signed=False)
 
         return byte
+    
 
     def decodeTypeOfValue(self,num):
         # Query Type
@@ -114,6 +124,7 @@ class MessageDNS:
             self.typeOfValue = "MX"
         elif num==10:
             self.typeOfValue = "PTR"
+            
             
     def serialize(self):
         bytes = b''
@@ -172,83 +183,105 @@ class MessageDNS:
         if ExistRV:
             tam = len (self.responseValues).to_bytes(4,"big",signed=False)
             byte=self.responseValues.encode('utf-8')
-            bytes+=tam+byte
+            bytes += tam + byte
 
         # Authorities Values - UTF-8
         if ExistAV:
             tam = len(self.authoritiesValues).to_bytes(4, "big", signed=False)
             byte = self.authoritiesValues.encode('utf-8')
             bytes += tam + byte
+            
         if ExistEV:
             tam = len(self.extraValues).to_bytes(4, "big", signed=False)
             byte = self.extraValues.encode('utf-8')
             bytes += tam + byte
 
         return bytes
-
+    
+    
     def take_bytes(self,bytes, number):
         ret = bytes[:number]
         bytes = bytes[number:]
 
         return ret, bytes
+    
+    
 
     def deserialize(self, bytes):
 
+        #message-ID
         res, bytes = self.take_bytes(bytes, 2)
         self.messageID = int.from_bytes(res, "big",signed=False)
 
+        #Flags
         res, bytes = self.take_bytes(bytes, 1)
         num = int.from_bytes(res, "big", signed=False)
         self.decodeFlags(num)
 
+        #ResponseCode
         res, bytes = self.take_bytes(bytes, 1)
         self.responseCode = int.from_bytes(res, "big", signed=False)
 
+        #Verify if exists Response Value
         res, bytes = self.take_bytes(bytes, 1)
         ExistRV = bool.from_bytes(res, "big")
 
+        #Response Values
         if ExistRV:
             res, bytes = self.take_bytes(bytes, 1)
             self.numberOfValues = int.from_bytes(res, "big", signed=False)
 
+        #Verify if exists Authority Values
         res, bytes = self.take_bytes(bytes, 1)
         ExistAV = bool.from_bytes(res, "big")
 
+        #Authority Values
         if ExistAV:
             res, bytes = self.take_bytes(bytes, 1)
             self.authoritiesValues = int.from_bytes(res, "big", signed=False)
 
+        #Verify if exists Extra Values
         res, bytes = self.take_bytes(bytes, 1)
         ExistEV = bool.from_bytes(res, "big")
 
+        #Extra Values
         if ExistEV:
             res, bytes = self.take_bytes(bytes, 1)
             self.extraValues = int.from_bytes(res, "big", signed=False)
 
+        #Verify the length of the domain
         res, bytes = self.take_bytes(bytes, 1)
         tam=int.from_bytes(res, "big", signed=False)
 
+        #Domain
         res, bytes = self.take_bytes(bytes, tam)
         self.nameDomain = res.decode("utf-8")
 
+        #Type of Value
         res, bytes = self.take_bytes(bytes, 1)
         val = int.from_bytes(res, "big", signed=False)
         self.decodeTypeOfValue(val)
 
+        #Verify if exists Response Values, and if so decode UTF-8
         if ExistRV:
             res, bytes = self.take_bytes(bytes, 4)
             tam = int.from_bytes(res, "big", signed=False)
             res, bytes = self.take_bytes(bytes, tam)
             self.responseValues = res.decode('utf-8')
 
-            # Authorities Values - UTF-8
+        #Verify if exists Authorities Values, and if so decode UTF-8
         if ExistAV:
             res, bytes = self.take_bytes(bytes, 4)
             tam = int.from_bytes(res, "big", signed=False)
             res, bytes = self.take_bytes(bytes, tam)
             self.authoritiesValues = res.decode('utf-8')
+            
+        #Verify if exists Extra Values, and if so decode UTF-8
         if ExistEV:
             res, bytes = self.take_bytes(bytes, 4)
             tam = int.from_bytes(res, "big", signed=False)
             res, bytes = self.take_bytes(bytes, tam)
             self.extraValues = res.decode('utf-8')
+            
+            
+        return str(self.messageID) + " " + self.flags + " " + str(self.responseCode) + " " + str(self.numberOfValues) + " " + str(self.numberOfAuthorities) + " " + str(self.numberOfExtraValues) + " " + self.nameDomain + " " + self.typeOfValue + " " + self.responseValues + " " + self.authoritiesValues + " " + self.extraValues

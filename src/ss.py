@@ -9,6 +9,7 @@ from datetime import datetime
 from random import randint
 from sys import argv
 from answerQuery import aQuery
+from messageDNS import MessageDNS
 from parserConfFile import parseConfigFile
 from processQuery import pQuery
 from logFile import logF
@@ -193,8 +194,9 @@ class ss:
         while True:
             msg_UDP,add = sck.recvfrom(1024)
 
-            if self.debug==1:
-                sys.stdout.write(msg_UDP.decode('utf-8'))
+            m = MessageDNS()
+
+            msg_UDP = m.deserialize(msg_UDP)
 
             proQuery_UDP = pQuery(msg_UDP.decode('utf-8'), self.domainServer)
 

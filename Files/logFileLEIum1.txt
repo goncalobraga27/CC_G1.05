@@ -326,3 +326,124 @@ EXTRA-VALUES = mx2 A 193.136.130.21 TTL }
  ../Files/logFileLEIum1.txt }
 { 2022-12-08T23:06:48.568795 EV @ ../Files/ConfigFile-UMinho-LEIum1.txt ../Files/dataBaseLEIum1.txt
  ../Files/logFileLEIum1.txt }
+{ 2022-12-29T11:48:11.179901 EV @ ../Files/ConfigFile-UMinho-LEIum1.txt ../Files/dataBaseLEIum1.txt
+ ../Files/logFileLEIum1.txt }
+{ 2022-12-29T11:48:24.392015 EV @ ../Files/ConfigFile-UMinho-LEIum1.txt ../Files/dataBaseLEIum1.txt
+ ../Files/logFileLEIum1.txt }
+{ 2022-12-29T11:48:39.128817 EV @ ../Files/ConfigFile-UMinho-LEIum1.txt ../Files/dataBaseLEIum1.txt
+ ../Files/logFileLEIum1.txt }
+{ 2022-12-29T12:10:38.395516 EV @ ../Files/ConfigFile-UMinho-LEIum1.txt ../Files/dataBaseLEIum1.txt
+ ../Files/logFileLEIum1.txt }
+{ 2022-12-29T12:17:08.607529 EV @ ../Files/ConfigFile-UMinho-LEIum1.txt ../Files/dataBaseLEIum1.txt
+ ../Files/logFileLEIum1.txt }
+{ 2022-12-29T12:25:25.957530 EV @ ../Files/ConfigFile-UMinho-LEIum1.txt ../Files/dataBaseLEIum1.txt
+ ../Files/logFileLEIum1.txt }
+{ 2022-12-29T12:26:37.563592 EV @ ../Files/ConfigFile-UMinho-LEIum1.txt ../Files/dataBaseLEIum1.txt
+ ../Files/logFileLEIum1.txt }
+{ 2022-12-29T12:27:29.394318 EV @ ../Files/ConfigFile-UMinho-LEIum1.txt ../Files/dataBaseLEIum1.txt
+ ../Files/logFileLEIum1.txt }
+{ 2022-12-29T12:28:55.781419 EV @ ../Files/ConfigFile-UMinho-LEIum1.txt ../Files/dataBaseLEIum1.txt
+ ../Files/logFileLEIum1.txt }
+{ 2022-12-29T12:32:18.736047 EV @ ../Files/ConfigFile-UMinho-LEIum1.txt ../Files/dataBaseLEIum1.txt
+ ../Files/logFileLEIum1.txt }
+{ 2022-12-29T12:35:04.907478 EV @ ../Files/ConfigFile-UMinho-LEIum1.txt ../Files/dataBaseLEIum1.txt
+ ../Files/logFileLEIum1.txt }
+{ 2022-12-29T12:36:28.482300 EV @ ../Files/ConfigFile-UMinho-LEIum1.txt ../Files/dataBaseLEIum1.txt
+ ../Files/logFileLEIum1.txt }
+{ 2022-12-29T12:37:38.850800 EV @ ../Files/ConfigFile-UMinho-LEIum1.txt ../Files/dataBaseLEIum1.txt
+ ../Files/logFileLEIum1.txt }
+{ 2022-12-29T12:39:25.504266 EV @ ../Files/ConfigFile-UMinho-LEIum1.txt ../Files/dataBaseLEIum1.txt
+ ../Files/logFileLEIum1.txt }
+{ 2022-12-29T12:39:27.799178 QR/QE 10.0.16.10:3333 63553 Q+R 0 0 0 0 campeoesUM.lei MX    }
+{ 2022-12-29T12:40:08.523626 EV @ ../Files/ConfigFile-UMinho-LEIum1.txt ../Files/dataBaseLEIum1.txt
+ ../Files/logFileLEIum1.txt }
+{ 2022-12-29T12:40:10.398554 QR/QE 10.0.16.10:3333 41981 Q+R 0 0 0 0 campeoesUM.lei MX    }
+{ 2022-12-29T12:41:22.947334 EV @ ../Files/ConfigFile-UMinho-LEIum1.txt ../Files/dataBaseLEIum1.txt
+ ../Files/logFileLEIum1.txt }
+{ 2022-12-29T12:41:24.739267 QR/QE 10.0.16.10:3333 18368 Q+R 0 0 0 0 campeoesUM.lei MX    }
+{ 2022-12-29T12:44:04.962743 EV @ ../Files/ConfigFile-UMinho-LEIum1.txt ../Files/dataBaseLEIum1.txt
+ ../Files/logFileLEIum1.txt }
+{ 2022-12-29T12:44:06.899378 QR/QE 10.0.16.10:3333 63952 Q+R 0 0 0 0 campeoesUM.lei MX    }
+{ 2022-12-29T12:44:40.689070 EV @ ../Files/ConfigFile-UMinho-LEIum1.txt ../Files/dataBaseLEIum1.txt
+ ../Files/logFileLEIum1.txt }
+{ 2022-12-29T12:44:43.372936 QR/QE 10.0.16.10:3333 20568 Q+R 0 0 0 0 campeoesUM.lei MX    }
+{ 2022-12-29T12:46:48.195196 EV @ ../Files/ConfigFile-UMinho-LEIum1.txt ../Files/dataBaseLEIum1.txt
+ ../Files/logFileLEIum1.txt }
+{ 2022-12-29T12:46:50.225786 QR/QE 10.0.16.10:3333 58051 Q+R 0 0 0 0 campeoesUM.lei MX    }
+{ 2022-12-29T12:48:58.476082 EV @ ../Files/ConfigFile-UMinho-LEIum1.txt ../Files/dataBaseLEIum1.txt
+ ../Files/logFileLEIum1.txt }
+{ 2022-12-29T12:49:00.696877 QR/QE 10.0.16.10:3333 57676 Q+R 0 0 0 0 campeoesUM.lei MX    }
+{ 2022-12-29T12:50:22.770580 EV @ ../Files/ConfigFile-UMinho-LEIum1.txt ../Files/dataBaseLEIum1.txt
+ ../Files/logFileLEIum1.txt }
+{ 2022-12-29T12:50:24.433875 QR/QE 10.0.16.10:3333 5797 Q+R 0 0 0 0 campeoesUM.lei MX    }
+{ 2022-12-29T12:51:38.605100 EV @ ../Files/ConfigFile-UMinho-LEIum1.txt ../Files/dataBaseLEIum1.txt
+ ../Files/logFileLEIum1.txt }
+{ 2022-12-29T12:51:40.597385 QR/QE 10.0.16.10:3333 38481 Q+R 0 0 0 0 campeoesUM.lei MX    }
+{ 2022-12-29T12:52:02.140058 EV @ ../Files/ConfigFile-UMinho-LEIum1.txt ../Files/dataBaseLEIum1.txt
+ ../Files/logFileLEIum1.txt }
+{ 2022-12-29T12:52:03.667629 QR/QE 10.0.16.10:3333 46508 Q+R 0 0 0 0 campeoesUM.lei MX    }
+{ 2022-12-29T12:52:03.667775 RP\RR 10.0.13.20:3333 # Header
+MESSAGE-ID = 46508,FLAGS = R+A,RESPONSE-CODE = 0
+N-VALUES = 2 , N-AUTHORITIES =2 , N-EXTRA-VALUES =4 ;
+# Data: Query Info
+QUERY-INFO.NAME =  @ , QUERY-INFO.TYPE = MX ;
+# Data: List of Response, Authorities and Extra Values
+RESPONSE-VALUES = @ MX mx1.campeoesUM.lei TTL 10
+RESPONSE-VALUES = @ MX mx2.campeoesUM.lei TTL 20
+AUTHORITIES-VALUES = @ NS ns1.campeoesUM.lei. TTL
+AUTHORITIES-VALUES = @ NS ns2.campeoesUM.lei. TTL
+EXTRA-VALUES = ns1 A 193.136.130.101 TTL
+EXTRA-VALUES = ns2 A 193.137.100.102 TTL
+EXTRA-VALUES = mx1 A 193.136.130.20 TTL
+EXTRA-VALUES = mx2 A 193.136.130.21 TTL }
+{ 2022-12-29T12:54:03.676535 EV @ ../Files/ConfigFile-UMinho-LEIum1.txt ../Files/dataBaseLEIum1.txt
+ ../Files/logFileLEIum1.txt }
+{ 2022-12-29T12:54:05.395414 QR/QE 10.0.16.10:3333 46097 Q+R 0 0 0 0 campeoesUM.lei MX    }
+{ 2022-12-29T12:54:05.395561 RP\RR 10.0.13.20:3333 # Header
+MESSAGE-ID = 46097,FLAGS = R+A,RESPONSE-CODE = 0
+N-VALUES = 2 , N-AUTHORITIES =2 , N-EXTRA-VALUES =4 ;
+# Data: Query Info
+QUERY-INFO.NAME =  @ , QUERY-INFO.TYPE = MX ;
+# Data: List of Response, Authorities and Extra Values
+RESPONSE-VALUES = @ MX mx1.campeoesUM.lei TTL 10
+RESPONSE-VALUES = @ MX mx2.campeoesUM.lei TTL 20
+AUTHORITIES-VALUES = @ NS ns1.campeoesUM.lei. TTL
+AUTHORITIES-VALUES = @ NS ns2.campeoesUM.lei. TTL
+EXTRA-VALUES = ns1 A 193.136.130.101 TTL
+EXTRA-VALUES = ns2 A 193.137.100.102 TTL
+EXTRA-VALUES = mx1 A 193.136.130.20 TTL
+EXTRA-VALUES = mx2 A 193.136.130.21 TTL }
+{ 2022-12-29T12:54:27.168234 EV @ ../Files/ConfigFile-UMinho-LEIum1.txt ../Files/dataBaseLEIum1.txt
+ ../Files/logFileLEIum1.txt }
+{ 2022-12-29T12:54:29.110560 QR/QE 10.0.16.10:3333 3869 Q+R 0 0 0 0 campeoesUM.lei MX    }
+{ 2022-12-29T12:54:29.110756 RP\RR 10.0.13.20:3333 # Header
+MESSAGE-ID = 3869,FLAGS = R+A,RESPONSE-CODE = 0
+N-VALUES = 2 , N-AUTHORITIES =2 , N-EXTRA-VALUES =4 ;
+# Data: Query Info
+QUERY-INFO.NAME =  @ , QUERY-INFO.TYPE = MX ;
+# Data: List of Response, Authorities and Extra Values
+RESPONSE-VALUES = @ MX mx1.campeoesUM.lei TTL 10
+RESPONSE-VALUES = @ MX mx2.campeoesUM.lei TTL 20
+AUTHORITIES-VALUES = @ NS ns1.campeoesUM.lei. TTL
+AUTHORITIES-VALUES = @ NS ns2.campeoesUM.lei. TTL
+EXTRA-VALUES = ns1 A 193.136.130.101 TTL
+EXTRA-VALUES = ns2 A 193.137.100.102 TTL
+EXTRA-VALUES = mx1 A 193.136.130.20 TTL
+EXTRA-VALUES = mx2 A 193.136.130.21 TTL }
+{ 2022-12-29T12:55:03.959474 EV @ ../Files/ConfigFile-UMinho-LEIum1.txt ../Files/dataBaseLEIum1.txt
+ ../Files/logFileLEIum1.txt }
+{ 2022-12-29T12:55:05.802718 QR/QE 10.0.16.10:3333 31942 Q+R 0 0 0 0 campeoesUM.lei MX    }
+{ 2022-12-29T12:55:05.802883 RP\RR 10.0.13.20:3333 # Header
+MESSAGE-ID = 31942,FLAGS = R+A,RESPONSE-CODE = 0
+N-VALUES = 2 , N-AUTHORITIES =2 , N-EXTRA-VALUES =4 ;
+# Data: Query Info
+QUERY-INFO.NAME =  @ , QUERY-INFO.TYPE = MX ;
+# Data: List of Response, Authorities and Extra Values
+RESPONSE-VALUES = @ MX mx1.campeoesUM.lei TTL 10
+RESPONSE-VALUES = @ MX mx2.campeoesUM.lei TTL 20
+AUTHORITIES-VALUES = @ NS ns1.campeoesUM.lei. TTL
+AUTHORITIES-VALUES = @ NS ns2.campeoesUM.lei. TTL
+EXTRA-VALUES = ns1 A 193.136.130.101 TTL
+EXTRA-VALUES = ns2 A 193.137.100.102 TTL
+EXTRA-VALUES = mx1 A 193.136.130.20 TTL
+EXTRA-VALUES = mx2 A 193.136.130.21 TTL }

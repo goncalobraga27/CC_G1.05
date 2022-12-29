@@ -14,6 +14,7 @@ from parserDataFile import parseDataFile
 from processQuery import pQuery
 from logFile import logF
 from threadResolver import thrResolver
+from messageDNS import MessageDNS
 
 class sp:
     
@@ -220,13 +221,18 @@ class sp:
         while True:
 
             msg_UDP,add_UDP = sck_UDP.recvfrom(1024)
+            
+            m = MessageDNS()
 
-            if self.debug==1:
-                sys.stdout.write(msg_UDP.decode('utf-8'))
+            msg_UDP = m.deserialize(msg_UDP)
+            
+            print(msg_UDP)
 
-            proQuery_UDP = pQuery(msg_UDP.decode('utf-8'), self.domainServer)
+            proQuery_UDP = pQuery(msg_UDP, self.domainServer)
 
-            queryCheck_UDP=proQuery_UDP.processQuery(0)
+            queryCheck_UDP=proQuery_UDP.processQuery()
+            
+            print(queryCheck_UDP)
 
             if (queryCheck_UDP==False):
                 if self.debug==1:
@@ -236,11 +242,12 @@ class sp:
                 if self.debug==1:
                     sys.stdout.write(f"\nRecebi uma mensagem do cliente {add_UDP}\n")
                 now = datetime.today().isoformat()
-                writeLogFile=logF(str(now),"QR/QE",self.ipSP+":"+str(self.portaUDP),msg_UDP.decode('utf-8'),self.lista_logFile[0])
+                writeLogFile=logF(str(now),"QR/QE",self.ipSP+":"+str(self.portaUDP),msg_UDP,self.lista_logFile[0])
                 writeLogFile.escritaLogFile()
-                ansQuery = aQuery(proQuery_UDP.message_id,"R+A",str(0),dictDataBase,proQuery_UDP.typeValue,self.domainServer)
-                resposta,bytes = ansQuery.answerQuery()
+                ansQuery = aQuery(m.messageID,"R+A",m.responseCode,dictDataBase,proQuery_UDP.typeValue,self.domainServer)
+                resposta, bytes = ansQuery.answerQuery()
                 respostaDatagram = '\n'.join(resposta)
+                
                 
                 sck_UDP.sendto(bytes,add_UDP)
                 

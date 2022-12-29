@@ -1,7 +1,8 @@
 # Started in: 31/09/2022
 # Changed by: Gonçalo Braga, João Gonçalves and Miguel Senra
 # Finished in: 23/11/2022
-import messageDNS
+
+from messageDNS import MessageDNS
 
 class aQuery:
     def __init__(self,message_id,flags,response_code, dictDataBase, typeValue, domain):
@@ -17,7 +18,7 @@ class aQuery:
         listaRes=[]
         listaCabecalho=[]
         listaCabecalho.append("# Header")
-        listaCabecalho.append("MESSAGE-ID = " + self.message_id + ",FLAGS = " +self.flags + ",RESPONSE-CODE = " + self.response_code)
+        listaCabecalho.append("MESSAGE-ID = " + str(self.message_id) + ",FLAGS = " +self.flags + ",RESPONSE-CODE = " + str(self.response_code))
         listaRespValues=self.dictDataBase[self.typeValue]
         nValues=0
         guardaResponseValues = ""
@@ -50,7 +51,7 @@ class aQuery:
         listaCabecalho.append("QUERY-INFO.NAME = "+" @ ,"+" QUERY-INFO.TYPE = "+self.typeValue+" ;")
         listaCabecalho.append("# Data: List of Response, Authorities and Extra Values")
         
-        m = messageDNS(self.message_id,self.flags,self.response_code,nValues,nAuth,nExtraValues,self.domain,self.typeValue,guardaResponseValues,guardaAuthValues,guardaExtraValues)
-        m.serialize()
+        m = MessageDNS(self.message_id,self.flags,self.response_code,nValues,nAuth,nExtraValues,self.domain,self.typeValue,guardaResponseValues,guardaAuthValues,guardaExtraValues)
+        bytes = m.serialize()
 
-        return (listaCabecalho+listaRes) and m
+        return (listaCabecalho+listaRes), bytes
