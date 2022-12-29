@@ -71,8 +71,6 @@ class cl:
         msg = MessageDNS(message_id,flags,response_code,numberOfValues,numberOfAuthorities,numberOfExtraValues,domain,type,responseValues,authoritiesValues,extraValues)
         
         b = msg.serialize()
-        
-        print(b)
 
         if self.debug==1:
             sys.stdout.write("Estou a enviar esta mensagem\n")
