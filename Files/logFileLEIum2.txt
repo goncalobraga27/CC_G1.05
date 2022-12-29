@@ -137,3 +137,40 @@ EXTRA-VALUES = ns1 A 193.136.130.101 TTL
 EXTRA-VALUES = ns2 A 193.137.100.102 TTL
 EXTRA-VALUES = mx1 A 193.136.130.20 TTL
 EXTRA-VALUES = mx2 A 193.136.130.21 TTL }
+{ 2022-12-29T14:52:41.177182 EV @ ../Files/ConfigFile-UCoimbra-LEIum2.txt ../Files/logFileLEIum2.txt }
+{ 2022-12-29T14:52:41.224804 ZT 10.0.16.10:4444 SS }
+{ 2022-12-29T14:52:46.186357 ZT 10.0.16.10:4444 SS }
+{ 2022-12-29T14:54:29.585597 EV @ ../Files/ConfigFile-UCoimbra-LEIum2.txt ../Files/logFileLEIum2.txt }
+{ 2022-12-29T14:54:29.629425 ZT 10.0.16.10:4444 SS }
+{ 2022-12-29T14:54:34.590489 ZT 10.0.16.10:4444 SS }
+{ 2022-12-29T14:54:49.947381 EV @ ../Files/ConfigFile-UCoimbra-LEIum2.txt ../Files/logFileLEIum2.txt }
+{ 2022-12-29T14:54:49.996868 ZT 10.0.16.10:4444 SS }
+{ 2022-12-29T14:54:54.953016 ZT 10.0.16.10:4444 SS }
+{ 2022-12-29T14:55:20.122376 EV @ ../Files/ConfigFile-UCoimbra-LEIum2.txt ../Files/logFileLEIum2.txt }
+{ 2022-12-29T14:55:30.090902 EV @ ../Files/ConfigFile-UCoimbra-LEIum2.txt ../Files/logFileLEIum2.txt }
+{ 2022-12-29T14:55:30.145468 ZT 10.0.16.10:4444 SS }
+{ 2022-12-29T14:55:35.102167 ZT 10.0.16.10:4444 SS }
+{ 2022-12-29T14:57:35.202776 ZT 10.0.16.10:4444 SS }
+{ 2022-12-29T14:59:35.303424 ZT 10.0.16.10:4444 SS }
+{ 2022-12-29T15:01:35.408039 ZT 10.0.16.10:4444 SS }
+{ 2022-12-29T15:03:35.508699 ZT 10.0.16.10:4444 SS }
+{ 2022-12-29T15:05:35.604053 ZT 10.0.16.10:4444 SS }
+{ 2022-12-29T15:07:35.695674 ZT 10.0.16.10:4444 SS }
+{ 2022-12-29T15:09:35.775546 ZT 10.0.16.10:4444 SS }
+{ 2022-12-29T15:11:35.876364 ZT 10.0.16.10:4444 SS }
+{ 2022-12-29T15:13:19.548007 EV @ ../Files/ConfigFile-UCoimbra-LEIum2.txt ../Files/logFileLEIum2.txt }
+{ 2022-12-29T15:16:08.436126 EV @ ../Files/ConfigFile-UCoimbra-LEIum2.txt ../Files/logFileLEIum2.txt }
+{ 2022-12-29T15:17:50.252512 EV @ ../Files/ConfigFile-UCoimbra-LEIum2.txt ../Files/logFileLEIum2.txt }
+{ 2022-12-29T15:19:15.418904 EV @ ../Files/ConfigFile-UCoimbra-LEIum2.txt ../Files/logFileLEIum2.txt }
+{ 2022-12-29T15:21:57.506499 EV @ ../Files/ConfigFile-UCoimbra-LEIum2.txt ../Files/logFileLEIum2.txt }
+{ 2022-12-29T15:23:13.907566 EV @ ../Files/ConfigFile-UCoimbra-LEIum2.txt ../Files/logFileLEIum2.txt }
+{ 2022-12-29T15:27:15.760487 EV @ ../Files/ConfigFile-UCoimbra-LEIum2.txt ../Files/logFileLEIum2.txt }
+{ 2022-12-29T15:27:34.683542 EV @ ../Files/ConfigFile-UCoimbra-LEIum2.txt ../Files/logFileLEIum2.txt }
+{ 2022-12-29T15:28:04.357831 EV @ ../Files/ConfigFile-UCoimbra-LEIum2.txt ../Files/logFileLEIum2.txt }
+{ 2022-12-29T15:29:13.918458 EV @ ../Files/ConfigFile-UCoimbra-LEIum2.txt ../Files/logFileLEIum2.txt }
+{ 2022-12-29T15:31:33.971287 EV @ ../Files/ConfigFile-UCoimbra-LEIum2.txt ../Files/logFileLEIum2.txt }
+{ 2022-12-29T15:31:34.020648 ZT 10.0.14.10:4444 SS }
+{ 2022-12-29T15:31:38.977673 ZT 10.0.14.10:4444 SS }
+{ 2022-12-29T15:32:23.491346 EV @ ../Files/ConfigFile-UCoimbra-LEIum2.txt ../Files/logFileLEIum2.txt }
+{ 2022-12-29T15:32:23.540912 ZT 10.0.14.10:4444 SS }
+{ 2022-12-29T15:32:28.498943 ZT 10.0.14.10:4444 SS }

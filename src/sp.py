@@ -23,6 +23,7 @@ class sp:
     global lock                      # Variável global para controlo de concorrência das threads na transferência de zona 
     lock = threading.Lock()          # Inicialização do Lock
     
+
     def __init__(self, ipSP, domainServer, nameConfig_File, portaUDP, portaTCP_SP, portaTCP_SS,modo):
         """
         Criação/Inicialização da classe sp
@@ -100,8 +101,11 @@ class sp:
                 sys.stdout.write(f"Vou enviar a versão da minha base de dados\nA minha versão é esta {str(self.versao_DataBase)}\n")
                 print(self.verifTime_DataBase)
                 sys.stdout.write(f"O TTL da base de dados que vou enviar é este {self.verifTime_DataBase}\n")
-            msgEnviar=str(self.versao_DataBase)+" "+str(self.verifTime_DataBase)
-            connection.send(msgEnviar.encode('utf-8'))
+            bytes = b''
+            versaodb = self.versao_DataBase.to_bytes(4,"big", signed=False)
+            verifTimeDB = self.versao_DataBase.to_bytes (4,"big",signed=False)
+            bytes+=versaodb+verifTimeDB
+            connection.send(bytes)
             if self.debug==1:
                 sys.stdout.write("Vou receber o domínio para o qual se pretende fazer a ZT\n")
             msgRecebida = connection.recv(1024)

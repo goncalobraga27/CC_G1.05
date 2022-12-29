@@ -29,6 +29,12 @@ class ss:
     global Lock                       # Variável global que garante controlo de concorrência na zt
     Lock=threading.Lock()             # Inicialização da variável global 
 
+    def take_bytes(self,bytes, number):
+        ret = bytes[:number]
+        bytes = bytes[number:]
+
+        return ret, bytes
+
     def __init__(self, ipSS, ipSP, domain, nameConfig_File, portaUDP, portaTCP_SP, portaTCP_SS,modo):
         """
         Criação/Inicialização da classe ss
@@ -87,11 +93,12 @@ class ss:
         s.sendall(msg.encode('utf-8'))
         if self.debug==1:    
             sys.stdout.write("Vou receber a versão da base de dados do sp\n")
+        
         fstResp=s.recv(1024)
-        resp=fstResp.decode('utf-8')
-        versaoandTTLDB=resp.split(' ')
-        versaoDB=int(versaoandTTLDB[0])
-        controlDB.verifTime_DataBase=int(versaoandTTLDB[1])
+        bytes,versaodbbyte = self.take_bytes(fstResp,4)
+        versaoDB=int.from_bytes(versaodbbyte,"big",signed=False)
+        bytes,verifyTimebytes = self.take_bytes(fstResp,4)
+        controlDB.verifTime_DataBase =int.from_bytes(verifyTimebytes,"big",signed=False)
         if self.debug==1:
             sys.stdout.write(f"A versão da base de dados do sp é esta {versaoDB}\n")
             sys.stdout.write(f"A versão da minha base de dados(ss) é esta {controlDB.versao}\n")
