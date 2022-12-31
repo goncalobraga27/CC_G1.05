@@ -163,7 +163,7 @@ class hd:
         sckSDT = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
         sckSDT.sendto(domain.encode('UTF-8'),(listaParSDT[0],int(listaParSDT[1])))
         msg,add = sckSDT.recvfrom(1024)
-         now = datetime.now()
+        now = datetime.now()
         writeLogFile=logF(str(now),"QR/QE",self.ipSR+":"+str(self.portaSR),"PEDIDO DE INFORMAÇÃO AO SP",self.listaLogFile[0])
         writeLogFile.escritaLogFile()
         listaIP=msg.decode('UTF-8').split(':')
