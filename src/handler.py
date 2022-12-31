@@ -40,6 +40,7 @@ class hd:
         pedido=self.proQuery.typeValue.encode('UTF-8')
         sck.sendto(pedido, (self.listaIP_SP[0], 3332))
         msg_UDP,add_UDP_SR = sck.recvfrom(1024)
+        
         numberLinhas=int(msg_UDP.decode('UTF-8'))
         for i in range(0,numberLinhas+1):
             msg_UDP,add_UDP_SR = sck.recvfrom(1024)

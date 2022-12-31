@@ -1,4 +1,5 @@
 from entryCache import entry
+from messageDNS import MessageDNS
 
 class aQuerySR:
     def __init__(self,message_id,flags,response_code, cache, typeValue,domain):

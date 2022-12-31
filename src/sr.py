@@ -77,26 +77,30 @@ class sr:
                 resposta,cod_message = ansQuerySR.answerQuerySR()
                 respostaDatagram = '\n'.join(resposta)
                 sck_UDP.sendto(cod_message,add_UDP)
+                
             else:
                 if (queryCheck==0 and domain==self.domainSR):
-                    hd.perguntaAoSeuSP(self,proQuery,add_UDP,domain,c,sck_UDP,msg_UDP)
+                    handler=hd(proQuery,add_UDP,domain,c,sck_UDP,msg_UDP) 
+                    handler.perguntaAoSeuSP()
 
                 if (queryCheck==0 and domain!=self.domainSR):
+                    handler=hd(domain,proQuery,c,sck_UDP,add_UDP)
                     domainQ=domain.split('.')
                     domainsSR=self.domainSR.split('.')
                     if(domainQ[1]=="lei"):
                         if (domainsSR[1]=="lei"):
-                            hd.perguntaLEIandSRLEI(self,domain,proQuery,c,sck_UDP,add_UDP)
+                            handler.perguntaLEIandSRLEI()
 
                         if(domainsSR[1]=="mei"):
-                            hd.perguntaLEIandSRMEI(self,domain,proQuery,c,sck_UDP,add_UDP)
+                            handler.perguntaLEIandSRMEI()
 
                     if(domainQ[1]=="mei"):
                         if (domainsSR[1]=="lei"):
-                            hd.perguntaMEIandSRLEI(self,domain,proQuery,c,sck_UDP,add_UDP)
+                            handler.perguntaMEIandSRLEI()
 
                         if(domainsSR[1]=="mei"):
-                            hd.perguntaMEIandSRMEI(self,domain,proQuery,c,add_UDP,sck_UDP)
+                            handler=hd(domain,proQuery,c,add_UDP,sck_UDP)
+                            handler.perguntaMEIandSRMEI()
 
 def main():
     ipSR=sys.argv[1]
