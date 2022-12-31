@@ -1,4 +1,5 @@
 from entryCache import entry
+from messageDNS import MessageDNS
 
 class aQuerySR:
     def __init__(self,message_id,flags,response_code, cache, typeValue,domain):
@@ -26,7 +27,7 @@ class aQuerySR:
         listaCabecalho.append("# Data: Query Info")
         listaCabecalho.append("QUERY-INFO.NAME = "+self.domain+","+" QUERY-INFO.TYPE = "+self.typeValue+" ;")
         listaCabecalho.append("# Data: List of Response, Authorities and Extra Values")
-        m = MessageDNS(self.message_id,self.flags,self.response_code,nValues,nAuth,nExtraValues,self.domain,self.typeValue,guardaResponseValues,guardaAuthValues,guardaExtraValues)
+        m = MessageDNS(self.message_id,self.flags,self.response_code,nValues,0,0,self.domain,self.typeValue,str(listaRespValues),"","")
         bytes = m.serialize()
         return (listaCabecalho+listaRes),bytes
     

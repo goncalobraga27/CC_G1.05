@@ -52,13 +52,13 @@ class hd:
                 e1=entry(self.domain,self.proQuery.typeValue,listaParametrosLinha[3],ttl,listaParametrosLinha[5],"SP",datetime.now(),"0","VALID")  
                 self.c.addEntry(e1)
             if(len(listaParametrosLinha)==5):
-                e1=entry(domain,proQuery.typeValue,listaParametrosLinha[3],ttl,"0","SP",datetime.now(),"0","VALID")
-                c.addEntry(e1)
+                e1=entry(self.domain,self.proQuery.typeValue,listaParametrosLinha[3],ttl,"0","SP",datetime.now(),"0","VALID")
+                self.c.addEntry(e1)
         
-        ansQuerySR = aQuerySR(proQuery.message_id,"R",str(2),c.cache,proQuery.typeValue,domain)
+        ansQuerySR = aQuerySR(self.proQuery.message_id,"R",str(2),self.c.cache,self.proQuery.typeValue,self.domain)
         resposta,cod_message = ansQuerySR.answerQuerySR()
         respostaDatagram = '\n'.join(resposta)
-        sck_UDP.sendto(cod_message,add_UDP)
+        self.sck_UDP.sendto(cod_message,self.add_UDP)
     
     def perguntaLEIandSRLEI(self):
         query="Give the address of .lei SDT".encode('UTF-8')
@@ -89,10 +89,10 @@ class hd:
             if(len(listaParametrosLinha)==5):
                 e1=entry(self.domain,self.proQuery.typeValue,listaParametrosLinha[3],ttl,0,"SP",datetime.now(),"0","VALID")
                 self.c.addEntry(e1)
-        ansQuerySR = aQuerySR(proQuery.message_id,"R",str(2),c.cache,proQuery.typeValue,domain)
+        ansQuerySR = aQuerySR(self.proQuery.message_id,"R",str(2),self.c.cache,self.proQuery.typeValue,self.domain)
         resposta,cod_message = ansQuerySR.answerQuerySR()
         respostaDatagram = '\n'.join(resposta)
-        sck_UDP.sendto(cod_message,add_UDP)
+        self.sck_UDP.sendto(cod_message,self.add_UDP)
     
     def perguntaLEIandSRMEI(self):
         query="Give the address of .mei SDT".encode('UTF-8')
@@ -125,10 +125,10 @@ class hd:
                 e1=entry(self.domain,self.proQuery.typeValue,listaParametrosLinha[3],ttl,0,"SP",datetime.now(),"0","VALID")
                 self.c.addEntry(e1)
         
-        ansQuerySR = aQuerySR(proQuery.message_id,"R",str(2),c.cache,proQuery.typeValue,domain)
+        ansQuerySR = aQuerySR(self.proQuery.message_id,"R",str(2),self.c.cache,self.proQuery.typeValue,self.domain)
         resposta,cod_message = ansQuerySR.answerQuerySR()
         respostaDatagram = '\n'.join(resposta)
-        sck_UDP.sendto(cod_message,add_UDP)
+        self.sck_UDP.sendto(cod_message,self.add_UDP)
 
     def perguntaMEIandSRLEI(self):
         query="Give the address of .lei SDT".encode('UTF-8')
@@ -160,10 +160,10 @@ class hd:
                 e1=entry(self.domain,self.proQuery.typeValue,listaParametrosLinha[3],ttl,0,"SP",datetime.now(),"0","VALID")
                 self.c.addEntry(e1)
         
-        ansQuerySR = aQuerySR(proQuery.message_id,"R",str(2),c.cache,proQuery.typeValue,domain)
+        ansQuerySR = aQuerySR(self.proQuery.message_id,"R",str(2),self.c.cache,self.proQuery.typeValue,self.domain)
         resposta,cod_message = ansQuerySR.answerQuerySR()
         respostaDatagram = '\n'.join(resposta)
-        sck_UDP.sendto(cod_message,add_UDP)
+        self.sck_UDP.sendto(cod_message,self.add_UDP)
     
     def perguntaMEIandSRMEI(self):
         query="Give the address of .mei SDT".encode('UTF-8')
@@ -197,7 +197,7 @@ class hd:
                 e1=entry(self.domain,self.proQuery.typeValue,listaParametrosLinha[3],ttl,0,"SP",datetime.now(),"0","VALID")
                 self.c.addEntry(e1)
     
-        ansQuerySR = aQuerySR(proQuery.message_id,"R",str(2),c.cache,proQuery.typeValue,domain)
+        ansQuerySR = aQuerySR(self.proQuery.message_id,"R",str(2),self.c.cache,self.proQuery.typeValue,self.domain)
         resposta,cod_message = ansQuerySR.answerQuerySR()
         respostaDatagram = '\n'.join(resposta)
-        sck_UDP.sendto(cod_message,add_UDP)
+        self.sck_UDP.sendto(cod_message,self.add_UDP)
