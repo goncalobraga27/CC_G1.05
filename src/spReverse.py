@@ -78,6 +78,7 @@ class spReverse:
 
             msg_UDP,add_UDP = sck_UDP.recvfrom(1024)
 
+
             if self.debug==1:
                 sys.stdout.write(msg_UDP.decode('utf-8'))
 
