@@ -1,4 +1,5 @@
 from entryCache import entry
+
 class aQuerySR:
     def __init__(self,message_id,flags,response_code, cache, typeValue,domain):
         self.cache = cache
@@ -7,6 +8,7 @@ class aQuerySR:
         self.flags=flags
         self.response_code=response_code
         self.domain=domain
+        
     def answerQuerySR(self):
         listaRes=[]
         listaCabecalho=[]
