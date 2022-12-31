@@ -15,6 +15,7 @@ from threadCache import thrCache
 from re import T
 from processQuery import pQuery
 from logFile import logF
+from messageDNS import MessageDNS
 class hd:
 
     def perguntaAoSeuSP(self,proQuery,add_UDP,domain,c,sck_UDP,msg_UDP):
@@ -43,13 +44,11 @@ class hd:
             if(len(listaParametrosLinha)==5):
                 e1=entry(domain,proQuery.typeValue,listaParametrosLinha[3],ttl,"0","SP",datetime.now(),"0","VALID")
                 c.addEntry(e1)
-
-
+        
         ansQuerySR = aQuerySR(proQuery.message_id,"R",str(2),c.cache,proQuery.typeValue,domain)
-        resposta = ansQuerySR.answerQuerySR()
+        resposta,cod_message = ansQuerySR.answerQuerySR()
         respostaDatagram = '\n'.join(resposta)
-        b =respostaDatagram.encode('UTF-8')
-        sck_UDP.sendto(b,add_UDP)
+        sck_UDP.sendto(cod_message,add_UDP)
     
     def perguntaLEIandSRLEI(self,domain,proQuery,c,sck_UDP,add_UDP):
         query="Give the address of .lei SDT".encode('UTF-8')
@@ -82,10 +81,9 @@ class hd:
                 c.addEntry(e1)
         
         ansQuerySR = aQuerySR(proQuery.message_id,"R",str(2),c.cache,proQuery.typeValue,domain)
-        resposta = ansQuerySR.answerQuerySR()
+        resposta,cod_message = ansQuerySR.answerQuerySR()
         respostaDatagram = '\n'.join(resposta)
-        b =respostaDatagram.encode('UTF-8')
-        sck_UDP.sendto(b,add_UDP)
+        sck_UDP.sendto(cod_message,add_UDP)
     
     def perguntaLEIandSRMEI(self,domain,proQuery,c,sck_UDP,add_UDP):
         query="Give the address of .mei SDT".encode('UTF-8')
@@ -119,10 +117,9 @@ class hd:
                 c.addEntry(e1)
         
         ansQuerySR = aQuerySR(proQuery.message_id,"R",str(2),c.cache,proQuery.typeValue,domain)
-        resposta = ansQuerySR.answerQuerySR()
+        resposta,cod_message = ansQuerySR.answerQuerySR()
         respostaDatagram = '\n'.join(resposta)
-        b =respostaDatagram.encode('UTF-8')
-        sck_UDP.sendto(b,add_UDP)
+        sck_UDP.sendto(cod_message,add_UDP)
 
     def perguntaMEIandSRLEI(self,domain,proQuery,c,sck_UDP,add_UDP):
         query="Give the address of .lei SDT".encode('UTF-8')
@@ -155,10 +152,9 @@ class hd:
                 c.addEntry(e1)
         
         ansQuerySR = aQuerySR(proQuery.message_id,"R",str(2),c.cache,proQuery.typeValue,domain)
-        resposta = ansQuerySR.answerQuerySR()
+        resposta,cod_message = ansQuerySR.answerQuerySR()
         respostaDatagram = '\n'.join(resposta)
-        b =respostaDatagram.encode('UTF-8')
-        sck_UDP.sendto(b,add_UDP)
+        sck_UDP.sendto(cod_message,add_UDP)
     
     def perguntaMEIandSRMEI(self,domain,proQuery,c,add_UDP,sck_UDP):
         query="Give the address of .mei SDT".encode('UTF-8')
@@ -194,7 +190,6 @@ class hd:
             
         
         ansQuerySR = aQuerySR(proQuery.message_id,"R",str(2),c.cache,proQuery.typeValue,domain)
-        resposta = ansQuerySR.answerQuerySR()
+        resposta,cod_message = ansQuerySR.answerQuerySR()
         respostaDatagram = '\n'.join(resposta)
-        b =respostaDatagram.encode('UTF-8')
-        sck_UDP.sendto(b,add_UDP)
+        sck_UDP.sendto(cod_message,add_UDP)

@@ -7,6 +7,7 @@ class aQuerySR:
         self.flags=flags
         self.response_code=response_code
         self.domain=domain
+        
     def answerQuerySR(self):
         listaRes=[]
         listaCabecalho=[]
@@ -24,9 +25,9 @@ class aQuerySR:
         listaCabecalho.append("# Data: Query Info")
         listaCabecalho.append("QUERY-INFO.NAME = "+self.domain+","+" QUERY-INFO.TYPE = "+self.typeValue+" ;")
         listaCabecalho.append("# Data: List of Response, Authorities and Extra Values")
-        
-
-        return (listaCabecalho+listaRes)
+        m = MessageDNS(self.message_id,self.flags,self.response_code,nValues,nAuth,nExtraValues,self.domain,self.typeValue,guardaResponseValues,guardaAuthValues,guardaExtraValues)
+        bytes = m.serialize()
+        return (listaCabecalho+listaRes),bytes
     
     def giveResponse(self):
         listaResultado=[]
