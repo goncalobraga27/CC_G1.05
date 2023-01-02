@@ -11,7 +11,7 @@ from parserConfigFileST import parseConfigFileST
 from processQuery import pQuery
 
 
-class streverse:
+class stReverse:
     def __init__(self,ipSTreverse,nameConfig_File):
         self.ipSTreverse=ipSTreverse
         self.nameConfig_File=nameConfig_File
@@ -37,8 +37,7 @@ class streverse:
         self.mainDomain=mainDomain
         self.ipSDTreverse=ipSDTreverse
         self.portaSDTreverse=portaSDTreverse
-        threading.Thread(target=streverse.runThreadST, args=(self.ipSTreverse,self.ipSDTreverse,self.portaSDTreverse)).start()
-
+        threading.Thread(target=stReverse.runThreadST, args=(self.ipSTreverse,self.ipSDTreverse,self.portaSDTreverse)).start()
 
 
 def main():
@@ -51,7 +50,7 @@ def main():
         sys.exit(1)
     
     nameConfig_File = sys.argv[2]  # ../Files/ConfigFileSTreverse.txt 
-    stObj = streverse(ipSTreverse,nameConfig_File)
+    stObj = stReverse(ipSTreverse,nameConfig_File)
     stObj.runST()    
 
 if __name__ == "__main__":
