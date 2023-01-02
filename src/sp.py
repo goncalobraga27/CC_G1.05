@@ -2,6 +2,7 @@
 # Changed by: Gonçalo Braga, João Gonçalves and Miguel Senra
 # Finished in: 23/11/2022
 
+import errno
 import socket
 import sys
 import threading
@@ -15,6 +16,7 @@ from processQuery import pQuery
 from logFile import logF
 from threadResolver import thrResolver
 from messageDNS import MessageDNS
+from Exceptions import exceptions
 
 class sp:
     
@@ -259,14 +261,42 @@ class sp:
 
 def main():
     ipSP = sys.argv[1]
+    
+    if exceptions.check(ipSP) == False: 
+        error_message = "O ip inserido para o Servidor não é válido"
+        error_code = errno.errorcode[error_message]
+        print(error_code)
+        sys.exit(1)
+    
     nameConfig_File = sys.argv[2]  # ../Files/ConfigFileSP.txt 
     domainServer = sys.argv[3]
     debug=0
     if len(sys.argv)==5:
         debug=int(sys.argv[4])
     portaUDP = 3333
+    
+    if exceptions.validatePort(portaUDP) == False: 
+        error_message = "A porta UDP inserida para o SP não é válida"
+        error_code = errno.errorcode[error_message]
+        print(error_code)
+        sys.exit(1)
+        
     portaTCP_SP = 4444
+    
+    if exceptions.validatePort(portaTCP_SP) == False: 
+        error_message = "A porta TCP inserida para o SP não é válida"
+        error_code = errno.errorcode[error_message]
+        print(error_code)
+        sys.exit(1)
+    
     portaTCP_SS = 6666
+    
+    if exceptions.validatePort(portaTCP_SS) == False: 
+        error_message = "A porta TCP inserida para o SS não é válida"
+        error_code = errno.errorcode[error_message]
+        print(error_code)
+        sys.exit(1)
+    
     spObj = sp(ipSP,domainServer,nameConfig_File,portaUDP,portaTCP_SP, portaTCP_SS,debug)
     spObj.runSP()    
 

@@ -9,8 +9,10 @@ from datetime import datetime
 import time
 from logFile import logF
 from messageDNS import MessageDNS
+from Exceptions import exceptions
 import sys
-
+import os
+import errno
 
 class cl:
 
@@ -102,6 +104,13 @@ class cl:
 
 def main():
     ipServer = argv[1]
+    
+    if exceptions.check(ipServer) == False: 
+        error_message = "O ip inserido para o Servidor não é válido"
+        error_code = errno.errorcode[error_message]
+        print(error_code)
+        sys.exit(1)
+     
     domain = argv[2]
     type = argv[3]
     ipADescobrir=""

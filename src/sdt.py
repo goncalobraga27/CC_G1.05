@@ -1,9 +1,11 @@
+import errno
 import socket
 import sys
 import threading
 import time
 from datetime import datetime
 from re import T
+from Exceptions import exceptions
 from parserConfigFileSDT import parseConfigFileSDT
 from messageDNS import MessageDNS
 
@@ -39,6 +41,13 @@ class sdt:
 
 def main():
     ipSDT = sys.argv[1]    # Porta:3334
+    
+    if exceptions.check(ipSDT) == False: 
+        error_message = "O ip inserido para o Servidor não é válido"
+        error_code = errno.errorcode[error_message]
+        print(error_code)
+        sys.exit(1)
+        
     nameConfig_File = sys.argv[2]  # ../Files/ConfigFileSDT.txt 
     stObj = sdt(ipSDT,nameConfig_File)
     stObj.runSDT()    

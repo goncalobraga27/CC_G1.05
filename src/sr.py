@@ -3,6 +3,8 @@
 # Finished in: 2/1/23
 
 
+import errno
+from Exceptions import exceptions
 from cacheSR import cache
 from entryCache import entry
 import socket
@@ -75,7 +77,6 @@ class sr:
                 sys.stdout.write("\nA query pedida não é válida\n")
             if (queryCheck==0 and ansQuerySR.canGiveResponse()==True):
                 resposta,cod_message = ansQuerySR.answerQuerySR()
-                respostaDatagram = '\n'.join(resposta)
                 sck_UDP.sendto(cod_message,add_UDP)
                 
             else:
@@ -104,6 +105,13 @@ class sr:
 
 def main():
     ipSR=sys.argv[1]
+    
+    if exceptions.check(ipSR) == False: 
+        error_message = "O ip inserido para o SR não é válido"
+        error_code = errno.errorcode[error_message]
+        print(error_code)
+        sys.exit(1)
+    
     nameConfigFile = sys.argv[2]
     domainSR=sys.argv[3]
     srObj=sr(ipSR,3333,nameConfigFile,domainSR)
