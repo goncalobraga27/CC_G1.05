@@ -7,8 +7,6 @@ from re import T
 from answerQuery import aQuery
 from parserConfigFileST import parseConfigFileST
 from processQuery import pQuery
-from Exceptions import exceptions
-import errno
 
 
 class st:
@@ -42,13 +40,6 @@ class st:
 
 def main():
     ipST = sys.argv[1]    # Porta:3332
-    
-    if exceptions.check(ipST) == False: 
-        error_message = "O ip inserido para o Servidor de Topo não é válido"
-        error_code = errno.errorcode[error_message]
-        print(error_code)
-        sys.exit(1)
-    
     nameConfig_File = sys.argv[2]  # ../Files/ConfigFileST.txt 
     stObj = st(ipST,nameConfig_File)
     stObj.runST()    

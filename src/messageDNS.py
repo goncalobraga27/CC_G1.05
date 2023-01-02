@@ -1,4 +1,3 @@
-
 class MessageDNS:
 
     def __init__(self, messageID=0, flags="", responseCode=0, numberOfValues=0, numberOfAuthorities=0, numberOfExtraValues=0,
@@ -29,9 +28,6 @@ class MessageDNS:
             flags = 3
         if self.flags == "R+A":
             flags = 4
-
-        print(flags)
-        print(self.flags)
 
         byte = flags.to_bytes(1, "big", signed=False)
 
@@ -130,7 +126,7 @@ class MessageDNS:
         bytes = b''
 
         # MessageID - 2 bytes
-        msg_id = (int(self.messageID)).to_bytes(2, "big", signed=False)
+        msg_id = (self.messageID).to_bytes(2, "big", signed=False)
         bytes += msg_id
 
         # flags - 3 bits
@@ -141,15 +137,16 @@ class MessageDNS:
         rCode = self.encodeResponseCode()
         bytes += rCode
 
-        ExistRV = self.numberOfValues!=0
-        b1= ExistRV.to_bytes(1,"big")
-        bytes+=b1
 
+        ExistRV = self.numberOfValues!=0
+        b1 = ExistRV.to_bytes(1,"big")
+        bytes+=b1
 
         # Number of Values - 1 byte
         if ExistRV:
             nOfValues = (self.numberOfValues).to_bytes(1, "big", signed=False)
             bytes += nOfValues
+            
 
         ExistAV = self.numberOfAuthorities!=0
         b1= ExistAV.to_bytes(1, "big")
@@ -159,6 +156,7 @@ class MessageDNS:
         if ExistAV:
             nOfAuthorities = (self.numberOfAuthorities).to_bytes(1, "big", signed=False)
             bytes += nOfAuthorities
+        
 
         ExistEV = self.numberOfExtraValues!=0
         b1= ExistEV.to_bytes(1, "big")
@@ -173,10 +171,11 @@ class MessageDNS:
         len_domain = len(self.nameDomain).to_bytes(1, "big", signed=False)
         domain = self.nameDomain.encode('utf-8')
         bytes += len_domain + domain
-
+    
         # typeOfValue - 4 bits
         rtypeOfValue = self.encodeTypeOfValue()
         bytes += rtypeOfValue
+        
 
         # Response Values - UTF-8
 
@@ -191,13 +190,13 @@ class MessageDNS:
             byte = self.authoritiesValues.encode('utf-8')
             bytes += tam + byte
             
+        # Extra Values - UTF-8
         if ExistEV:
             tam = len(self.extraValues).to_bytes(4, "big", signed=False)
             byte = self.extraValues.encode('utf-8')
             bytes += tam + byte
 
         return bytes
-    
     
     def take_bytes(self,bytes, number):
         ret = bytes[:number]
@@ -282,6 +281,6 @@ class MessageDNS:
             tam = int.from_bytes(res, "big", signed=False)
             res, bytes = self.take_bytes(bytes, tam)
             self.extraValues = res.decode('utf-8')
-
+            
             
         return str(self.messageID) + " " + self.flags + " " + str(self.responseCode) + " " + str(self.numberOfValues) + " " + str(self.numberOfAuthorities) + " " + str(self.numberOfExtraValues) + " " + self.nameDomain + " " + self.typeOfValue + " " + self.responseValues + " " + self.authoritiesValues + " " + self.extraValues

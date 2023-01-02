@@ -16,7 +16,7 @@ class thrCache:
                 e=c.cache[key]
                 ttl=e.getTTL()
                 timestamp=e.getTimeStamp()
-                time=datetime.now()-timedelta(seconds=ttl)
+                time=datetime.now()-timedelta(seconds=int(ttl))
                 if time>timestamp:
                     c.cache[key]=entry("","","","","","","",key,"FREE")
         lock.release()

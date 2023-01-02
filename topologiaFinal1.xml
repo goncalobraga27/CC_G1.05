@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<scenario name="/home/core/Documents/CC_G1.05/topologiaFinal1.xml">
+<scenario name="/home/core/Desktop/topologiaFinal1.xml">
   <networks/>
   <devices>
     <device id="1" name="Router1" type="router" class="" image="">
@@ -129,41 +129,41 @@
       </services>
     </device>
     <device id="25" name="SRualg" type="host" class="" image="">
-      <position x="846" y="22" lat="47.578966727106774" lon="-122.12092237904453" alt="2.0"/>
+      <position x="642" y="24" lat="47.57894854771497" lon="-122.12367122381393" alt="2.0"/>
       <services>
         <service name="DefaultRoute"/>
         <service name="SSH"/>
       </services>
     </device>
     <device id="22" name="SAUALG" type="PC" class="" image="">
-      <position x="898" y="68" lat="47.578548599498326" lon="-122.12022169312291" alt="2.0"/>
+      <position x="856" y="28" lat="47.57891218891243" lon="-122.12078763175191" alt="2.0"/>
       <services>
         <service name="DefaultRoute"/>
       </services>
     </device>
     <device id="19" name="LEIua2" type="host" class="" image="">
-      <position x="920" y="134" lat="47.57794867144496" lon="-122.11992524907916" alt="2.0"/>
+      <position x="886" y="124" lat="47.578039570076726" lon="-122.12038338987405" alt="2.0"/>
       <services>
         <service name="DefaultRoute"/>
         <service name="SSH"/>
       </services>
     </device>
     <device id="23" name="LEIualg1" type="host" class="" image="">
-      <position x="873" y="177" lat="47.57755780553017" lon="-122.12055856135444" alt="2.0"/>
+      <position x="839" y="175" lat="47.577575985404856" lon="-122.12101670214936" alt="2.0"/>
       <services>
         <service name="DefaultRoute"/>
         <service name="SSH"/>
       </services>
     </device>
     <device id="27" name="SRua" type="host" class="" image="">
-      <position x="144" y="400" lat="47.575530709912066" lon="-122.13038163898631" alt="2.0"/>
+      <position x="150" y="360" lat="47.57589432028301" lon="-122.13030079061073" alt="2.0"/>
       <services>
         <service name="DefaultRoute"/>
         <service name="SSH"/>
       </services>
     </device>
     <device id="12" name="LEIualg2" type="host" class="" image="">
-      <position x="30" y="442" lat="47.57514891630512" lon="-122.13191775812214" alt="2.0"/>
+      <position x="22" y="392" lat="47.575603432188245" lon="-122.13202555595623" alt="2.0"/>
       <services>
         <service name="DefaultRoute"/>
         <service name="SSH"/>
@@ -177,7 +177,7 @@
       </services>
     </device>
     <device id="18" name="SASUA" type="PC" class="" image="">
-      <position x="97" y="581" lat="47.57388534142103" lon="-122.13101495126162" alt="2.0"/>
+      <position x="75" y="643" lat="47.57332172264685" lon="-122.13131139530537" alt="2.0"/>
       <services>
         <service name="DefaultRoute"/>
       </services>
@@ -189,21 +189,21 @@
       </services>
     </device>
     <device id="26" name="LEIum2" type="host" class="" image="">
-      <position x="924" y="430" lat="47.57525800047687" lon="-122.11987135016211" alt="2.0"/>
+      <position x="930" y="448" lat="47.575094374134025" lon="-122.11979050178654" alt="2.0"/>
       <services>
         <service name="DefaultRoute"/>
         <service name="SSH"/>
       </services>
     </device>
     <device id="15" name="LEIuc1" type="host" class="" image="">
-      <position x="924" y="490" lat="47.57471257734564" lon="-122.11987135016211" alt="2.0"/>
+      <position x="904" y="526" lat="47.57438532073998" lon="-122.12014084474734" alt="2.0"/>
       <services>
         <service name="DefaultRoute"/>
         <service name="SSH"/>
       </services>
     </device>
     <device id="16" name="SRuc" type="host" class="" image="">
-      <position x="878" y="538" lat="47.574276234750265" lon="-122.12049118770814" alt="2.0"/>
+      <position x="816" y="574" lat="47.57394897541766" lon="-122.12132662092237" alt="2.0"/>
       <services>
         <service name="DefaultRoute"/>
         <service name="SSH"/>
@@ -219,14 +219,14 @@
       </services>
     </device>
     <device id="31" name="SDT1" type="host" class="" image="">
-      <position x="286" y="635" lat="47.57339444799084" lon="-122.12846822743111" alt="2.0"/>
+      <position x="264" y="675" lat="47.57303082026091" lon="-122.1287646714749" alt="2.0"/>
       <services>
         <service name="DefaultRoute"/>
         <service name="SSH"/>
       </services>
     </device>
     <device id="32" name="SDT2" type="host" class="" image="">
-      <position x="402" y="653" lat="47.57323081582484" lon="-122.12690515883676" alt="2.0"/>
+      <position x="428" y="671" lat="47.573067183147536" lon="-122.12655481587596" alt="2.0"/>
       <services>
         <service name="DefaultRoute"/>
         <service name="SSH"/>
@@ -242,14 +242,14 @@
       </services>
     </device>
     <device id="29" name="ST1" type="host" class="" image="">
-      <position x="538" y="647" lat="47.57328535993698" lon="-122.12507259565714" alt="2.0"/>
+      <position x="542" y="671" lat="47.573067183147536" lon="-122.1250186967401" alt="2.0"/>
       <services>
         <service name="DefaultRoute"/>
         <service name="SSH"/>
       </services>
     </device>
     <device id="33" name="ST2" type="host" class="" image="">
-      <position x="673" y="639" lat="47.57335808533147" lon="-122.12325350720683" alt="2.0"/>
+      <position x="723" y="679" lat="47.572994457349054" lon="-122.12257977074373" alt="2.0"/>
       <services>
         <service name="DefaultRoute"/>
         <service name="SSH"/>
@@ -293,21 +293,21 @@
       </services>
     </device>
     <device id="39" name="LEIua3" type="host" class="" image="">
-      <position x="196" y="567" lat="47.574012609336954" lon="-122.12968095306468" alt="2.0"/>
+      <position x="220" y="651" lat="47.57324899720187" lon="-122.12935755956241" alt="2.0"/>
       <services>
         <service name="DefaultRoute"/>
         <service name="SSH"/>
       </services>
     </device>
     <device id="40" name="LEIuc3" type="host" class="" image="">
-      <position x="768" y="554" lat="47.57413078641049" lon="-122.12197340792696" alt="2.0"/>
+      <position x="686" y="570" lat="47.57398533766672" lon="-122.12307833572642" alt="2.0"/>
       <services>
         <service name="DefaultRoute"/>
         <service name="SSH"/>
       </services>
     </device>
     <device id="41" name="LEIualg3" type="host" class="" image="">
-      <position x="755" y="177" lat="47.57755780553017" lon="-122.12214857940735" alt="2.0"/>
+      <position x="705" y="171" lat="47.57761234513531" lon="-122.12282231587042" alt="2.0"/>
       <services>
         <service name="DefaultRoute"/>
         <service name="SSH"/>
@@ -328,14 +328,14 @@
       </services>
     </device>
     <device id="44" name="UAmx" type="host" class="" image="">
-      <position x="456" y="611" lat="47.57361262341682" lon="-122.12617752345662" alt="2.0"/>
+      <position x="400" y="525" lat="47.574394411228866" lon="-122.12693210829528" alt="2.0"/>
       <services>
         <service name="DefaultRoute"/>
         <service name="SSH"/>
       </services>
     </device>
     <device id="45" name="UCmx" type="host" class="" image="">
-      <position x="490" y="558" lat="47.57409442426242" lon="-122.12571938266173" alt="2.0"/>
+      <position x="498" y="504" lat="47.57458531113091" lon="-122.12561158482764" alt="2.0"/>
       <services>
         <service name="DefaultRoute"/>
         <service name="SSH"/>
@@ -622,8 +622,8 @@
   <session_metadata>
     <configuration name="annotation a1" value="{iconcoords {160 82 737 499}} {type oval} {label {}} {labelcolor black} {fontfamily {Arial}} {fontsize {12}} {color #cbecff} {width 0} {border black} {canvas c1}"/>
     <configuration name="annotation a2" value="{iconcoords {370.0 18.0}} {type text} {label {CC-LEI 2022}} {labelcolor black} {fontfamily {Arial}} {fontsize {22}} {effects {bold}} {canvas c1}"/>
-    <configuration name="annotation a3" value="{iconcoords {1.0 5.0 189.0 202.0}} {type rectangle} {label {}} {labelcolor black} {fontfamily {Arial}} {fontsize {12}} {color #ccecd1} {width 0} {border black} {rad 28} {canvas c1}"/>
-    <configuration name="annotation a4" value="{iconcoords {0.0 412.0 221.0 618.0}} {type rectangle} {label {}} {labelcolor black} {fontfamily {Arial}} {fontsize {12}} {color #ccecd1} {width 0} {border black} {rad 25} {canvas c1}"/>
+    <configuration name="annotation a3" value="{iconcoords {3.0 5.0 189.0 172.0}} {type rectangle} {label {}} {labelcolor black} {fontfamily {Arial}} {fontsize {12}} {color #ccecd1} {width 0} {border black} {rad 28} {canvas c1}"/>
+    <configuration name="annotation a4" value="{iconcoords {2 402 216 575}} {type rectangle} {label {}} {labelcolor black} {fontfamily {Arial}} {fontsize {12}} {color #ccecd1} {width 0} {border black} {rad 25} {canvas c1}"/>
     <configuration name="annotation a5" value="{iconcoords {706 384 961 569}} {type rectangle} {label {}} {labelcolor black} {fontfamily {Arial}} {fontsize {12}} {color #ccecd1} {width 0} {border black} {rad 25} {canvas c1}"/>
     <configuration name="annotation a6" value="{iconcoords {704.0 1.0 943.0 180.0}} {type rectangle} {label {}} {labelcolor black} {fontfamily {Arial}} {fontsize {12}} {color #ccecd1} {width 0} {border black} {rad 25} {canvas c1}"/>
     <configuration name="annotation a7" value="{iconcoords {845.0 651.0}} {type text} {label {UCoimbra}} {labelcolor #00a900} {fontfamily {Arial}} {fontsize 16} {effects {bold}} {canvas c1}"/>

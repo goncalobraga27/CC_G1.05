@@ -1,17 +1,15 @@
-import errno
 import socket
 import sys
 import threading
 import time
 from datetime import datetime
 from re import T
-from Exceptions import exceptions
 from answerQuery import aQuery
 from parserConfigFileST import parseConfigFileST
 from processQuery import pQuery
 
 
-class stReverse:
+class streverse:
     def __init__(self,ipSTreverse,nameConfig_File):
         self.ipSTreverse=ipSTreverse
         self.nameConfig_File=nameConfig_File
@@ -37,20 +35,14 @@ class stReverse:
         self.mainDomain=mainDomain
         self.ipSDTreverse=ipSDTreverse
         self.portaSDTreverse=portaSDTreverse
-        threading.Thread(target=stReverse.runThreadST, args=(self.ipSTreverse,self.ipSDTreverse,self.portaSDTreverse)).start()
+        threading.Thread(target=streverse.runThreadST, args=(self.ipSTreverse,self.ipSDTreverse,self.portaSDTreverse)).start()
+
 
 
 def main():
     ipSTreverse = sys.argv[1]    # Porta:3332
-    
-    if exceptions.check(ipSTreverse) == False: 
-        error_message = "O ip inserido para o Servidor de Topo não é válido"
-        error_code = errno.errorcode[error_message]
-        print(error_code)
-        sys.exit(1)
-    
     nameConfig_File = sys.argv[2]  # ../Files/ConfigFileSTreverse.txt 
-    stObj = stReverse(ipSTreverse,nameConfig_File)
+    stObj = streverse(ipSTreverse,nameConfig_File)
     stObj.runST()    
 
 if __name__ == "__main__":

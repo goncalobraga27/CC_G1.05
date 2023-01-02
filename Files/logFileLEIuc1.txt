@@ -8,3 +8,7 @@
  ../Files/logFileLEIuc1.txt }
 { 2022-12-29T17:32:21.848932 EV @ ../Files/ConfigFile-UCoimbra-LEIuc1.txt ../Files/dataBaseLEIuc1.txt
  ../Files/logFileLEIuc1.txt }
+{ 2023-01-02T18:02:41.117948 EV @ ../Files/ConfigFile-UCoimbra-LEIuc1.txt ../Files/dataBaseLEIuc1.txt
+ ../Files/logFileLEIuc1.txt }
+{ 2023-01-02T22:58:43.258676 EV @ ../Files/ConfigFile-UCoimbra-LEIuc1.txt ../Files/dataBaseLEIuc1.txt
+ ../Files/logFileLEIuc1.txt }

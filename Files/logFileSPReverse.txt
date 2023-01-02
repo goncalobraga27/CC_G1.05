@@ -51,3 +51,56 @@ N-VALUES = 1 , N-AUTHORITIES = 0 , N-EXTRA-VALUES = 0;
 QUERY-INFO.NAME =  @ , QUERY-INFO.TYPE = PTR ;
 # Data: List of Response, Authorities and Extra Values
 RESPONSE-VALUES = UAmx }
+{ 2023-01-02T18:20:45.481118 EV @ ../Files/dataBaseSPReverse.txt
+ ../Files/dataBaseSPReverse.txt
+ ../Files/logFileSPReverse.txt }
+{ 2023-01-02T18:22:06.385066 QR/QE 10.0.41.10:3332 63043 Q+R 0 0 0 0 ip.in-address.reverse. PTR 10.46.0.10 }
+{ 2023-01-02T18:22:06.385298 RP\RR 10.0.13.20:3332 # Header
+MESSAGE-ID = 63043,FLAGS = R+A,RESPONSE-CODE = 0
+N-VALUES = 1 , N-AUTHORITIES = 0 , N-EXTRA-VALUES = 0;
+# Data: Query Info
+QUERY-INFO.NAME =  @ , QUERY-INFO.TYPE = PTR ;
+# Data: List of Response, Authorities and Extra Values
+RESPONSE-VALUES = UAmx }
+{ 2023-01-02T18:22:24.007561 QR/QE 10.0.41.10:3332 4955 Q+R 0 0 0 0 ip.in-address.reverse. PTR 2.33.0.10 }
+{ 2023-01-02T18:22:24.012661 RP\RR 10.0.13.20:3332 # Header
+MESSAGE-ID = 4955,FLAGS = R+A,RESPONSE-CODE = 0
+N-VALUES = 1 , N-AUTHORITIES = 0 , N-EXTRA-VALUES = 0;
+# Data: Query Info
+QUERY-INFO.NAME =  @ , QUERY-INFO.TYPE = PTR ;
+# Data: List of Response, Authorities and Extra Values }
+{ 2023-01-02T18:23:35.339467 QR/QE 10.0.41.10:3332 3289 Q+R 0 0 0 0 ip.in-address.reverse. PTR 10.47.0.10 }
+{ 2023-01-02T18:23:35.339975 RP\RR 10.0.13.20:3332 # Header
+MESSAGE-ID = 3289,FLAGS = R+A,RESPONSE-CODE = 0
+N-VALUES = 1 , N-AUTHORITIES = 0 , N-EXTRA-VALUES = 0;
+# Data: Query Info
+QUERY-INFO.NAME =  @ , QUERY-INFO.TYPE = PTR ;
+# Data: List of Response, Authorities and Extra Values
+RESPONSE-VALUES = UCmx }
+{ 2023-01-02T22:59:56.916558 EV @ ../Files/dataBaseSPReverse.txt
+ ../Files/dataBaseSPReverse.txt
+ ../Files/logFileSPReverse.txt }
+{ 2023-01-02T23:03:32.989555 QR/QE 10.0.41.10:3332 52162 Q+R 0 0 0 0 ip.in-address.reverse. PTR 10.46.0.10 }
+{ 2023-01-02T23:03:32.990694 RP\RR 10.0.13.20:3332 # Header
+MESSAGE-ID = 52162,FLAGS = R+A,RESPONSE-CODE = 0
+N-VALUES = 1 , N-AUTHORITIES = 0 , N-EXTRA-VALUES = 0;
+# Data: Query Info
+QUERY-INFO.NAME =  @ , QUERY-INFO.TYPE = PTR ;
+# Data: List of Response, Authorities and Extra Values
+RESPONSE-VALUES = UAmx }
+{ 2023-01-02T23:03:45.606612 QR/QE 10.0.41.10:3332 40716 Q+R 0 0 0 0 ip.in-address.reverse. PTR 10.47.0.10 }
+{ 2023-01-02T23:03:45.607012 RP\RR 10.0.13.20:3332 # Header
+MESSAGE-ID = 40716,FLAGS = R+A,RESPONSE-CODE = 0
+N-VALUES = 1 , N-AUTHORITIES = 0 , N-EXTRA-VALUES = 0;
+# Data: Query Info
+QUERY-INFO.NAME =  @ , QUERY-INFO.TYPE = PTR ;
+# Data: List of Response, Authorities and Extra Values
+RESPONSE-VALUES = UCmx }
+{ 2023-01-02T23:04:02.790401 QR/QE 10.0.41.10:3332 8958 Q+R 0 0 0 0 ip.in-address.reverse. PTR 10.21.0.10 }
+{ 2023-01-02T23:04:02.790845 RP\RR 10.0.13.20:3332 # Header
+MESSAGE-ID = 8958,FLAGS = R+A,RESPONSE-CODE = 0
+N-VALUES = 1 , N-AUTHORITIES = 0 , N-EXTRA-VALUES = 0;
+# Data: Query Info
+QUERY-INFO.NAME =  @ , QUERY-INFO.TYPE = PTR ;
+# Data: List of Response, Authorities and Extra Values
+RESPONSE-VALUES = sr.SRuc.UCoimbra. }

@@ -9,13 +9,9 @@ from datetime import datetime
 from random import randint
 from sys import argv
 from answerQuery import aQuery
-from messageDNS import MessageDNS
 from parserConfFile import parseConfigFile
 from processQuery import pQuery
 from logFile import logF
-from Exceptions import exceptions
-import os
-import errno
 
 class controlaDB:
     """
@@ -31,12 +27,6 @@ class ss:
     dictDataBase=dict()               # Inicialização da variável global 
     global Lock                       # Variável global que garante controlo de concorrência na zt
     Lock=threading.Lock()             # Inicialização da variável global 
-
-    def take_bytes(self,bytes, number):
-        ret = bytes[:number]
-        bytes = bytes[number:]
-
-        return ret, bytes
 
     def __init__(self, ipSS, ipSP, domain, nameConfig_File, portaUDP, portaTCP_SP, portaTCP_SS,modo):
         """
@@ -96,12 +86,11 @@ class ss:
         s.sendall(msg.encode('utf-8'))
         if self.debug==1:    
             sys.stdout.write("Vou receber a versão da base de dados do sp\n")
-        
         fstResp=s.recv(1024)
-        bytes,versaodbbyte = self.take_bytes(fstResp,4)
-        versaoDB=int.from_bytes(versaodbbyte,"big",signed=False)
-        bytes,verifyTimebytes = self.take_bytes(fstResp,4)
-        controlDB.verifTime_DataBase =int.from_bytes(verifyTimebytes,"big",signed=False)
+        resp=fstResp.decode('utf-8')
+        versaoandTTLDB=resp.split(' ')
+        versaoDB=int(versaoandTTLDB[0])
+        controlDB.verifTime_DataBase=int(versaoandTTLDB[1])
         if self.debug==1:
             sys.stdout.write(f"A versão da base de dados do sp é esta {versaoDB}\n")
             sys.stdout.write(f"A versão da minha base de dados(ss) é esta {controlDB.versao}\n")
@@ -204,9 +193,8 @@ class ss:
         while True:
             msg_UDP,add = sck.recvfrom(1024)
 
-            m = MessageDNS()
-
-            msg_UDP = m.deserialize(msg_UDP)
+            if self.debug==1:
+                sys.stdout.write(msg_UDP.decode('utf-8'))
 
             proQuery_UDP = pQuery(msg_UDP.decode('utf-8'), self.domainServer)
 
@@ -221,11 +209,11 @@ class ss:
                 now = datetime.today().isoformat()
                 writeLogFile=logF(str(now),"QR/QE",self.ipSS+":"+str(self.portaUDP),msg_UDP.decode('utf-8'),self.lista_logFile[0])
                 writeLogFile.escritaLogFile()
-                ansQuery = aQuery(proQuery_UDP.message_id,"R",str(0),dictDataBase,proQuery_UDP.typeValue,self.domainServer)
-                resposta, bytes = ansQuery.answerQuery()
+                ansQuery= aQuery(proQuery_UDP.message_id,"R",str(0),dictDataBase,proQuery_UDP.typeValue)
+                resposta= ansQuery.answerQuery()
                 respostaDatagram = '\n'.join(resposta)
-  
-                sck.sendto(bytes,add)
+                b =respostaDatagram.encode('UTF-8')
+                sck.sendto(b,add)
                 now = datetime.today().isoformat()
                 writeLogFile=logF(str(now),"RP/RR",self.ipSS+":"+str(self.portaUDP),respostaDatagram,self.lista_logFile[0])
                 writeLogFile.escritaLogFile()
@@ -236,49 +224,14 @@ class ss:
 def main():
     ipSS = sys.argv[1]
     ipSP = sys.argv[2]
-    
-    if exceptions.check(ipSS) == False: 
-        error_message = "O ip inserido para o Servidor não é válido"
-        error_code = errno.errorcode[error_message]
-        print(error_code)
-        sys.exit(1)
-        
-    if exceptions.check(ipSP) == False: 
-        error_message = "O ip inserido para o Servidor não é válido"
-        error_code = errno.errorcode[error_message]
-        print(error_code)
-        sys.exit(1)
-    
     nameConfig_File = sys.argv[3]  # ../Files/ConfigFileSS.txt 
     domainServer = sys.argv[4]
     debug=0
     if len(sys.argv)==6:
         debug=int(sys.argv[5])
-        
     portaUDP = 3333
-    
-    if exceptions.validatePort(portaUDP) == False: 
-        error_message = "A porta UDP inserida para o SS não é válida"
-        error_code = errno.errorcode[error_message]
-        print(error_code)
-        sys.exit(1)
-    
     portaTCP_SS = 6666
-    
-    if exceptions.validatePort(portaTCP_SS) == False: 
-        error_message = "A porta TCP inserida para o SS não é válida"
-        error_code = errno.errorcode[error_message]
-        print(error_code)
-        sys.exit(1)
-    
     portaTCP_SP = 4444
-    
-    if exceptions.validatePort(portaTCP_SP) == False: 
-        error_message = "A porta TCP inserida para o SP não é válida"
-        error_code = errno.errorcode[error_message]
-        print(error_code)
-        sys.exit(1)
-    
     ssObj = ss(ipSS, ipSP, domainServer,nameConfig_File,portaUDP,portaTCP_SP,portaTCP_SS,debug)
     ssObj.runSS()  
 

@@ -3,8 +3,6 @@
 # Finished in: 2/1/23
 
 
-import errno
-from Exceptions import exceptions
 from cacheSR import cache
 from entryCache import entry
 import socket
@@ -23,7 +21,6 @@ from re import T
 from processQuery import pQuery
 from logFile import logF
 from handler import hd
-from messageDNS import MessageDNS
 
 class sr:
 
@@ -66,52 +63,38 @@ class sr:
         while True:
 
             msg_UDP,add_UDP = sck_UDP.recvfrom(1024)
-            m=MessageDNS()
-            msg_UDP=m.deserialize(msg_UDP)
-            sys.stdout.write(msg_UDP)
-            proQuery = pQuerySR(msg_UDP)
+
+            sys.stdout.write(msg_UDP.decode('utf-8')+"\n")
+            proQuery = pQuerySR(msg_UDP.decode('utf-8'))
             queryCheck,domain=proQuery.processQuery()
 
-            ansQuerySR = aQuerySR(proQuery.message_id,"R",str(0),c.cache,proQuery.typeValue,domain)
+            ansQuerySR = aQuerySR(proQuery.message_id,"",str(0),c.cache,proQuery.typeValue,domain)
             if (queryCheck==1):
                 sys.stdout.write("\nA query pedida não é válida\n")
             if (queryCheck==0 and ansQuerySR.canGiveResponse()==True):
-                resposta,cod_message = ansQuerySR.answerQuerySR()
-                sck_UDP.sendto(cod_message,add_UDP)
-                
+                resposta = ansQuerySR.answerQuerySR()
+                respostaDatagram = '\n'.join(resposta)
+                b =respostaDatagram.encode('UTF-8')
+                sck_UDP.sendto(b,add_UDP)
             else:
                 if (queryCheck==0 and domain==self.domainSR):
-                    handler=hd(proQuery,add_UDP,domain,c,sck_UDP,msg_UDP,self.listaIP_ST,self.listaPorta_ST,self.ipSR,self.portaSR,self.listaLogFile,self.listaIP_SP) 
-                    handler.perguntaAoSeuSP()
-                    
+                    hd.perguntaAoSeuSP(self,proQuery,add_UDP,domain,c,sck_UDP,msg_UDP)
                 if (queryCheck==0 and domain!=self.domainSR):
-                    handler=hd(proQuery,add_UDP,domain,c,sck_UDP,msg_UDP,self.listaIP_ST,self.listaPorta_ST,self.ipSR,self.portaSR,self.listaLogFile,self.listaIP_SP)
                     domainQ=domain.split('.')
                     domainsSR=self.domainSR.split('.')
                     if(domainQ[1]=="lei"):
                         if (domainsSR[1]=="lei"):
-                            handler.perguntaLEIandSRLEI()
-
+                            hd.perguntaLEIandSRLEI(self,domain,proQuery,c,sck_UDP,add_UDP)
                         if(domainsSR[1]=="mei"):
-                            handler.perguntaLEIandSRMEI()
-
+                            hd.perguntaLEIandSRMEI(self,domain,proQuery,c,sck_UDP,add_UDP)
                     if(domainQ[1]=="mei"):
                         if (domainsSR[1]=="lei"):
-                            handler.perguntaMEIandSRLEI()
-
+                            hd.perguntaMEIandSRLEI(self,domain,proQuery,c,sck_UDP,add_UDP)
                         if(domainsSR[1]=="mei"):
-                            handler=hd(proQuery,add_UDP,domain,c,sck_UDP,msg_UDP,self.listaIP_ST,self.listaPorta_ST,self.ipSR,self.portaSR,self.listaLogFile,self.listaIP_SP)
-                            handler.perguntaMEIandSRMEI()
+                            hd.perguntaMEIandSRMEI(self,domain,proQuery,c,add_UDP,sck_UDP)
 
 def main():
     ipSR=sys.argv[1]
-    
-    if exceptions.check(ipSR) == False: 
-        error_message = "O ip inserido para o SR não é válido"
-        error_code = errno.errorcode[error_message]
-        print(error_code)
-        sys.exit(1)
-    
     nameConfigFile = sys.argv[2]
     domainSR=sys.argv[3]
     srObj=sr(ipSR,3333,nameConfigFile,domainSR)

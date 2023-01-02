@@ -1,11 +1,9 @@
-import errno
 import socket
 import sys
 import threading
 import time
 from datetime import datetime
 from re import T
-from Exceptions import exceptions
 from parserConfigFileST import parseConfigFileST
 
 
@@ -40,14 +38,7 @@ class sdtReverse:
 
 
 def main():
-    ipSDTreverse = sys.argv[1] 
-    
-    if exceptions.check(ipSDTreverse) == False: 
-        error_message = "O ip inserido para o SDT não é válido"
-        error_code = errno.errorcode[error_message]
-        print(error_code)
-        sys.exit(1)
-     
+    ipSDTreverse = sys.argv[1]  
     nameConfig_File = sys.argv[2]  
     stObj = sdtReverse(ipSDTreverse,nameConfig_File)
     stObj.runSDT()    

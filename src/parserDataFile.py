@@ -85,4 +85,4 @@ class parseDataFile:
                 writeLogFile=logF(str(now),"FL","127.0.0.1","Parse Data File error",self.lista_logFile[0])
                 writeLogFile.escritaLogFile()
 
-        return int(versao_DataBase),int(VerifTime_DataBase),tamanhofile
+        return versao_DataBase,VerifTime_DataBase,tamanhofile

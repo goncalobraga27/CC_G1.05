@@ -2,14 +2,12 @@
 # Changed by: Gonçalo Braga, João Gonçalves and Miguel Senra
 # Finished in: 23/11/2022
 
-import errno
 import socket
 import sys
 import threading
 import time
 from datetime import datetime
 from re import T
-from Exceptions import exceptions
 from answerQueryReverse import aQueryReverse
 from parserConfigFileSPReverse import parseConfigFileReverse
 from parserDataFileSPReverse import parseDataFileReverse
@@ -116,26 +114,12 @@ class spReverse:
 
 def main():
     ipSP = sys.argv[1]
-    
-    if exceptions.check(ipSP) == False: 
-        error_message = "O ip inserido para o Servidor não é válido"
-        error_code = errno.errorcode[error_message]
-        print(error_code)
-        sys.exit(1)
-        
     nameConfig_File = sys.argv[2]  # ../Files/ConfigFileSP.txt 
     domainServer = sys.argv[3]
     debug=0
     if len(sys.argv)==5:
         debug=int(sys.argv[4])
     portaUDP = 3332
-    
-    if exceptions.validatePort(portaUDP) == False: 
-        error_message = "A porta UDP inserida para o SP não é válida"
-        error_code = errno.errorcode[error_message]
-        print(error_code)
-        sys.exit(1)
-    
     spObj = spReverse(ipSP,domainServer,portaUDP,nameConfig_File,debug)
     spObj.runSPReverse()    
 

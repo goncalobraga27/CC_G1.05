@@ -1,6 +1,6 @@
 from entryCache import *
-
 class cache:
+
     def __init__(self):
         self.cache=dict()
         self.numeroEntradas=0
