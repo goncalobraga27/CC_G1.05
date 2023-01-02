@@ -67,9 +67,9 @@ class sr:
 
             msg_UDP,add_UDP = sck_UDP.recvfrom(1024)
             m=MessageDNS()
-            m.deserialize(msg_UDP)
-            sys.stdout.write(msg_UDP.decode('utf-8')+"\n")
-            proQuery = pQuerySR(msg_UDP.decode('utf-8'))
+            msg_UDP=m.deserialize(msg_UDP)
+            sys.stdout.write(msg_UDP)
+            proQuery = pQuerySR(msg_UDP)
             queryCheck,domain=proQuery.processQuery()
 
             ansQuerySR = aQuerySR(proQuery.message_id,"R",str(0),c.cache,proQuery.typeValue,domain)
@@ -81,11 +81,11 @@ class sr:
                 
             else:
                 if (queryCheck==0 and domain==self.domainSR):
-                    handler=hd(proQuery,add_UDP,domain,c,sck_UDP,msg_UDP) 
+                    handler=hd(proQuery,add_UDP,domain,c,sck_UDP,msg_UDP,self.listaIP_ST,self.listaPorta_ST,self.ipSR,self.portaSR,self.listaLogFile,self.listaIP_SP) 
                     handler.perguntaAoSeuSP()
-
+                    
                 if (queryCheck==0 and domain!=self.domainSR):
-                    handler=hd(domain,proQuery,c,sck_UDP,add_UDP)
+                    handler=hd(proQuery,add_UDP,domain,c,sck_UDP,msg_UDP,self.listaIP_ST,self.listaPorta_ST,self.ipSR,self.portaSR,self.listaLogFile,self.listaIP_SP)
                     domainQ=domain.split('.')
                     domainsSR=self.domainSR.split('.')
                     if(domainQ[1]=="lei"):
@@ -100,7 +100,7 @@ class sr:
                             handler.perguntaMEIandSRLEI()
 
                         if(domainsSR[1]=="mei"):
-                            handler=hd(domain,proQuery,c,add_UDP,sck_UDP)
+                            handler=hd(proQuery,add_UDP,domain,c,sck_UDP,msg_UDP,self.listaIP_ST,self.listaPorta_ST,self.ipSR,self.portaSR,self.listaLogFile,self.listaIP_SP)
                             handler.perguntaMEIandSRMEI()
 
 def main():

@@ -19,13 +19,19 @@ from messageDNS import MessageDNS
 
 class hd:
     
-    def __init__(self,proQuery,add_UDP,domain,c,sck_UDP,msg_UDP):
+    def __init__(self,proQuery,add_UDP,domain,c,sck_UDP,msg_UDP,listaIP_ST,listaPorta_ST,ipSR,portaSR,listaLogFile,listaIP_SP):
         self.proQuery = proQuery
         self.add_UDP = add_UDP
         self.domain = domain
         self.c = c
         self.sck_UDP = sck_UDP
         self.msg_UDP = msg_UDP
+        self.listaIP_ST=listaIP_ST
+        self.listaPorta_ST=listaPorta_ST
+        self.ipSR=ipSR
+        self.portaSR=portaSR
+        self.listaLogFile=listaLogFile
+        self.listaIP_SP=listaIP_SP
         
 
     def perguntaAoSeuSP(self):
@@ -34,7 +40,7 @@ class hd:
         """
         sys.stdout.write(f"\nRecebi uma mensagem do cliente {self.add_UDP}\n")
         now = datetime.now()
-        writeLogFile=logF(str(now),"QR/QE",self.ipSR+":"+str(self.portaSR),msg_UDP.decode('utf-8'),self.listaLogFile[0])
+        writeLogFile=logF(str(now),"QR/QE",self.ipSR+":"+str(self.portaSR),self.msg_UDP,self.listaLogFile[0])
         writeLogFile.escritaLogFile()
         sck = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
         pedido=self.proQuery.typeValue.encode('UTF-8')
@@ -162,6 +168,7 @@ class hd:
         writeLogFile.escritaLogFile()
         listaParSDT=msg.decode('UTF-8').split(':')
         sckSDT = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+        print(self.domain)
         sckSDT.sendto(self.domain.encode('UTF-8'),(listaParSDT[0],int(listaParSDT[1])))
         msg,add = sckSDT.recvfrom(1024)
         now = datetime.now()

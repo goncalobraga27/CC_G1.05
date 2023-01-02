@@ -16,9 +16,9 @@ class aQuerySR:
         listaCabecalho.append("# Header")
         listaRespValues=aQuerySR.giveResponse(self)
         if listaRespValues !=[]:
-            listaCabecalho.append("MESSAGE-ID = "+self.message_id+",FLAGS = "+self.flags+",RESPONSE-CODE = "+self.response_code)
+            listaCabecalho.append("MESSAGE-ID = "+str(self.message_id)+",FLAGS = "+self.flags+",RESPONSE-CODE = "+self.response_code)
         else : 
-            listaCabecalho.append("MESSAGE-ID = "+self.message_id+",FLAGS = "+self.flags+",RESPONSE-CODE = "+"1")
+            listaCabecalho.append("MESSAGE-ID = "+str(self.message_id)+",FLAGS = "+self.flags+",RESPONSE-CODE = "+"1")
         nValues=0
         for it1 in listaRespValues:
             listaRes.append("RESPONSE-VALUES = "+it1)

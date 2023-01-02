@@ -130,7 +130,7 @@ class MessageDNS:
         bytes = b''
 
         # MessageID - 2 bytes
-        msg_id = (self.messageID).to_bytes(2, "big", signed=False)
+        msg_id = (int(self.messageID)).to_bytes(2, "big", signed=False)
         bytes += msg_id
 
         # flags - 3 bits
@@ -282,6 +282,6 @@ class MessageDNS:
             tam = int.from_bytes(res, "big", signed=False)
             res, bytes = self.take_bytes(bytes, tam)
             self.extraValues = res.decode('utf-8')
-            
+
             
         return str(self.messageID) + " " + self.flags + " " + str(self.responseCode) + " " + str(self.numberOfValues) + " " + str(self.numberOfAuthorities) + " " + str(self.numberOfExtraValues) + " " + self.nameDomain + " " + self.typeOfValue + " " + self.responseValues + " " + self.authoritiesValues + " " + self.extraValues
