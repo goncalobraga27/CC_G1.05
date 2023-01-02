@@ -14,28 +14,33 @@ from parserConfFile import parseConfigFile
 from processQuery import pQuery
 from logFile import logF
 
+
 class controlaDB:
     """
     Classe que serve para controlo dos dados que surgem da zone transfer, tal como a versão da base de dados que possui 
     e do tempo de verificação dos dados da base de dados(espécie do TTL da base de dados)
     """
-    def __init__(self,versao_DataBase,verifTime_DataBase):
-        self.versao=versao_DataBase
-        self.verifTime_DataBase=verifTime_DataBase
+
+    def __init__(self, versao_DataBase, verifTime_DataBase):
+        self.versao = versao_DataBase
+        self.verifTime_DataBase = verifTime_DataBase
+
 
 class ss:
-    global dictDataBase               # Variável global que vai servir para armazenar os dados recebidos na ZT
-    dictDataBase=dict()               # Inicialização da variável global 
-    global Lock                       # Variável global que garante controlo de concorrência na zt
-    Lock=threading.Lock()             # Inicialização da variável global 
+    # Variável global que vai servir para armazenar os dados recebidos na ZT
+    global dictDataBase
+    dictDataBase = dict()               # Inicialização da variável global
+    # Variável global que garante controlo de concorrência na zt
+    global Lock
+    Lock = threading.Lock()             # Inicialização da variável global
 
-    def take_bytes(self,bytes, number):
+    def take_bytes(self, bytes, number):
         ret = bytes[:number]
         bytes = bytes[number:]
 
         return ret, bytes
 
-    def __init__(self, ipSS, ipSP, domain, nameConfig_File, portaUDP, portaTCP_SP, portaTCP_SS,modo):
+    def __init__(self, ipSS, ipSP, domain, nameConfig_File, portaUDP, portaTCP_SP, portaTCP_SS, modo):
         """
         Criação/Inicialização da classe ss
         """
@@ -46,103 +51,115 @@ class ss:
         self.portaUDP = portaUDP
         self.portaTCP_SP = portaTCP_SP
         self.portaTCP_SS = portaTCP_SS
-        self.lista_logFile=[]
-        self.debug=modo
-    
+        self.lista_logFile = []
+        self.debug = modo
+
     def iniciaBaseDados(dicDataBase):
         """
         Inicialização da base de dados para poder receber os dados que são provenientes da ZT
         """
-        dicDataBase["DEFAULT"]=[]
-        dicDataBase["SOASP"]=[]
-        dicDataBase["SOAADMIN"]=[]
-        dicDataBase["SOASERIAL"]=[]
-        dicDataBase["SOAREFRESH"]=[]
-        dicDataBase["SOARETRY"]=[]
-        dicDataBase["SOAEXPIRE"]=[]
-        dicDataBase["NS"]=[]
-        dicDataBase["A"]=[]
-        dicDataBase["CNAME"]=[]
-        dicDataBase["MX"]=[]
-        dicDataBase["PTR"]=[]
+        dicDataBase["DEFAULT"] = []
+        dicDataBase["SOASP"] = []
+        dicDataBase["SOAADMIN"] = []
+        dicDataBase["SOASERIAL"] = []
+        dicDataBase["SOAREFRESH"] = []
+        dicDataBase["SOARETRY"] = []
+        dicDataBase["SOAEXPIRE"] = []
+        dicDataBase["NS"] = []
+        dicDataBase["A"] = []
+        dicDataBase["CNAME"] = []
+        dicDataBase["MX"] = []
+        dicDataBase["PTR"] = []
 
-    def addBaseDados(dictDataBase,resp,flag):
+    def addBaseDados(dictDataBase, resp, flag):
         """
         Acrescenta uma linha recebida, proveniente da zt á base de dados do SP
         """
-        linhaP=resp.split('-')
-        if len(linhaP)!=1:
-            conteudo=linhaP[1]
-            if int(linhaP[0])!=flag: return False
-            linhaPContent=conteudo.split(' ')
+        linhaP = resp.split('-')
+        if len(linhaP) != 1:
+            conteudo = linhaP[1]
+            if int(linhaP[0]) != flag:
+                return False
+            linhaPContent = conteudo.split(' ')
             dictDataBase[linhaPContent[1]].append(conteudo)
-        return True 
+        return True
 
-    def runsecThread(self,controlDB):
+    def runsecThread(self, controlDB):
         """
         Esta função é a função que realmente realiza trabalho na zone transfer, tal como enviar queries ao SP a pedir dados da base de dados e o seu processamento.
         Como podemos visualizar, é criado um protocolo para a zone transfer entre servidores.
         A especificação do protocolo aqui estabelecido, encontra-se devidamente ilustrado no relatório da primeira fase do trabalho.
         """
         s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        s.connect((self.ipSP,self.portaTCP_SP))
+        s.connect((self.ipSP, self.portaTCP_SP))
         Lock.acquire()
-        if self.debug==1:
+        if self.debug == 1:
             sys.stdout.write("Vou enviar a primeira mensagem da ZT\n")
-        msg="ZT"
+        msg = "ZT"
         s.sendall(msg.encode('utf-8'))
-        if self.debug==1:    
+        if self.debug == 1:
             sys.stdout.write("Vou receber a versão da base de dados do sp\n")
-        
-        fstResp=s.recv(1024)
-        bytes,versaodbbyte = self.take_bytes(fstResp,4)
-        versaoDB=int.from_bytes(versaodbbyte,"big",signed=False)
-        bytes,verifyTimebytes = self.take_bytes(fstResp,4)
-        controlDB.verifTime_DataBase =int.from_bytes(verifyTimebytes,"big",signed=False)
-        if self.debug==1:
-            sys.stdout.write(f"A versão da base de dados do sp é esta {versaoDB}\n")
-            sys.stdout.write(f"A versão da minha base de dados(ss) é esta {controlDB.versao}\n")
-        if versaoDB!=controlDB.versao:
-            if self.debug==1:
-                sys.stdout.write(f"Vou enviar o domínio a que eu pertenço\nO meu domínio é este {self.domainServer}\n")
-            msg=self.domainServer
+
+        fstResp = s.recv(1024)
+        bytes, versaodbbyte = self.take_bytes(fstResp, 4)
+        versaoDB = int.from_bytes(versaodbbyte, "big", signed=False)
+        bytes, verifyTimebytes = self.take_bytes(fstResp, 4)
+        controlDB.verifTime_DataBase = int.from_bytes(
+            verifyTimebytes, "big", signed=False)
+        if self.debug == 1:
+            sys.stdout.write(
+                f"A versão da base de dados do sp é esta {versaoDB}\n")
+            sys.stdout.write(
+                f"A versão da minha base de dados(ss) é esta {controlDB.versao}\n")
+        if versaoDB != controlDB.versao:
+            if self.debug == 1:
+                sys.stdout.write(
+                    f"Vou enviar o domínio a que eu pertenço\nO meu domínio é este {self.domainServer}\n")
+            msg = self.domainServer
             s.sendall(msg.encode('utf-8'))
-            if self.debug==1:
-                sys.stdout.write("Vou receber o número de linhas que foram alteradas na base de dados\n")
-            scdResp=s.recv(1024)
-            resp=scdResp.decode('utf-8')
-            if self.debug==1:    
-                sys.stdout.write("Vou enviar novamente o número de linhas que foram alteradas na base de dados\n")
+            if self.debug == 1:
+                sys.stdout.write(
+                    "Vou receber o número de linhas que foram alteradas na base de dados\n")
+            scdResp = s.recv(1024)
+            resp = scdResp.decode('utf-8')
+            if self.debug == 1:
+                sys.stdout.write(
+                    "Vou enviar novamente o número de linhas que foram alteradas na base de dados\n")
             s.sendall(resp.encode('utf-8'))
-            if self.debug==1:
-                sys.stdout.write("Vou receber as linhas da base de dados que foram alteradas\n")
+            if self.debug == 1:
+                sys.stdout.write(
+                    "Vou receber as linhas da base de dados que foram alteradas\n")
             ss.iniciaBaseDados(dictDataBase)
-            flag=1
-            verification=True
+            flag = 1
+            verification = True
             for i in range(int(resp)-1):
-                if verification==True:
-                    tamanhoLinha=int(s.recv(2).decode('utf-8'))
-                    trdResp=s.recv(tamanhoLinha)
-                    resp=trdResp.decode('utf-8')
-                    verification=ss.addBaseDados(dictDataBase,resp,flag)
+                if verification == True:
+                    tamanhoLinha = int(s.recv(2).decode('utf-8'))
+                    trdResp = s.recv(tamanhoLinha)
+                    resp = trdResp.decode('utf-8')
+                    verification = ss.addBaseDados(dictDataBase, resp, flag)
                     if not verification:
-                        if self.debug==1:
-                            sys.stdout.write("A transmissão da base de dados deu problemas\n")
+                        if self.debug == 1:
+                            sys.stdout.write(
+                                "A transmissão da base de dados deu problemas\n")
                         s.close()
-                    flag+=1
-            controlDB.versao=versaoDB
-            if self.debug==1:
-                sys.stdout.write(f"Número da nova versão da base de dados {controlDB.versao}\n")
+                    flag += 1
+            controlDB.versao = versaoDB
+            if self.debug == 1:
+                sys.stdout.write(
+                    f"Número da nova versão da base de dados {controlDB.versao}\n")
             now = datetime.today().isoformat()
-            writeLogFile=logF(str(now),"ZT",self.ipSP+":"+str(self.portaTCP_SP),"SS",self.lista_logFile[0])
+            writeLogFile = logF(str(now), "ZT", self.ipSP+":" +
+                                str(self.portaTCP_SP), "SS", self.lista_logFile[0])
             writeLogFile.escritaLogFile()
         else:
             now = datetime.today().isoformat()
-            writeLogFile=logF(str(now),"ZT",self.ipSP+":"+str(self.portaTCP_SP),"SS",self.lista_logFile[0])
+            writeLogFile = logF(str(now), "ZT", self.ipSP+":" +
+                                str(self.portaTCP_SP), "SS", self.lista_logFile[0])
             writeLogFile.escritaLogFile()
         Lock.release()
 
-    def runfstThread(self,controlDB):
+    def runfstThread(self, controlDB):
         """
         Esta função serve de controlo da ZT
         A metodologia utilizada na mesma é a seguinte:
@@ -152,10 +169,12 @@ class ss:
         3º Fazer a ZT em intervalos de verifTime_DataBase segundos a zone transfer 
         """
         while True:
-            threading.Thread(target=ss.runsecThread,args=(self,controlDB)).start()
-            if self.debug==1:
-                sys.stdout.write(f"A versão da data base entre threads é de{controlDB.versao}\n")
-            time.sleep(controlDB.verifTime_DataBase) 
+            threading.Thread(target=ss.runsecThread,
+                             args=(self, controlDB)).start()
+            if self.debug == 1:
+                sys.stdout.write(
+                    f"A versão da data base entre threads é de{controlDB.versao}\n")
+            time.sleep(controlDB.verifTime_DataBase)
         s.close()
 
     def runSS(self):
@@ -178,28 +197,31 @@ class ss:
         """
 
         parseConfFile = parseConfigFile(self.nameConfig_File)
-        listaIP_SP,listaPorta_SP,listaLogFile,path_FileDataBase=parseConfFile.parsingConfigFile()  
-        self.lista_logFile=listaLogFile 
-        self.listaIP_SP=listaIP_SP
-        if self.listaIP_SP==[] and self.lista_logFile==[] and listaPorta_SP==[]:
+        listaIP_SP, listaPorta_SP, listaLogFile, path_FileDataBase = parseConfFile.parsingConfigFile()
+        self.lista_logFile = listaLogFile
+        self.listaIP_SP = listaIP_SP
+        if self.listaIP_SP == [] and self.lista_logFile == [] and listaPorta_SP == []:
             now = datetime.today().isoformat()
-            writeLogFile=logF(str(now),"FL","127.0.0.1","Parse config File error",self.lista_logFile[0])
+            writeLogFile = logF(str(now), "FL", "127.0.0.1",
+                                "Parse config File error", self.lista_logFile[0])
             writeLogFile.escritaLogFile()
         now = datetime.today().isoformat()
-        writeLogFile=logF(str(now),"EV","@",self.nameConfig_File+" "+self.lista_logFile[0],self.lista_logFile[0])
+        writeLogFile = logF(str(now), "EV", "@", self.nameConfig_File +
+                            " "+self.lista_logFile[0], self.lista_logFile[0])
         writeLogFile.escritaLogFile()
-    
-        
+
         sck = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 
         sck.bind((self.ipSS, self.portaUDP))
 
-        if self.debug==1:    
-            sys.stdout.write(f"Estou à escuta no {self.ipSS}:{self.portaUDP}\n")
-        controlDB=controlaDB(int(-1),int(5))
-        threading.Thread(target=ss.runfstThread,args=(self,controlDB,)).start()
+        if self.debug == 1:
+            sys.stdout.write(
+                f"Estou à escuta no {self.ipSS}:{self.portaUDP}\n")
+        controlDB = controlaDB(int(-1), int(5))
+        threading.Thread(target=ss.runfstThread,
+                         args=(self, controlDB,)).start()
         while True:
-            msg_UDP,add = sck.recvfrom(1024)
+            msg_UDP, add = sck.recvfrom(1024)
 
             m = MessageDNS()
 
@@ -207,24 +229,28 @@ class ss:
 
             proQuery_UDP = pQuery(msg_UDP.decode('utf-8'), self.domainServer)
 
-            queryCheck_UDP= proQuery_UDP.processQuery(0)
+            queryCheck_UDP = proQuery_UDP.processQuery(0)
 
-            if(queryCheck_UDP==False):
-                if self.debug==1:
+            if (queryCheck_UDP == False):
+                if self.debug == 1:
                     sys.stdout.write("\nA query pedida não é válida\n")
             else:
-                if self.debug==1:    
-                    sys.stdout.write(f"\nRecebi uma mensagem do cliente {add}\n")
+                if self.debug == 1:
+                    sys.stdout.write(
+                        f"\nRecebi uma mensagem do cliente {add}\n")
                 now = datetime.today().isoformat()
-                writeLogFile=logF(str(now),"QR/QE",self.ipSS+":"+str(self.portaUDP),msg_UDP.decode('utf-8'),self.lista_logFile[0])
+                writeLogFile = logF(str(now), "QR/QE", self.ipSS+":"+str(
+                    self.portaUDP), msg_UDP.decode('utf-8'), self.lista_logFile[0])
                 writeLogFile.escritaLogFile()
-                ansQuery = aQuery(proQuery_UDP.message_id,"R",str(0),dictDataBase,proQuery_UDP.typeValue,self.domainServer)
+                ansQuery = aQuery(proQuery_UDP.message_id, "R", str(
+                    0), dictDataBase, proQuery_UDP.typeValue, self.domainServer)
                 resposta, bytes = ansQuery.answerQuery()
                 respostaDatagram = '\n'.join(resposta)
-  
-                sck.sendto(bytes,add)
+
+                sck.sendto(bytes, add)
                 now = datetime.today().isoformat()
-                writeLogFile=logF(str(now),"RP/RR",self.ipSS+":"+str(self.portaUDP),respostaDatagram,self.lista_logFile[0])
+                writeLogFile = logF(str(now), "RP/RR", self.ipSS+":" +
+                                    str(self.portaUDP), respostaDatagram, self.lista_logFile[0])
                 writeLogFile.escritaLogFile()
 
         sck.close()
@@ -233,16 +259,18 @@ class ss:
 def main():
     ipSS = sys.argv[1]
     ipSP = sys.argv[2]
-    nameConfig_File = sys.argv[3]  # ../Files/ConfigFileSS.txt 
+    nameConfig_File = sys.argv[3]  # ../Files/ConfigFileSS.txt
     domainServer = sys.argv[4]
-    debug=0
-    if len(sys.argv)==6:
-        debug=int(sys.argv[5])
+    debug = 0
+    if len(sys.argv) == 6:
+        debug = int(sys.argv[5])
     portaUDP = 3333
     portaTCP_SS = 6666
     portaTCP_SP = 4444
-    ssObj = ss(ipSS, ipSP, domainServer,nameConfig_File,portaUDP,portaTCP_SP,portaTCP_SS,debug)
-    ssObj.runSS()  
+    ssObj = ss(ipSS, ipSP, domainServer, nameConfig_File,
+               portaUDP, portaTCP_SP, portaTCP_SS, debug)
+    ssObj.runSS()
+
 
 if __name__ == '__main__':
     main()
