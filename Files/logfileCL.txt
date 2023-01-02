@@ -1744,6 +1744,7 @@ RESPONSE-VALUES = mx1.campeoesUA.mei
 RESPONSE-VALUES = mx2.campeoesUA.mei
 RESPONSE-VALUES = mx1.campeoesUM.lei
 RESPONSE-VALUES = mx2.campeoesUM.lei }
+<<<<<<< HEAD
 { 2022-12-20T16:10:46.686670 EV @ ../Files/logfileCL.txt }
 { 2022-12-20T16:10:46.690970 QR/QE localHost:3333 50059 Q+R 0 0 0 0 campeoesUC.mei A }
 { 2022-12-20T16:10:46.696665 RP/RR localHost:3333 # Header
@@ -3107,3 +3108,208 @@ N-VALUES = 1 , N-AUTHORITIES = 0 , N-EXTRA-VALUES = 0;
 QUERY-INFO.NAME =  @ , QUERY-INFO.TYPE = PTR ;
 # Data: List of Response, Authorities and Extra Values
 RESPONSE-VALUES = UAmx }
+=======
+{ 2022-12-29T11:49:50.130857 EV @ ../Files/logfileCL.txt }
+{ 2022-12-29T11:54:45.398373 EV @ ../Files/logfileCL.txt }
+{ 2022-12-29T11:55:20.959054 EV @ ../Files/logfileCL.txt }
+{ 2022-12-29T11:56:30.340956 EV @ ../Files/logfileCL.txt }
+{ 2022-12-29T11:56:56.155293 EV @ ../Files/logfileCL.txt }
+{ 2022-12-29T11:58:57.651953 EV @ ../Files/logfileCL.txt }
+{ 2022-12-29T12:01:36.237128 EV @ ../Files/logfileCL.txt }
+{ 2022-12-29T12:03:59.735887 EV @ ../Files/logfileCL.txt }
+{ 2022-12-29T12:05:37.410654 EV @ ../Files/logfileCL.txt }
+{ 2022-12-29T12:05:37.415195 QR/QE localHost:3333 50338Q+R0000campeoesUM.leiMX }
+{ 2022-12-29T12:07:24.179603 EV @ ../Files/logfileCL.txt }
+{ 2022-12-29T12:07:24.179788 QR/QE localHost:3333 47987Q+R0000campeoesUM.leiMX }
+{ 2022-12-29T12:10:40.833900 EV @ ../Files/logfileCL.txt }
+{ 2022-12-29T12:10:40.838142 QR/QE localHost:3333 49220Q+R0000campeoesUM.leiMX }
+{ 2022-12-29T12:17:11.146618 EV @ ../Files/logfileCL.txt }
+{ 2022-12-29T12:17:11.151939 QR/QE localHost:3333 63638Q+R0000campeoesUM.leiMX }
+{ 2022-12-29T12:17:26.445549 EV @ ../Files/logfileCL.txt }
+{ 2022-12-29T12:17:26.446635 QR/QE localHost:3333 2669Q+R0000campeoesUM.leiMX }
+{ 2022-12-29T12:25:06.962029 EV @ ../Files/logfileCL.txt }
+{ 2022-12-29T12:25:06.962667 QR/QE localHost:3333 56899Q+R0000campeoesUM.leiMX }
+{ 2022-12-29T12:25:36.111990 EV @ ../Files/logfileCL.txt }
+{ 2022-12-29T12:25:36.116361 QR/QE localHost:3333 16230Q+R0000campeoesUM.leiMX }
+{ 2022-12-29T12:26:39.765054 EV @ ../Files/logfileCL.txt }
+{ 2022-12-29T12:26:39.765774 QR/QE localHost:3333 61262Q+R0000campeoesUM.leiMX }
+{ 2022-12-29T12:27:31.296613 EV @ ../Files/logfileCL.txt }
+{ 2022-12-29T12:27:31.297668 QR/QE localHost:3333 53705Q+R0000campeoesUM.leiMX }
+{ 2022-12-29T12:28:57.829803 EV @ ../Files/logfileCL.txt }
+{ 2022-12-29T12:28:57.830900 QR/QE localHost:3333 35172Q+R0000campeoesUM.leiMX }
+{ 2022-12-29T12:32:20.424810 EV @ ../Files/logfileCL.txt }
+{ 2022-12-29T12:32:20.425826 QR/QE localHost:3333 58578Q+R0000campeoesUM.leiMX }
+{ 2022-12-29T12:35:06.752914 EV @ ../Files/logfileCL.txt }
+{ 2022-12-29T12:35:06.753904 QR/QE localHost:3333 33914Q+R0000campeoesUM.leiMX }
+{ 2022-12-29T12:36:30.188553 EV @ ../Files/logfileCL.txt }
+{ 2022-12-29T12:36:30.189623 QR/QE localHost:3333 2067Q+R0000campeoesUM.leiMX }
+{ 2022-12-29T12:37:41.801548 EV @ ../Files/logfileCL.txt }
+{ 2022-12-29T12:37:41.808285 QR/QE localHost:3333 28016Q+R0000campeoesUM.leiMX }
+{ 2022-12-29T12:39:27.798473 EV @ ../Files/logfileCL.txt }
+{ 2022-12-29T12:39:27.803564 QR/QE localHost:3333 63553Q+R0000campeoesUM.leiMX }
+{ 2022-12-29T12:40:10.397793 EV @ ../Files/logfileCL.txt }
+{ 2022-12-29T12:40:10.403105 QR/QE localHost:3333 41981Q+R0000campeoesUM.leiMX }
+{ 2022-12-29T12:41:24.738511 EV @ ../Files/logfileCL.txt }
+{ 2022-12-29T12:41:24.743652 QR/QE localHost:3333 18368Q+R0000campeoesUM.leiMX }
+{ 2022-12-29T12:44:06.898643 EV @ ../Files/logfileCL.txt }
+{ 2022-12-29T12:44:06.904616 QR/QE localHost:3333 63952Q+R0000campeoesUM.leiMX }
+{ 2022-12-29T12:44:43.372204 EV @ ../Files/logfileCL.txt }
+{ 2022-12-29T12:44:43.377080 QR/QE localHost:3333 20568Q+R0000campeoesUM.leiMX }
+{ 2022-12-29T12:46:50.224694 EV @ ../Files/logfileCL.txt }
+{ 2022-12-29T12:46:50.229532 QR/QE localHost:3333 58051Q+R0000campeoesUM.leiMX }
+{ 2022-12-29T12:49:00.695758 EV @ ../Files/logfileCL.txt }
+{ 2022-12-29T12:49:00.701583 QR/QE localHost:3333 57676Q+R0000campeoesUM.leiMX }
+{ 2022-12-29T12:50:24.432750 EV @ ../Files/logfileCL.txt }
+{ 2022-12-29T12:50:24.439858 QR/QE localHost:3333 5797Q+R0000campeoesUM.leiMX }
+{ 2022-12-29T12:51:40.596163 EV @ ../Files/logfileCL.txt }
+{ 2022-12-29T12:51:40.608723 QR/QE localHost:3333 38481Q+R0000campeoesUM.leiMX }
+{ 2022-12-29T12:52:03.666392 EV @ ../Files/logfileCL.txt }
+{ 2022-12-29T12:52:03.668403 QR/QE localHost:3333 46508Q+R0000campeoesUM.leiMX }
+{ 2022-12-29T12:54:05.394313 EV @ ../Files/logfileCL.txt }
+{ 2022-12-29T12:54:05.396237 QR/QE localHost:3333 46097Q+R0000campeoesUM.leiMX }
+{ 2022-12-29T12:54:29.109255 EV @ ../Files/logfileCL.txt }
+{ 2022-12-29T12:54:29.111467 QR/QE localHost:3333 3869Q+R0000campeoesUM.leiMX }
+{ 2022-12-29T12:55:05.801484 EV @ ../Files/logfileCL.txt }
+{ 2022-12-29T12:55:05.803324 QR/QE localHost:3333 31942Q+R0000campeoesUM.leiMX }
+{ 2022-12-29T12:55:05.803481 RP/RR localHost:3333 31942 R+A 0 2 0 0 campeoesUM.lei MX @ MX mx1.campeoesUM.lei TTL 10@ MX mx2.campeoesUM.lei TTL 20 @ NS ns1.campeoesUM.lei. TTL@ NS ns2.campeoesUM.lei. TTL ns1 A 193.136.130.101 TTLns2 A 193.137.100.102 TTLmx1 A 193.136.130.20 TTLmx2 A 193.136.130.21 TTL }
+{ 2022-12-29T13:00:07.971478 EV @ ../Files/logfileCL.txt }
+{ 2022-12-29T13:00:07.973361 QR/QE localHost:3333 26435Q+R0000campeoesUM.leiMX }
+{ 2022-12-29T13:00:07.973633 RP/RR localHost:3333 26435 R+A 0 2 0 0 campeoesUM.lei MX @ MX mx1.campeoesUM.lei TTL 10@ MX mx2.campeoesUM.lei TTL 20 @ NS ns1.campeoesUM.lei. TTL@ NS ns2.campeoesUM.lei. TTL ns1 A 193.136.130.101 TTLns2 A 193.137.100.102 TTLmx1 A 193.136.130.20 TTLmx2 A 193.136.130.21 TTL }
+{ 2022-12-29T13:00:09.217194 EV @ ../Files/logfileCL.txt }
+{ 2022-12-29T13:00:09.219605 QR/QE localHost:3333 22516Q+R0000campeoesUM.leiMX }
+{ 2022-12-29T13:00:09.219905 RP/RR localHost:3333 22516 R+A 0 2 0 0 campeoesUM.lei MX @ MX mx1.campeoesUM.lei TTL 10@ MX mx2.campeoesUM.lei TTL 20 @ NS ns1.campeoesUM.lei. TTL@ NS ns2.campeoesUM.lei. TTL ns1 A 193.136.130.101 TTLns2 A 193.137.100.102 TTLmx1 A 193.136.130.20 TTLmx2 A 193.136.130.21 TTL }
+{ 2022-12-29T13:00:09.878750 EV @ ../Files/logfileCL.txt }
+{ 2022-12-29T13:00:09.881237 QR/QE localHost:3333 53600Q+R0000campeoesUM.leiMX }
+{ 2022-12-29T13:00:09.881484 RP/RR localHost:3333 53600 R+A 0 2 0 0 campeoesUM.lei MX @ MX mx1.campeoesUM.lei TTL 10@ MX mx2.campeoesUM.lei TTL 20 @ NS ns1.campeoesUM.lei. TTL@ NS ns2.campeoesUM.lei. TTL ns1 A 193.136.130.101 TTLns2 A 193.137.100.102 TTLmx1 A 193.136.130.20 TTLmx2 A 193.136.130.21 TTL }
+{ 2022-12-29T13:00:10.502860 EV @ ../Files/logfileCL.txt }
+{ 2022-12-29T13:00:10.504961 QR/QE localHost:3333 2858Q+R0000campeoesUM.leiMX }
+{ 2022-12-29T13:00:10.505365 RP/RR localHost:3333 2858 R+A 0 2 0 0 campeoesUM.lei MX @ MX mx1.campeoesUM.lei TTL 10@ MX mx2.campeoesUM.lei TTL 20 @ NS ns1.campeoesUM.lei. TTL@ NS ns2.campeoesUM.lei. TTL ns1 A 193.136.130.101 TTLns2 A 193.137.100.102 TTLmx1 A 193.136.130.20 TTLmx2 A 193.136.130.21 TTL }
+{ 2022-12-29T13:00:11.022059 EV @ ../Files/logfileCL.txt }
+{ 2022-12-29T13:00:11.024357 QR/QE localHost:3333 27352Q+R0000campeoesUM.leiMX }
+{ 2022-12-29T13:00:11.024741 RP/RR localHost:3333 27352 R+A 0 2 0 0 campeoesUM.lei MX @ MX mx1.campeoesUM.lei TTL 10@ MX mx2.campeoesUM.lei TTL 20 @ NS ns1.campeoesUM.lei. TTL@ NS ns2.campeoesUM.lei. TTL ns1 A 193.136.130.101 TTLns2 A 193.137.100.102 TTLmx1 A 193.136.130.20 TTLmx2 A 193.136.130.21 TTL }
+{ 2022-12-29T13:00:11.507615 EV @ ../Files/logfileCL.txt }
+{ 2022-12-29T13:00:11.509355 QR/QE localHost:3333 10117Q+R0000campeoesUM.leiMX }
+{ 2022-12-29T13:00:11.509529 RP/RR localHost:3333 10117 R+A 0 2 0 0 campeoesUM.lei MX @ MX mx1.campeoesUM.lei TTL 10@ MX mx2.campeoesUM.lei TTL 20 @ NS ns1.campeoesUM.lei. TTL@ NS ns2.campeoesUM.lei. TTL ns1 A 193.136.130.101 TTLns2 A 193.137.100.102 TTLmx1 A 193.136.130.20 TTLmx2 A 193.136.130.21 TTL }
+{ 2022-12-29T13:00:11.978930 EV @ ../Files/logfileCL.txt }
+{ 2022-12-29T13:00:11.980640 QR/QE localHost:3333 38945Q+R0000campeoesUM.leiMX }
+{ 2022-12-29T13:00:11.980772 RP/RR localHost:3333 38945 R+A 0 2 0 0 campeoesUM.lei MX @ MX mx1.campeoesUM.lei TTL 10@ MX mx2.campeoesUM.lei TTL 20 @ NS ns1.campeoesUM.lei. TTL@ NS ns2.campeoesUM.lei. TTL ns1 A 193.136.130.101 TTLns2 A 193.137.100.102 TTLmx1 A 193.136.130.20 TTLmx2 A 193.136.130.21 TTL }
+{ 2022-12-29T13:00:12.450001 EV @ ../Files/logfileCL.txt }
+{ 2022-12-29T13:00:12.452058 QR/QE localHost:3333 47817Q+R0000campeoesUM.leiMX }
+{ 2022-12-29T13:00:12.452275 RP/RR localHost:3333 47817 R+A 0 2 0 0 campeoesUM.lei MX @ MX mx1.campeoesUM.lei TTL 10@ MX mx2.campeoesUM.lei TTL 20 @ NS ns1.campeoesUM.lei. TTL@ NS ns2.campeoesUM.lei. TTL ns1 A 193.136.130.101 TTLns2 A 193.137.100.102 TTLmx1 A 193.136.130.20 TTLmx2 A 193.136.130.21 TTL }
+{ 2022-12-29T13:00:12.893005 EV @ ../Files/logfileCL.txt }
+{ 2022-12-29T13:00:12.895212 QR/QE localHost:3333 27669Q+R0000campeoesUM.leiMX }
+{ 2022-12-29T13:00:12.895381 RP/RR localHost:3333 27669 R+A 0 2 0 0 campeoesUM.lei MX @ MX mx1.campeoesUM.lei TTL 10@ MX mx2.campeoesUM.lei TTL 20 @ NS ns1.campeoesUM.lei. TTL@ NS ns2.campeoesUM.lei. TTL ns1 A 193.136.130.101 TTLns2 A 193.137.100.102 TTLmx1 A 193.136.130.20 TTLmx2 A 193.136.130.21 TTL }
+{ 2022-12-29T13:00:13.320955 EV @ ../Files/logfileCL.txt }
+{ 2022-12-29T13:00:13.323140 QR/QE localHost:3333 43807Q+R0000campeoesUM.leiMX }
+{ 2022-12-29T13:00:13.323346 RP/RR localHost:3333 43807 R+A 0 2 0 0 campeoesUM.lei MX @ MX mx1.campeoesUM.lei TTL 10@ MX mx2.campeoesUM.lei TTL 20 @ NS ns1.campeoesUM.lei. TTL@ NS ns2.campeoesUM.lei. TTL ns1 A 193.136.130.101 TTLns2 A 193.137.100.102 TTLmx1 A 193.136.130.20 TTLmx2 A 193.136.130.21 TTL }
+{ 2022-12-29T13:00:13.746327 EV @ ../Files/logfileCL.txt }
+{ 2022-12-29T13:00:13.748496 QR/QE localHost:3333 47980Q+R0000campeoesUM.leiMX }
+{ 2022-12-29T13:00:13.748776 RP/RR localHost:3333 47980 R+A 0 2 0 0 campeoesUM.lei MX @ MX mx1.campeoesUM.lei TTL 10@ MX mx2.campeoesUM.lei TTL 20 @ NS ns1.campeoesUM.lei. TTL@ NS ns2.campeoesUM.lei. TTL ns1 A 193.136.130.101 TTLns2 A 193.137.100.102 TTLmx1 A 193.136.130.20 TTLmx2 A 193.136.130.21 TTL }
+{ 2022-12-29T13:00:14.150322 EV @ ../Files/logfileCL.txt }
+{ 2022-12-29T13:00:14.152363 QR/QE localHost:3333 64755Q+R0000campeoesUM.leiMX }
+{ 2022-12-29T13:00:14.152568 RP/RR localHost:3333 64755 R+A 0 2 0 0 campeoesUM.lei MX @ MX mx1.campeoesUM.lei TTL 10@ MX mx2.campeoesUM.lei TTL 20 @ NS ns1.campeoesUM.lei. TTL@ NS ns2.campeoesUM.lei. TTL ns1 A 193.136.130.101 TTLns2 A 193.137.100.102 TTLmx1 A 193.136.130.20 TTLmx2 A 193.136.130.21 TTL }
+{ 2022-12-29T13:00:14.551532 EV @ ../Files/logfileCL.txt }
+{ 2022-12-29T13:00:14.553521 QR/QE localHost:3333 63350Q+R0000campeoesUM.leiMX }
+{ 2022-12-29T13:00:14.553729 RP/RR localHost:3333 63350 R+A 0 2 0 0 campeoesUM.lei MX @ MX mx1.campeoesUM.lei TTL 10@ MX mx2.campeoesUM.lei TTL 20 @ NS ns1.campeoesUM.lei. TTL@ NS ns2.campeoesUM.lei. TTL ns1 A 193.136.130.101 TTLns2 A 193.137.100.102 TTLmx1 A 193.136.130.20 TTLmx2 A 193.136.130.21 TTL }
+{ 2022-12-29T13:00:14.958329 EV @ ../Files/logfileCL.txt }
+{ 2022-12-29T13:00:14.961371 QR/QE localHost:3333 27953Q+R0000campeoesUM.leiMX }
+{ 2022-12-29T13:00:14.961580 RP/RR localHost:3333 27953 R+A 0 2 0 0 campeoesUM.lei MX @ MX mx1.campeoesUM.lei TTL 10@ MX mx2.campeoesUM.lei TTL 20 @ NS ns1.campeoesUM.lei. TTL@ NS ns2.campeoesUM.lei. TTL ns1 A 193.136.130.101 TTLns2 A 193.137.100.102 TTLmx1 A 193.136.130.20 TTLmx2 A 193.136.130.21 TTL }
+{ 2022-12-29T13:00:15.358490 EV @ ../Files/logfileCL.txt }
+{ 2022-12-29T13:00:15.360714 QR/QE localHost:3333 58863Q+R0000campeoesUM.leiMX }
+{ 2022-12-29T13:00:15.360925 RP/RR localHost:3333 58863 R+A 0 2 0 0 campeoesUM.lei MX @ MX mx1.campeoesUM.lei TTL 10@ MX mx2.campeoesUM.lei TTL 20 @ NS ns1.campeoesUM.lei. TTL@ NS ns2.campeoesUM.lei. TTL ns1 A 193.136.130.101 TTLns2 A 193.137.100.102 TTLmx1 A 193.136.130.20 TTLmx2 A 193.136.130.21 TTL }
+{ 2022-12-29T13:00:15.788199 EV @ ../Files/logfileCL.txt }
+{ 2022-12-29T13:00:15.790969 QR/QE localHost:3333 44143Q+R0000campeoesUM.leiMX }
+{ 2022-12-29T13:00:15.791501 RP/RR localHost:3333 44143 R+A 0 2 0 0 campeoesUM.lei MX @ MX mx1.campeoesUM.lei TTL 10@ MX mx2.campeoesUM.lei TTL 20 @ NS ns1.campeoesUM.lei. TTL@ NS ns2.campeoesUM.lei. TTL ns1 A 193.136.130.101 TTLns2 A 193.137.100.102 TTLmx1 A 193.136.130.20 TTLmx2 A 193.136.130.21 TTL }
+{ 2022-12-29T13:00:16.235614 EV @ ../Files/logfileCL.txt }
+{ 2022-12-29T13:00:16.237719 QR/QE localHost:3333 26691Q+R0000campeoesUM.leiMX }
+{ 2022-12-29T13:00:16.237987 RP/RR localHost:3333 26691 R+A 0 2 0 0 campeoesUM.lei MX @ MX mx1.campeoesUM.lei TTL 10@ MX mx2.campeoesUM.lei TTL 20 @ NS ns1.campeoesUM.lei. TTL@ NS ns2.campeoesUM.lei. TTL ns1 A 193.136.130.101 TTLns2 A 193.137.100.102 TTLmx1 A 193.136.130.20 TTLmx2 A 193.136.130.21 TTL }
+{ 2022-12-29T13:00:16.655850 EV @ ../Files/logfileCL.txt }
+{ 2022-12-29T13:00:16.658763 QR/QE localHost:3333 5389Q+R0000campeoesUM.leiMX }
+{ 2022-12-29T13:00:16.659047 RP/RR localHost:3333 5389 R+A 0 2 0 0 campeoesUM.lei MX @ MX mx1.campeoesUM.lei TTL 10@ MX mx2.campeoesUM.lei TTL 20 @ NS ns1.campeoesUM.lei. TTL@ NS ns2.campeoesUM.lei. TTL ns1 A 193.136.130.101 TTLns2 A 193.137.100.102 TTLmx1 A 193.136.130.20 TTLmx2 A 193.136.130.21 TTL }
+{ 2022-12-29T13:00:17.088957 EV @ ../Files/logfileCL.txt }
+{ 2022-12-29T13:00:17.093315 QR/QE localHost:3333 20106Q+R0000campeoesUM.leiMX }
+{ 2022-12-29T13:00:17.093655 RP/RR localHost:3333 20106 R+A 0 2 0 0 campeoesUM.lei MX @ MX mx1.campeoesUM.lei TTL 10@ MX mx2.campeoesUM.lei TTL 20 @ NS ns1.campeoesUM.lei. TTL@ NS ns2.campeoesUM.lei. TTL ns1 A 193.136.130.101 TTLns2 A 193.137.100.102 TTLmx1 A 193.136.130.20 TTLmx2 A 193.136.130.21 TTL }
+{ 2022-12-29T13:00:17.541502 EV @ ../Files/logfileCL.txt }
+{ 2022-12-29T13:00:17.543183 QR/QE localHost:3333 48985Q+R0000campeoesUM.leiMX }
+{ 2022-12-29T13:00:17.543329 RP/RR localHost:3333 48985 R+A 0 2 0 0 campeoesUM.lei MX @ MX mx1.campeoesUM.lei TTL 10@ MX mx2.campeoesUM.lei TTL 20 @ NS ns1.campeoesUM.lei. TTL@ NS ns2.campeoesUM.lei. TTL ns1 A 193.136.130.101 TTLns2 A 193.137.100.102 TTLmx1 A 193.136.130.20 TTLmx2 A 193.136.130.21 TTL }
+{ 2022-12-29T13:00:17.986370 EV @ ../Files/logfileCL.txt }
+{ 2022-12-29T13:00:17.988644 QR/QE localHost:3333 49043Q+R0000campeoesUM.leiMX }
+{ 2022-12-29T13:00:17.988871 RP/RR localHost:3333 49043 R+A 0 2 0 0 campeoesUM.lei MX @ MX mx1.campeoesUM.lei TTL 10@ MX mx2.campeoesUM.lei TTL 20 @ NS ns1.campeoesUM.lei. TTL@ NS ns2.campeoesUM.lei. TTL ns1 A 193.136.130.101 TTLns2 A 193.137.100.102 TTLmx1 A 193.136.130.20 TTLmx2 A 193.136.130.21 TTL }
+{ 2022-12-29T13:00:18.412799 EV @ ../Files/logfileCL.txt }
+{ 2022-12-29T13:00:18.415281 QR/QE localHost:3333 26664Q+R0000campeoesUM.leiMX }
+{ 2022-12-29T13:00:18.415492 RP/RR localHost:3333 26664 R+A 0 2 0 0 campeoesUM.lei MX @ MX mx1.campeoesUM.lei TTL 10@ MX mx2.campeoesUM.lei TTL 20 @ NS ns1.campeoesUM.lei. TTL@ NS ns2.campeoesUM.lei. TTL ns1 A 193.136.130.101 TTLns2 A 193.137.100.102 TTLmx1 A 193.136.130.20 TTLmx2 A 193.136.130.21 TTL }
+{ 2022-12-29T13:00:18.835419 EV @ ../Files/logfileCL.txt }
+{ 2022-12-29T13:00:18.837551 QR/QE localHost:3333 21369Q+R0000campeoesUM.leiMX }
+{ 2022-12-29T13:00:18.837774 RP/RR localHost:3333 21369 R+A 0 2 0 0 campeoesUM.lei MX @ MX mx1.campeoesUM.lei TTL 10@ MX mx2.campeoesUM.lei TTL 20 @ NS ns1.campeoesUM.lei. TTL@ NS ns2.campeoesUM.lei. TTL ns1 A 193.136.130.101 TTLns2 A 193.137.100.102 TTLmx1 A 193.136.130.20 TTLmx2 A 193.136.130.21 TTL }
+{ 2022-12-29T13:00:19.260430 EV @ ../Files/logfileCL.txt }
+{ 2022-12-29T13:00:19.262178 QR/QE localHost:3333 16390Q+R0000campeoesUM.leiMX }
+{ 2022-12-29T13:00:19.262360 RP/RR localHost:3333 16390 R+A 0 2 0 0 campeoesUM.lei MX @ MX mx1.campeoesUM.lei TTL 10@ MX mx2.campeoesUM.lei TTL 20 @ NS ns1.campeoesUM.lei. TTL@ NS ns2.campeoesUM.lei. TTL ns1 A 193.136.130.101 TTLns2 A 193.137.100.102 TTLmx1 A 193.136.130.20 TTLmx2 A 193.136.130.21 TTL }
+{ 2022-12-29T13:00:19.678089 EV @ ../Files/logfileCL.txt }
+{ 2022-12-29T13:00:19.680586 QR/QE localHost:3333 10497Q+R0000campeoesUM.leiMX }
+{ 2022-12-29T13:00:19.680827 RP/RR localHost:3333 10497 R+A 0 2 0 0 campeoesUM.lei MX @ MX mx1.campeoesUM.lei TTL 10@ MX mx2.campeoesUM.lei TTL 20 @ NS ns1.campeoesUM.lei. TTL@ NS ns2.campeoesUM.lei. TTL ns1 A 193.136.130.101 TTLns2 A 193.137.100.102 TTLmx1 A 193.136.130.20 TTLmx2 A 193.136.130.21 TTL }
+{ 2022-12-29T13:00:20.107939 EV @ ../Files/logfileCL.txt }
+{ 2022-12-29T13:00:20.110031 QR/QE localHost:3333 15420Q+R0000campeoesUM.leiMX }
+{ 2022-12-29T13:00:20.110288 RP/RR localHost:3333 15420 R+A 0 2 0 0 campeoesUM.lei MX @ MX mx1.campeoesUM.lei TTL 10@ MX mx2.campeoesUM.lei TTL 20 @ NS ns1.campeoesUM.lei. TTL@ NS ns2.campeoesUM.lei. TTL ns1 A 193.136.130.101 TTLns2 A 193.137.100.102 TTLmx1 A 193.136.130.20 TTLmx2 A 193.136.130.21 TTL }
+{ 2022-12-29T13:00:20.551275 EV @ ../Files/logfileCL.txt }
+{ 2022-12-29T13:00:20.552987 QR/QE localHost:3333 25472Q+R0000campeoesUM.leiMX }
+{ 2022-12-29T13:00:20.553189 RP/RR localHost:3333 25472 R+A 0 2 0 0 campeoesUM.lei MX @ MX mx1.campeoesUM.lei TTL 10@ MX mx2.campeoesUM.lei TTL 20 @ NS ns1.campeoesUM.lei. TTL@ NS ns2.campeoesUM.lei. TTL ns1 A 193.136.130.101 TTLns2 A 193.137.100.102 TTLmx1 A 193.136.130.20 TTLmx2 A 193.136.130.21 TTL }
+{ 2022-12-29T14:37:09.329778 EV @ ../Files/logfileCL.txt }
+{ 2022-12-29T14:37:09.331904 QR/QE localHost:3333 15719Q+R0000campeoesUM.leiMX }
+{ 2022-12-29T14:38:22.741761 EV @ ../Files/logfileCL.txt }
+{ 2022-12-29T14:38:22.748902 QR/QE localHost:3333 8218Q+R0000campeoesUM.leiMX }
+{ 2022-12-29T14:38:22.756934 RP/RR localHost:3333 8218 R+A 0 2 0 0 campeoesUM.lei MX @ MX mx1.campeoesUM.lei TTL 10@ MX mx2.campeoesUM.lei TTL 20 @ NS ns1.campeoesUM.lei. TTL@ NS ns2.campeoesUM.lei. TTL ns1 A 193.136.130.101 TTLns2 A 193.137.100.102 TTLmx1 A 193.136.130.20 TTLmx2 A 193.136.130.21 TTL }
+{ 2022-12-29T14:38:34.423895 EV @ ../Files/logfileCL.txt }
+{ 2022-12-29T14:38:34.428103 QR/QE localHost:3333 58760Q+R0000campeoesUM.leiMX }
+{ 2022-12-29T14:38:34.428388 RP/RR localHost:3333 58760 R+A 0 2 0 0 campeoesUM.lei MX @ MX mx1.campeoesUM.lei TTL 10@ MX mx2.campeoesUM.lei TTL 20 @ NS ns1.campeoesUM.lei. TTL@ NS ns2.campeoesUM.lei. TTL ns1 A 193.136.130.101 TTLns2 A 193.137.100.102 TTLmx1 A 193.136.130.20 TTLmx2 A 193.136.130.21 TTL }
+{ 2022-12-29T14:38:35.830283 EV @ ../Files/logfileCL.txt }
+{ 2022-12-29T14:38:35.838011 QR/QE localHost:3333 39124Q+R0000campeoesUM.leiMX }
+{ 2022-12-29T14:38:35.838282 RP/RR localHost:3333 39124 R+A 0 2 0 0 campeoesUM.lei MX @ MX mx1.campeoesUM.lei TTL 10@ MX mx2.campeoesUM.lei TTL 20 @ NS ns1.campeoesUM.lei. TTL@ NS ns2.campeoesUM.lei. TTL ns1 A 193.136.130.101 TTLns2 A 193.137.100.102 TTLmx1 A 193.136.130.20 TTLmx2 A 193.136.130.21 TTL }
+{ 2022-12-29T14:38:36.852970 EV @ ../Files/logfileCL.txt }
+{ 2022-12-29T14:38:36.857615 QR/QE localHost:3333 49717Q+R0000campeoesUM.leiMX }
+{ 2022-12-29T14:38:36.857892 RP/RR localHost:3333 49717 R+A 0 2 0 0 campeoesUM.lei MX @ MX mx1.campeoesUM.lei TTL 10@ MX mx2.campeoesUM.lei TTL 20 @ NS ns1.campeoesUM.lei. TTL@ NS ns2.campeoesUM.lei. TTL ns1 A 193.136.130.101 TTLns2 A 193.137.100.102 TTLmx1 A 193.136.130.20 TTLmx2 A 193.136.130.21 TTL }
+{ 2022-12-29T14:55:42.268174 EV @ ../Files/logfileCL.txt }
+{ 2022-12-29T14:55:42.272167 QR/QE localHost:3333 32541Q+R0000campeoesUM.leiMX }
+{ 2022-12-29T14:55:42.272596 RP/RR localHost:3333 32541 R+A 0 2 0 0 campeoesUM.lei MX @ MX mx1.campeoesUM.lei TTL 10@ MX mx2.campeoesUM.lei TTL 20 @ NS ns1.campeoesUM.lei. TTL@ NS ns2.campeoesUM.lei. TTL ns1 A 193.136.130.101 TTLns2 A 193.137.100.102 TTLmx1 A 193.136.130.20 TTLmx2 A 193.136.130.21 TTL }
+{ 2022-12-29T15:25:24.151938 EV @ ../Files/logfileCL.txt }
+{ 2022-12-29T15:25:24.153370 QR/QE localHost:3333 23457Q+R0000campeoesUM.leiMX }
+{ 2022-12-31T10:34:30.735510 EV @ ../Files/logfileCL.txt }
+{ 2022-12-31T10:34:30.745873 QR/QE localHost:3333 58954Q+R0000campeoesUM.leiMX }
+{ 2022-12-31T10:36:45.951822 EV @ ../Files/logfileCL.txt }
+{ 2022-12-31T10:36:45.955119 QR/QE localHost:3333 15741Q+R0000campeoesUM.leiMX }
+{ 2022-12-31T10:40:55.860982 EV @ ../Files/logfileCL.txt }
+{ 2022-12-31T10:40:55.868027 QR/QE localHost:3333 21462Q+R0000campeoesUM.leiMX }
+{ 2022-12-31T10:47:07.329003 EV @ ../Files/logfileCL.txt }
+{ 2022-12-31T10:47:07.331175 QR/QE localHost:3333 42888Q+R0000campeoesUM.leiMX }
+{ 2022-12-31T10:47:27.429790 EV @ ../Files/logfileCL.txt }
+{ 2022-12-31T10:47:27.508266 QR/QE localHost:3333 927Q+R0000campeoesUM.leiMX }
+{ 2022-12-31T10:47:55.193720 EV @ ../Files/logfileCL.txt }
+{ 2022-12-31T10:47:55.196003 QR/QE localHost:3333 6291Q+R0000.leiMX }
+{ 2022-12-31T10:48:04.693302 EV @ ../Files/logfileCL.txt }
+{ 2022-12-31T10:48:04.695951 QR/QE localHost:3333 63347Q+R0000leiMX }
+{ 2022-12-31T10:49:41.360068 EV @ ../Files/logfileCL.txt }
+{ 2022-12-31T10:49:41.361235 QR/QE localHost:3333 47114Q+R0000leiMX }
+{ 2022-12-31T10:50:35.011091 EV @ ../Files/logfileCL.txt }
+{ 2022-12-31T10:50:35.013368 QR/QE localHost:3333 18795Q+R0000leiMX }
+{ 2022-12-31T10:53:14.302403 EV @ ../Files/logfileCL.txt }
+{ 2022-12-31T10:53:14.310776 QR/QE localHost:3333 22747Q+R0000leiMX }
+{ 2022-12-31T10:53:48.930559 EV @ ../Files/logfileCL.txt }
+{ 2022-12-31T10:53:48.938780 QR/QE localHost:3333 28508Q+R0000leiMX }
+{ 2022-12-31T10:55:07.931251 EV @ ../Files/logfileCL.txt }
+{ 2022-12-31T10:55:07.938929 QR/QE localHost:3333 16032Q+R0000leiMX }
+{ 2022-12-31T10:55:48.229224 EV @ ../Files/logfileCL.txt }
+{ 2022-12-31T10:55:48.238220 QR/QE localHost:3333 35098Q+R0000leiMX }
+{ 2022-12-31T10:56:07.575969 EV @ ../Files/logfileCL.txt }
+{ 2022-12-31T10:56:07.583356 QR/QE localHost:3333 61171Q+R0000leiMX }
+{ 2022-12-31T10:59:42.955858 EV @ ../Files/logfileCL.txt }
+{ 2022-12-31T10:59:42.964474 QR/QE localHost:3333 14558Q+R0000leiMX }
+{ 2022-12-31T11:00:22.954366 EV @ ../Files/logfileCL.txt }
+{ 2022-12-31T11:00:22.962962 QR/QE localHost:3333 8997Q+R0000leiMX }
+{ 2022-12-31T11:01:31.377970 EV @ ../Files/logfileCL.txt }
+{ 2022-12-31T11:01:31.386882 QR/QE localHost:3333 28097Q+R0000leiMX }
+{ 2022-12-31T11:02:04.816557 EV @ ../Files/logfileCL.txt }
+{ 2022-12-31T11:02:04.824767 QR/QE localHost:3333 58972Q+R0000leiMX }
+{ 2022-12-31T11:04:03.526703 EV @ ../Files/logfileCL.txt }
+{ 2022-12-31T11:04:03.534743 QR/QE localHost:3333 36418Q+R0000leiMX }
+{ 2022-12-31T11:04:21.790195 EV @ ../Files/logfileCL.txt }
+{ 2022-12-31T11:04:21.793208 QR/QE localHost:3333 39713Q+R0000leiMX }
+>>>>>>> serialization

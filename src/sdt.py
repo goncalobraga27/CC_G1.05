@@ -5,6 +5,7 @@ import time
 from datetime import datetime
 from re import T
 from parserConfigFileSDT import parseConfigFileSDT
+from messageDNS import MessageDNS
 
 
 class sdt:
@@ -17,11 +18,15 @@ class sdt:
         lock=threading.Lock()
         lock.acquire()
         sck =socket.socket(socket.AF_INET, socket.SOCK_DGRAM) #UDP
-        sck.bind((ipSDT,3334))
+        sck.bind((ipSDT,3333))
         while True:
             msg,add = sck.recvfrom(1024)
-            resposta=dic[msg.decode('UTF-8')]
-            sck.sendto(resposta.encode('UTF-8'),add)
+            print (dic)
+            m=MessageDNS()
+            msg = m.deserialize(msg)
+            #resposta=dic[msg]
+            #print (resposta)
+            #sck.sendto(resposta.encode('UTF-8'),add)
         lock.release()
         
     def runSDT(self):

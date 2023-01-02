@@ -14,6 +14,7 @@ from parserDataFile import parseDataFile
 from processQuery import pQuery
 from logFile import logF
 from threadResolver import thrResolver
+from messageDNS import MessageDNS
 
 class sp:
     
@@ -21,6 +22,8 @@ class sp:
     dictDataBase=dict()              # Inicialização da estrutura de dados do SP
     global lock                      # Variável global para controlo de concorrência das threads na transferência de zona 
     lock = threading.Lock()          # Inicialização do Lock
+    
+
     def __init__(self, ipSP, domainServer, nameConfig_File, portaUDP, portaTCP_SP, portaTCP_SS,modo):
         """
         Criação/Inicialização da classe sp
@@ -96,10 +99,12 @@ class sp:
         if msg=="ZT":
             if self.debug==1:
                 sys.stdout.write(f"Vou enviar a versão da minha base de dados\nA minha versão é esta {str(self.versao_DataBase)}\n")
-                print(self.verifTime_DataBase)
                 sys.stdout.write(f"O TTL da base de dados que vou enviar é este {self.verifTime_DataBase}\n")
-            msgEnviar=str(self.versao_DataBase)+" "+str(self.verifTime_DataBase)
-            connection.send(msgEnviar.encode('utf-8'))
+            bytes = b''
+            versaodb = self.versao_DataBase.to_bytes(4,"big", signed=False)
+            verifTimeDB = self.versao_DataBase.to_bytes (4,"big",signed=False)
+            bytes+=versaodb+verifTimeDB
+            connection.send(bytes)
             if self.debug==1:
                 sys.stdout.write("Vou receber o domínio para o qual se pretende fazer a ZT\n")
             msgRecebida = connection.recv(1024)
@@ -212,18 +217,21 @@ class sp:
 
         if self.debug==1:
             sys.stdout.write(f"Estou à escuta no {self.ipSP}:{self.portaUDP}\n")
+            
         threading.Thread(target=sp.runfstThread, args=(self,)).start()
         threading.Thread(target=thrResolver.runfstResolver, args=(self.domainServer,self.ipSP,3332,dictDataBase)).start()
+        
         while True:
 
             msg_UDP,add_UDP = sck_UDP.recvfrom(1024)
+            
+            m = MessageDNS()
 
-            if self.debug==1:
-                sys.stdout.write(msg_UDP.decode('utf-8'))
+            msg_UDP = m.deserialize(msg_UDP)
 
-            proQuery_UDP = pQuery(msg_UDP.decode('utf-8'), self.domainServer)
+            proQuery_UDP = pQuery(msg_UDP, self.domainServer)
 
-            queryCheck_UDP=proQuery_UDP.processQuery(0)
+            queryCheck_UDP=proQuery_UDP.processQuery()
 
             if (queryCheck_UDP==False):
                 if self.debug==1:
@@ -233,13 +241,15 @@ class sp:
                 if self.debug==1:
                     sys.stdout.write(f"\nRecebi uma mensagem do cliente {add_UDP}\n")
                 now = datetime.today().isoformat()
-                writeLogFile=logF(str(now),"QR/QE",self.ipSP+":"+str(self.portaUDP),msg_UDP.decode('utf-8'),self.lista_logFile[0])
+                writeLogFile=logF(str(now),"QR/QE",self.ipSP+":"+str(self.portaUDP),msg_UDP,self.lista_logFile[0])
                 writeLogFile.escritaLogFile()
-                ansQuery = aQuery(proQuery_UDP.message_id,"R+A",str(0),dictDataBase,proQuery_UDP.typeValue)
-                resposta = ansQuery.answerQuery()
+                ansQuery = aQuery(m.messageID,"R+A",m.responseCode,dictDataBase,proQuery_UDP.typeValue,self.domainServer)
+                resposta, bytes = ansQuery.answerQuery()
                 respostaDatagram = '\n'.join(resposta)
-                b =respostaDatagram.encode('UTF-8')
-                sck_UDP.sendto(b,add_UDP)
+                
+                
+                sck_UDP.sendto(bytes,add_UDP)
+                
                 now = datetime.today().isoformat()
                 writeLogFile=logF(str(now),"RP\RR",add_UDP[0]+":"+str(self.portaUDP),respostaDatagram,self.lista_logFile[0])
                 writeLogFile.escritaLogFile()

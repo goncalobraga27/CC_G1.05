@@ -7,6 +7,7 @@ class pQuerySR:
         self.msg = msg
         self.message_id=""
         self.typeValue=""
+        
     def processQuery(self): # 0: A querie recebida está correta
                             # 1: A querie recebida está errada
             query=str(self.msg)
