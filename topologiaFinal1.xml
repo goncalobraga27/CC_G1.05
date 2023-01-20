@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<scenario name="/home/core/Desktop/topologiaFinal1.xml">
+<scenario name="/home/core/Documents/CC_G1.05/topologiaFinal1.xml">
   <networks/>
   <devices>
     <device id="1" name="Router1" type="router" class="" image="">
@@ -105,6 +105,7 @@
       <position x="132" y="10" lat="47.579075803325026" lon="-122.13054333573744" alt="2.0"/>
       <services>
         <service name="DefaultRoute"/>
+        <service name="UserDefined"/>
       </services>
     </device>
     <device id="24" name="SRum" type="host" class="" image="">
@@ -119,6 +120,7 @@
       <services>
         <service name="DefaultRoute"/>
         <service name="SSH"/>
+        <service name="UserDefined"/>
       </services>
     </device>
     <device id="20" name="LEIuc2" type="host" class="" image="">
@@ -126,6 +128,7 @@
       <services>
         <service name="DefaultRoute"/>
         <service name="SSH"/>
+        <service name="UserDefined"/>
       </services>
     </device>
     <device id="25" name="SRualg" type="host" class="" image="">
@@ -133,12 +136,14 @@
       <services>
         <service name="DefaultRoute"/>
         <service name="SSH"/>
+        <service name="UserDefined"/>
       </services>
     </device>
     <device id="22" name="SAUALG" type="PC" class="" image="">
       <position x="856" y="28" lat="47.57891218891243" lon="-122.12078763175191" alt="2.0"/>
       <services>
         <service name="DefaultRoute"/>
+        <service name="UserDefined"/>
       </services>
     </device>
     <device id="19" name="LEIua2" type="host" class="" image="">
@@ -146,6 +151,7 @@
       <services>
         <service name="DefaultRoute"/>
         <service name="SSH"/>
+        <service name="UserDefined"/>
       </services>
     </device>
     <device id="23" name="LEIualg1" type="host" class="" image="">
@@ -153,6 +159,7 @@
       <services>
         <service name="DefaultRoute"/>
         <service name="SSH"/>
+        <service name="UserDefined"/>
       </services>
     </device>
     <device id="27" name="SRua" type="host" class="" image="">
@@ -160,6 +167,7 @@
       <services>
         <service name="DefaultRoute"/>
         <service name="SSH"/>
+        <service name="UserDefined"/>
       </services>
     </device>
     <device id="12" name="LEIualg2" type="host" class="" image="">
@@ -167,6 +175,7 @@
       <services>
         <service name="DefaultRoute"/>
         <service name="SSH"/>
+        <service name="UserDefined"/>
       </services>
     </device>
     <device id="14" name="LEIua1" type="host" class="" image="">
@@ -174,18 +183,21 @@
       <services>
         <service name="DefaultRoute"/>
         <service name="SSH"/>
+        <service name="UserDefined"/>
       </services>
     </device>
     <device id="18" name="SASUA" type="PC" class="" image="">
       <position x="75" y="643" lat="47.57332172264685" lon="-122.13131139530537" alt="2.0"/>
       <services>
         <service name="DefaultRoute"/>
+        <service name="UserDefined"/>
       </services>
     </device>
     <device id="21" name="SASUC" type="PC" class="" image="">
       <position x="852" y="386" lat="47.57565797382911" lon="-122.12084153066897" alt="2.0"/>
       <services>
         <service name="DefaultRoute"/>
+        <service name="UserDefined"/>
       </services>
     </device>
     <device id="26" name="LEIum2" type="host" class="" image="">
@@ -193,6 +205,7 @@
       <services>
         <service name="DefaultRoute"/>
         <service name="SSH"/>
+        <service name="UserDefined"/>
       </services>
     </device>
     <device id="15" name="LEIuc1" type="host" class="" image="">
@@ -200,6 +213,7 @@
       <services>
         <service name="DefaultRoute"/>
         <service name="SSH"/>
+        <service name="UserDefined"/>
       </services>
     </device>
     <device id="16" name="SRuc" type="host" class="" image="">
@@ -207,6 +221,7 @@
       <services>
         <service name="DefaultRoute"/>
         <service name="SSH"/>
+        <service name="UserDefined"/>
       </services>
     </device>
     <device id="30" name="n30" type="router" class="" image="">
@@ -223,6 +238,7 @@
       <services>
         <service name="DefaultRoute"/>
         <service name="SSH"/>
+        <service name="UserDefined"/>
       </services>
     </device>
     <device id="32" name="SDT2" type="host" class="" image="">
@@ -230,6 +246,7 @@
       <services>
         <service name="DefaultRoute"/>
         <service name="SSH"/>
+        <service name="UserDefined"/>
       </services>
     </device>
     <device id="28" name="n28" type="router" class="" image="">
@@ -246,6 +263,7 @@
       <services>
         <service name="DefaultRoute"/>
         <service name="SSH"/>
+        <service name="UserDefined"/>
       </services>
     </device>
     <device id="33" name="ST2" type="host" class="" image="">
@@ -253,6 +271,7 @@
       <services>
         <service name="DefaultRoute"/>
         <service name="SSH"/>
+        <service name="UserDefined"/>
       </services>
     </device>
     <device id="34" name="n34" type="router" class="" image="">
@@ -269,6 +288,7 @@
       <services>
         <service name="DefaultRoute"/>
         <service name="SSH"/>
+        <service name="UserDefined"/>
       </services>
     </device>
     <device id="36" name="SDTreverse" type="host" class="" image="">
@@ -276,6 +296,7 @@
       <services>
         <service name="DefaultRoute"/>
         <service name="SSH"/>
+        <service name="UserDefined"/>
       </services>
     </device>
     <device id="37" name="SPreverse" type="host" class="" image="">
@@ -283,6 +304,7 @@
       <services>
         <service name="DefaultRoute"/>
         <service name="SSH"/>
+        <service name="UserDefined"/>
       </services>
     </device>
     <device id="38" name="LEIum3" type="host" class="" image="">
@@ -290,6 +312,7 @@
       <services>
         <service name="DefaultRoute"/>
         <service name="SSH"/>
+        <service name="UserDefined"/>
       </services>
     </device>
     <device id="39" name="LEIua3" type="host" class="" image="">
@@ -297,6 +320,7 @@
       <services>
         <service name="DefaultRoute"/>
         <service name="SSH"/>
+        <service name="UserDefined"/>
       </services>
     </device>
     <device id="40" name="LEIuc3" type="host" class="" image="">
@@ -304,6 +328,7 @@
       <services>
         <service name="DefaultRoute"/>
         <service name="SSH"/>
+        <service name="UserDefined"/>
       </services>
     </device>
     <device id="41" name="LEIualg3" type="host" class="" image="">
@@ -311,6 +336,7 @@
       <services>
         <service name="DefaultRoute"/>
         <service name="SSH"/>
+        <service name="UserDefined"/>
       </services>
     </device>
     <device id="42" name="UMmx" type="host" class="" image="">
@@ -318,6 +344,7 @@
       <services>
         <service name="DefaultRoute"/>
         <service name="SSH"/>
+        <service name="UserDefined"/>
       </services>
     </device>
     <device id="43" name="UALGmx" type="host" class="" image="">
@@ -325,20 +352,23 @@
       <services>
         <service name="DefaultRoute"/>
         <service name="SSH"/>
+        <service name="UserDefined"/>
       </services>
     </device>
     <device id="44" name="UAmx" type="host" class="" image="">
-      <position x="400" y="525" lat="47.574394411228866" lon="-122.12693210829528" alt="2.0"/>
+      <position x="414" y="541" lat="47.57424896321733" lon="-122.12674346208563" alt="2.0"/>
       <services>
         <service name="DefaultRoute"/>
         <service name="SSH"/>
+        <service name="UserDefined"/>
       </services>
     </device>
     <device id="45" name="UCmx" type="host" class="" image="">
-      <position x="498" y="504" lat="47.57458531113091" lon="-122.12561158482764" alt="2.0"/>
+      <position x="498" y="536" lat="47.574294415764335" lon="-122.12561158482764" alt="2.0"/>
       <services>
         <service name="DefaultRoute"/>
         <service name="SSH"/>
+        <service name="UserDefined"/>
       </services>
     </device>
   </devices>
@@ -605,6 +635,159 @@
       <configuration name="link_timeout" value="4"/>
     </core>
   </emane_global_configuration>
+  <service_configurations>
+    <service name="UserDefined" node="17">
+      <files>
+        <file name="script.sh"><![CDATA[file:///home/core/Desktop/script.sh]]></file>
+        <file name="script"><![CDATA[file:///home/core/Desktop/script.sh]]></file>
+      </files>
+    </service>
+    <service name="UserDefined" node="24">
+      <files>
+        <file name="script.sh"><![CDATA[file:///home/core/Desktop/script.sh]]></file>
+      </files>
+    </service>
+    <service name="UserDefined" node="13">
+      <files>
+        <file name="script.sh"><![CDATA[file:///home/core/Desktop/script.sh]]></file>
+      </files>
+    </service>
+    <service name="UserDefined" node="20">
+      <files>
+        <file name="script.sh"><![CDATA[file:///home/core/Desktop/script.sh]]></file>
+      </files>
+    </service>
+    <service name="UserDefined" node="25">
+      <files>
+        <file name="script.sh"><![CDATA[file:///home/core/Desktop/script.sh]]></file>
+      </files>
+    </service>
+    <service name="UserDefined" node="22">
+      <files>
+        <file name="script.sh"><![CDATA[file:///home/core/Desktop/script.sh]]></file>
+      </files>
+    </service>
+    <service name="UserDefined" node="19">
+      <files>
+        <file name="script.sh"><![CDATA[file:///home/core/Desktop/script.sh]]></file>
+      </files>
+    </service>
+    <service name="UserDefined" node="27">
+      <files>
+        <file name="script.sh"><![CDATA[file:///home/core/Desktop/script.sh]]></file>
+      </files>
+    </service>
+    <service name="UserDefined" node="12">
+      <files>
+        <file name="script.sh"><![CDATA[file:///home/core/Desktop/script.sh]]></file>
+      </files>
+    </service>
+    <service name="UserDefined" node="14">
+      <files>
+        <file name="script.sh"><![CDATA[file:///home/core/Desktop/script.sh]]></file>
+      </files>
+    </service>
+    <service name="UserDefined" node="18">
+      <files>
+        <file name="script.sh"><![CDATA[file:///home/core/Desktop/script.sh]]></file>
+      </files>
+    </service>
+    <service name="UserDefined" node="21">
+      <files>
+        <file name="script.sh"><![CDATA[file:///home/core/Desktop/script.sh]]></file>
+      </files>
+    </service>
+    <service name="UserDefined" node="26">
+      <files>
+        <file name="script.sh"><![CDATA[file:///home/core/Desktop/script.sh]]></file>
+      </files>
+    </service>
+    <service name="UserDefined" node="15">
+      <files>
+        <file name="script.sh"><![CDATA[file:///home/core/Desktop/script.sh]]></file>
+      </files>
+    </service>
+    <service name="UserDefined" node="16">
+      <files>
+        <file name="script.sh"><![CDATA[file:///home/core/Desktop/script.sh]]></file>
+      </files>
+    </service>
+    <service name="UserDefined" node="31">
+      <files>
+        <file name="script.sh"><![CDATA[file:///home/core/Desktop/script.sh]]></file>
+      </files>
+    </service>
+    <service name="UserDefined" node="32">
+      <files>
+        <file name="script.sh"><![CDATA[file:///home/core/Desktop/script.sh]]></file>
+      </files>
+    </service>
+    <service name="UserDefined" node="29">
+      <files>
+        <file name="script.sh"><![CDATA[file:///home/core/Desktop/script.sh]]></file>
+      </files>
+    </service>
+    <service name="UserDefined" node="33">
+      <files>
+        <file name="script.sh"><![CDATA[file:///home/core/Desktop/script.sh]]></file>
+      </files>
+    </service>
+    <service name="UserDefined" node="35">
+      <files>
+        <file name="script.sh"><![CDATA[file:///home/core/Desktop/script.sh]]></file>
+      </files>
+    </service>
+    <service name="UserDefined" node="36">
+      <files>
+        <file name="script.sh"><![CDATA[file:///home/core/Desktop/script.sh]]></file>
+      </files>
+    </service>
+    <service name="UserDefined" node="37">
+      <files>
+        <file name="script.sh"><![CDATA[file:///home/core/Desktop/script.sh]]></file>
+      </files>
+    </service>
+    <service name="UserDefined" node="38">
+      <files>
+        <file name="script.sh"><![CDATA[file:///home/core/Desktop/script.sh]]></file>
+      </files>
+    </service>
+    <service name="UserDefined" node="39">
+      <files>
+        <file name="script.sh"><![CDATA[file:///home/core/Desktop/script.sh]]></file>
+      </files>
+    </service>
+    <service name="UserDefined" node="40">
+      <files>
+        <file name="script.sh"><![CDATA[file:///home/core/Desktop/script.sh]]></file>
+      </files>
+    </service>
+    <service name="UserDefined" node="41">
+      <files>
+        <file name="script.sh"><![CDATA[file:///home/core/Desktop/script.sh]]></file>
+      </files>
+    </service>
+    <service name="UserDefined" node="42">
+      <files>
+        <file name="script.sh"><![CDATA[file:///home/core/Desktop/script.sh]]></file>
+      </files>
+    </service>
+    <service name="UserDefined" node="43">
+      <files>
+        <file name="script.sh"><![CDATA[file:///home/core/Desktop/script.sh]]></file>
+      </files>
+    </service>
+    <service name="UserDefined" node="44">
+      <files>
+        <file name="script.sh"><![CDATA[file:///home/core/Desktop/script.sh]]></file>
+      </files>
+    </service>
+    <service name="UserDefined" node="45">
+      <files>
+        <file name="script.sh"><![CDATA[file:///home/core/Desktop/script.sh]]></file>
+      </files>
+    </service>
+  </service_configurations>
   <session_origin lat="47.5791667" lon="-122.132322" alt="2.0" scale="150.0"/>
   <session_options>
     <configuration name="controlnet" value=""/>
