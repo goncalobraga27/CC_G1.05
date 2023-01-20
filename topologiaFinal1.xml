@@ -113,6 +113,7 @@
       <services>
         <service name="DefaultRoute"/>
         <service name="SSH"/>
+        <service name="UserDefined"/>
       </services>
     </device>
     <device id="13" name="LEIum1" type="host" class="" image="">
@@ -638,8 +639,8 @@
   <service_configurations>
     <service name="UserDefined" node="17">
       <files>
-        <file name="script.sh"><![CDATA[file:///home/core/Desktop/script.sh]]></file>
         <file name="script"><![CDATA[file:///home/core/Desktop/script.sh]]></file>
+        <file name="script.sh"><![CDATA[file:///home/core/Desktop/script.sh]]></file>
       </files>
     </service>
     <service name="UserDefined" node="24">
@@ -668,6 +669,11 @@
       </files>
     </service>
     <service name="UserDefined" node="19">
+      <files>
+        <file name="script.sh"><![CDATA[file:///home/core/Desktop/script.sh]]></file>
+      </files>
+    </service>
+    <service name="UserDefined" node="23">
       <files>
         <file name="script.sh"><![CDATA[file:///home/core/Desktop/script.sh]]></file>
       </files>
